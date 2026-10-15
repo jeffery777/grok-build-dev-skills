@@ -16,7 +16,7 @@
 
 ## 如何開始
 
-P1 已抽取共用契約；本包以固定 commit revision 與內容指紋 digest 鎖定文件。使用既有 Python 標準函式庫，在 repo root 執行：
+P1 已抽取共用契約；本包以固定 commit revision 與內容指紋 digest 鎖定文件。使用既有 Python 3.10+ 及標準函式庫（[平台限制](docs/design/p3-g-core-consumption.md#驗證邊界)），在 repo root 執行：
 
 ```sh
 PYTHONDONTWRITEBYTECODE=1 python3 scripts/core_snapshot.py verify
@@ -50,7 +50,7 @@ This project is for engineers who maintain AI development workflows. For example
 
 ## Getting started
 
-P1 extracted the shared contracts. This package pins their commit revision and content fingerprints, called digests. Use an existing Python standard library from the repository root:
+P1 extracted the shared contracts. This package pins their commit revision and content fingerprints, called digests. Use an existing Python 3.10+ and its standard library from the repository root ([platform limits](docs/design/p3-g-core-consumption.md#validation-limits)):
 
 ```sh
 PYTHONDONTWRITEBYTECODE=1 python3 scripts/core_snapshot.py verify
