@@ -1,0 +1,47 @@
+# 來源對照 / Source map
+
+## 範圍 / Scope
+
+本包重用 P0，不重新盤點全部 Codex 程式。固定來源只讀；下列 digest 是來源證據，**不是 P1 final Core lock 或 runtime 資格**。新寫的設計依 P0 與使用者授權整理，未搬移程式或現有技能。完整 MIT notices 見 [upstream notices](upstream-notices.md)。
+
+This package reuses P0 instead of repeating the complete Codex inventory. Fixed sources are read-only. These digests identify source evidence; **they are not a final P1 Core lock or runtime qualification**. The design adapts P0 and the authorized scope. No programs or installed skills were moved. See the [full MIT notices](upstream-notices.md).
+
+## 固定來源 / Fixed sources
+
+Core P0: `0815b74abe52d57efd032bd075e39c83c2ebf0d6`。
+Codex: `993597561881d6ed8c552f9a18c59315015ad245`。
+SHA-256 均針對 Git blob 的原 bytes / All SHA-256 values cover raw Git blob bytes.
+
+| Repository / path | SHA-256 | 用途 / Use |
+| --- | --- | --- |
+| Core [dependency-inventory.md](https://github.com/jeffery777/engineering-workflow-core/blob/0815b74abe52d57efd032bd075e39c83c2ebf0d6/docs/architecture/dependency-inventory.md) | `4eed653daff28d5f494bd89445f7110183da032215c6104256795df38e671c47` | P0 E01–E35 相依與 ownership / dependencies and ownership |
+| Core [migration-plan.md](https://github.com/jeffery777/engineering-workflow-core/blob/0815b74abe52d57efd032bd075e39c83c2ebf0d6/docs/architecture/migration-plan.md) | `6c6a85f49854a6d2f3ebc054d80d3d81c04780d0bc40d89365a7979497de280c` | lock／組裝／負面例設計 / lock, assembly, negative cases |
+| Core [project-split.md](https://github.com/jeffery777/engineering-workflow-core/blob/0815b74abe52d57efd032bd075e39c83c2ebf0d6/docs/architecture/project-split.md) | `ed4877a577d6a8a55b3399c81a86f53da19e2e206a0089a5ba6e44be9be776c1` | 純 Markdown／單向依賴 / Markdown-only, one-way dependency |
+| Core [LICENSE](https://github.com/jeffery777/engineering-workflow-core/blob/0815b74abe52d57efd032bd075e39c83c2ebf0d6/LICENSE) | `49d64e81e9fd3b12470c1da48367b120b28d404ca08edfdd950278e28e4da34f` | Core MIT notice |
+| Codex [engineering-workflow-contract.md](https://github.com/jeffery777/codex-dev-skills/blob/993597561881d6ed8c552f9a18c59315015ad245/policies/engineering-workflow-contract.md) | `3dd926e8d584404e35abedfbcc8fa1b9c4e90243f421bad1cbea5b170af702d8` | 八階段／授權／獨立審查／停止 / stages, authority, review, stops |
+| Codex [verify-engineering-workflow.py](https://github.com/jeffery777/codex-dev-skills/blob/993597561881d6ed8c552f9a18c59315015ad245/scripts/verify-engineering-workflow.py) | `41bf69dddbac3724007f0133616af12e87c0cd7cd4413346833e5307f2d0b176` | Codex/Hermes synthetic，readiness=false；不執行／不搬移 / not executed or moved |
+| Codex [sync-plugin-package.py](https://github.com/jeffery777/codex-dev-skills/blob/993597561881d6ed8c552f9a18c59315015ad245/scripts/sync-plugin-package.py) | `4805ce5c82a031a7f982dbfa5a1e575799bdc394971bb18ecbf2051cc17971c8` | canonical source／allowlist／bytes/modes；只查讀 / read only |
+| Codex [LICENSE](https://github.com/jeffery777/codex-dev-skills/blob/993597561881d6ed8c552f9a18c59315015ad245/LICENSE) | `a58ebea45ac922c21500dad64c6e5f54423f831d2dfdfd2b4c882aab29822d4e` | 原始來源 MIT notice / original source notice |
+
+## 義務映射 / Obligation mapping
+
+| P0 來源 / Source | Grok 準備設計 / Grok design |
+| --- | --- |
+| E01, E03, E04, E21–E24 | 各技能保留工作流、授權與停止；不把 shared 當 runtime 合格 / preserve workflow, authority, stops; shared is not qualification |
+| E05–E11, E25–E27 | 程式、路由、profile、session 由接口自己持有；Core 不載程式 / adapter owns programs, routing, profiles, sessions |
+| E12–E13, E28–E29 | 重用 operational evidence／improvement／candidate evaluation 的責任概念，具體 schemas 留接口，不啟用 memory / reuse responsibilities, keep schemas in adapter, memory stays off |
+| E15–E17, E23, E31–E32 | 獨立 review、必要 scan、findings、exact-head；來源專用 GitHub App／ruleset 不默套 / independent review, scans, findings, exact head; no inherited provider profile |
+| E18–E20, E30, E33–E35 | 組裝 inventory／bytes／modes、完整 notices、layout 分別驗證；synthetic 不替代 runtime / assembly, notices, layout checks; synthetic is not runtime |
+
+## 官方與隨版證據 / Official and bundled evidence
+
+2026-10-15 查讀 / Accessed 2026-10-15. Websites are mutable documentation, not runtime receipts.
+
+- [Sandbox](https://docs.x.ai/build/features/sandbox), [Permissions](https://docs.x.ai/build/features/permissions), [Settings](https://docs.x.ai/build/settings), [Settings reference](https://docs.x.ai/build/settings/reference), [Enterprise](https://docs.x.ai/build/enterprise).
+- [Headless](https://docs.x.ai/build/cli/headless-scripting), [CLI reference](https://docs.x.ai/build/cli/reference), [Skills](https://docs.x.ai/build/features/skills-plugins-marketplaces). Sessions 網頁未成功取得，本包以實際 help 與隨版文件補查；不宣稱已讀該網頁 / Sessions web retrieval failed; actual help and bundled docs were used instead.
+- [GFM collapsed sections](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/organizing-information-with-collapsed-sections): README 的 details/summary 只供展開收合，不是互斥 tabs 或自動語言判斷 / details/summary expand sections, not exclusive tabs or language detection.
+- Grok `1.0.52 (0920c8169e27)` 在臨時 home 產生的隨版文件 / bundled docs created in the temporary home: `05-configuration.md` SHA-256 `98174c2ae094920a36382084af068c97e902af2cf96c28c7ab01cd7bfde1da50`; `14-headless-mode.md` `e7862bae7ef9e301c0b1448bcd33d35369949c661bdba0cc08b289972e6cb24a`; `18-sandbox.md` `a92e54fd4b542784fae750b1e150a218fc1c1aabb55d70c4f675427fc8908df7`. 未把這些第三方全文提交 / Full third-party docs were not committed.
+
+文件差異與未驗證部分集中於 [資格紀錄](../verification/grok-control-qualification.md)。變更來源 revision 或執行環境時，重新核對受影響證據。
+
+See the [qualification record](../verification/grok-control-qualification.md) for conflicts and unknowns. Recheck affected evidence when source revisions or execution conditions change.
