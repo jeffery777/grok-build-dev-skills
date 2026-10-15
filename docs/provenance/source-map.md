@@ -60,3 +60,11 @@ Active Core revision: `b4c37798b6d3a9efd91c8c6d518093f2dd847a98`，來自已合�
 | [exact-head-and-evidence](../../vendor/engineering-workflow-core/contracts/exact-head-and-evidence.md) | `c55f08e77a47583485403f7318afe5f2ef1a90ff137279a0c0c59104d5c2e7de` |
 
 集合算法為 `sha256-path-tab-sha256-lf-v1`，集合 SHA-256 為 `8446dfbf5e2820dd696ef411e87cc7a92b39305c369c808122b63554b9be83f6`，LICENSE 不在集合內。The collection algorithm uses TAB, not the historical NUL proposal; LICENSE is separate. [消費與限制 / Consumption and limits](../design/p3-g-core-consumption.md) 將原契約義務與本包的離線驗證分開，不宣稱 runtime 合格 / separates obligations from offline checks and makes no runtime qualification claim.
+
+## P3-G2 能力映射 / Capability mapping
+
+[Issue #6](https://github.com/jeffery777/grok-build-dev-skills/issues/6) 的兩份技能與 [Grok references](../../references/grok-capabilities.md) 為此 consumer 新寫的指引，不複製 Codex-specific tools 或重新實作原生 subagents。Core revision／lock／十一份原 bytes 及完整 notices 保持不變。The skill sources and mapping are original consumer guidance; the fixed Core and notices remain unchanged.
+
+[Catalog](../../capabilities/grok-build-1.0.52.json) 記錄既有 1.0.52 help／隨版文件與 2026-10-15 官方研究；網站是可變文件，不是 runtime receipt。新增固定文件指紋：`16-subagents.md` 為 `6556ef4eab94ff5dc01343feedacf525334b23131d626b38b4cd752eeb6c8c78`，`08-skills.md` 為 `a37b169de29bd78160c0cd5c51490610e82a690fc2c866745a7456acdc5345bd`；`14-headless-mode.md` 沿用上方指紋。不分發第三方全文，不匯入其程式。The catalog distinguishes fixed bundled text from mutable websites and unauthenticated operator reports.
+
+[組裝設計](../design/p3-g-skill-assembly.md) 與 [委派資格](../verification/grok-delegation-capabilities.md) 保留 documented／schema-observed／runtime-verified 的界線。Package manifest／packet 是 consumer 自有格式，沒有冒充 Grok 相容 schema；離線驗證不啟用服務、不證明訂閱／API entitlement，且所有 readiness 固定 false。
