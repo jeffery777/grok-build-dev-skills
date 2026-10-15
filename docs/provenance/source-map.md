@@ -45,3 +45,18 @@ SHA-256 均針對 Git blob 的原 bytes / All SHA-256 values cover raw Git blob 
 文件差異與未驗證部分集中於 [資格紀錄](../verification/grok-control-qualification.md)。變更來源 revision 或執行環境時，重新核對受影響證據。
 
 See the [qualification record](../verification/grok-control-qualification.md) for conflicts and unknowns. Recheck affected evidence when source revisions or execution conditions change.
+
+## P3-G1 固定消費 / P3-G1 pinned consumption
+
+Active Core revision: `b4c37798b6d3a9efd91c8c6d518093f2dd847a98`，來自已合併的 [Core PR #4](https://github.com/jeffery777/engineering-workflow-core/pull/4)。上方 P0 revision/digests 為歷史盤點，不是此 active lock。The P0 records above remain historical; the merged P1 revision is the active source.
+
+[core.lock.json](../../core.lock.json) 固定全部十份 Markdown digest 與另驗的 LICENSE；[snapshot](../../vendor/engineering-workflow-core/README.md) 是原 bytes 的 generated copy，唯一來源為該 Core revision，不手改副本。The lock pins all ten Markdown digests and a separate license digest. Generated copies retain exact upstream bytes and must not be hand-edited.
+
+| Core 契約 / Contract | SHA-256 |
+| --- | --- |
+| [workflow](../../vendor/engineering-workflow-core/contracts/workflow.md) | `318380ef6783de944b1992b31c4384c8be5ec022a6b429616c7caa42508dd6e5` |
+| [authorization-and-stops](../../vendor/engineering-workflow-core/contracts/authorization-and-stops.md) | `26924aba9211929583d2ae31c14a12f9c220c13c8dfbdc43ddf6970d9d5919d7` |
+| [review-and-security](../../vendor/engineering-workflow-core/contracts/review-and-security.md) | `28acff344b14968ead954903fb6815d283ed1b4bb8dc2e977a3e37fca7845501` |
+| [exact-head-and-evidence](../../vendor/engineering-workflow-core/contracts/exact-head-and-evidence.md) | `c55f08e77a47583485403f7318afe5f2ef1a90ff137279a0c0c59104d5c2e7de` |
+
+集合算法為 `sha256-path-tab-sha256-lf-v1`，集合 SHA-256 為 `8446dfbf5e2820dd696ef411e87cc7a92b39305c369c808122b63554b9be83f6`，LICENSE 不在集合內。The collection algorithm uses TAB, not the historical NUL proposal; LICENSE is separate. [消費與限制 / Consumption and limits](../design/p3-g-core-consumption.md) 將原契約義務與本包的離線驗證分開，不宣稱 runtime 合格 / separates obligations from offline checks and makes no runtime qualification claim.

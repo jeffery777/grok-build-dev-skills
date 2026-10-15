@@ -10,6 +10,8 @@
 
 本文件是 [Issue #2](https://github.com/jeffery777/grok-build-dev-skills/issues/2) 的設計提案，不是正式 Core 契約或 P3 實作。長期協調由あき負責，Grok repo 的有界文件由 Codex 單一 writer 處理。來源與 digest 見 [來源對照](../provenance/source-map.md)。
 
+P1 定稿後，P3-G1 的實際消費方式見 [離線消費文件](p3-g-core-consumption.md)。本文件的 P0 來源與歷史界線保留；不將原先設計或資格觀察倒寫成已實作能力。
+
 重用 P0 的相依盤點、責任邊界、遷移與負面案例。P0 當時延後 Grok runtime 是歷史狀態；本次授權允許第 7、8 節的有界 fixture 查核。這不修改 P0，也不授權提前 P3。P1 與 Codex P2 有其他 writer，本包只讀固定來源。
 
 P3 的共同前置為：P1 已正式合併、必要審查完成、最終 Core immutable revision 與文件 digest 已固定、本設計已對齊，且另包 scope／ownership／DoD 成立。Grok 模型資格受阻時，Codex 仍可在上述前置成立後實作 Grok repo。
@@ -34,7 +36,7 @@ Grok 官方記載 project/user/plugin skill discovery；`allowed-tools` 不授�
 
 1. 在 Grok repo 維護建置用 lock 與驗證器；Core 不承載機器 schema 或組裝器。lock 記錄 Core repository、40 位 commit SHA、明確文件 allowlist、各檔 raw bytes 的 SHA-256、集合 digest、來源 notices，以及 Grok adapter revision／組裝器版本。
 2. 先獨立核對 P1 merge 與 final SHA，再以 SHA 取得 snapshot。拒絕 branch／tag 浮動解析、未知契約版本、路徑穿越、symlink／非一般檔案與缺漏必讀文件。Runtime 只讀已驗證 snapshot，不連線追蹤 Core main。
-3. 集合 digest 的提案算法：將每項寫為 `path + NUL + lowercase_sha256 + LF`，以 UTF-8 POSIX 相對路徑排序後串接，對串接 bytes 做 SHA-256。拒絕重複、非正規路徑、NUL／CR／LF。文件原 bytes 不做換行／Unicode／雙語正規化；算法須於 P3 固定及測試。
+3. P2 曾提案 NUL 分隔，未實作為 lock。P3-G1 明確採交接的 `path + TAB + lowercase_sha256 + LF` 算法，以 UTF-8 path bytes 排序後串接並做 SHA-256；完整定義見 [離線消費文件](p3-g-core-consumption.md)。拒絕重複、非正規路徑與 TAB／NUL／CR／LF；原文件 bytes 不做正規化，不能混用舊 NUL 提案的 digest。
 4. lock 包含被允許且閉合的 Markdown 相對引用與 notices。正式契約原 bytes／章節／語言權威不因展示需求改變；翻譯如需新增，另存清楚的非權威說明並維持對照。
 5. Core 更新必須審查新舊義務與完整相依，重新做受影響遵循驗證；不可沿用舊 revision／digest 的 receipt。此處 P0 digest 僅為來源證據，不是 final runtime lock。
 
@@ -68,6 +70,8 @@ Grok 維持自己的 canonical skills/references 與明確 package allowlist，g
 
 This is the design proposal for [Issue #2](https://github.com/jeffery777/grok-build-dev-skills/issues/2). It is not a final Core contract or P3 implementation. あき retains coordination. One Codex writer owns these bounded Grok documents. See the [source map](../provenance/source-map.md) for fixed sources and digests.
 
+After P1 finalization, [P3-G1 offline consumption](p3-g-core-consumption.md) defines the implemented document consumer. P0 provenance and historical limits remain. Earlier design and qualification observations are not rewritten as implemented capabilities.
+
 Reuse the P0 inventory, boundaries, migration plan, and negative cases. P0 deferred Grok runtime work at that time. The current authorization permits bounded fixture checks under charter sections 7 and 8. It does not rewrite P0 or start P3. Other writers own P1 and Codex P2. This package reads fixed sources only.
 
 P3 requires merged and reviewed P1 contracts, the final immutable Core revision and document digests, reviewed design alignment, and a separate package with scope, ownership, and DoD. A blocked Grok model route does not prevent Codex from implementing the Grok repository after those prerequisites hold.
@@ -92,7 +96,7 @@ The Codex synthetic verifier accepts Codex/Hermes labels only and sets runtime, 
 
 1. Grok will own a build lock and validator. Core will not hold machine schemas or an assembler. Record the Core repository, full commit SHA, document allowlist, raw-byte SHA-256 for each file, set digest, source notices, adapter revision, and assembler version.
 2. Verify the P1 merge and final SHA independently. Obtain a snapshot by SHA. Reject floating branches/tags, unknown contract versions, unsafe paths, symlinks, non-regular files, and missing required documents. Runtime reads verified local bytes and never follows Core main.
-3. Proposed set digest: sort entries by UTF-8 POSIX relative path. Encode each as `path + NUL + lowercase_sha256 + LF`, concatenate, and apply SHA-256. Reject duplicates, noncanonical paths, and NUL/CR/LF. Do not normalize document bytes. P3 must fix and test the algorithm.
+3. P2 proposed NUL separation without implementing a lock. P3-G1 explicitly adopts the handoff algorithm: sort by UTF-8 path bytes, encode `path + TAB + lowercase_sha256 + LF`, concatenate, and apply SHA-256. See the [full definition](p3-g-core-consumption.md). Reject duplicate/noncanonical paths and TAB/NUL/CR/LF. Do not normalize document bytes or reuse the NUL proposal's digest.
 4. Include the allowed, complete Markdown reference closure and notices. Preserve contract bytes, sections, and language authority. Keep any added translation clearly non-authoritative and mapped to its source.
 5. Review changed obligations and dependencies on each Core update. Repeat affected conformance checks. Old revision/digest receipts are invalid. P0 digests here are source evidence, not a final runtime lock.
 
