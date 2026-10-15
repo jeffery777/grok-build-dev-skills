@@ -20,28 +20,15 @@ Manifest 必須來自已審的可信 Git revision；可同時改寫 manifest 與
 
 ### 離線命令
 
-使用既有 Python 3.10+ 標準函式庫，不安裝依賴：
-
-```sh
-PYTHONDONTWRITEBYTECODE=1 python3 scripts/grok_package.py verify
-PYTHONDONTWRITEBYTECODE=1 python3 scripts/grok_package.py capabilities
-PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests -v
-p3g_parent="$(mktemp -d /private/tmp/grok-package.XXXXXX)"
-PYTHONDONTWRITEBYTECODE=1 python3 scripts/grok_package.py stage --destination "$p3g_parent/package"
-PYTHONDONTWRITEBYTECODE=1 python3 "$p3g_parent/package/scripts/grok_package.py" verify --layout staging
-```
+使用既有 Python 3.10+ 標準函式庫，不安裝依賴。在 repo root 使用[共用離線命令](#offline-command-examples)，驗來源、檢視 documented 能力、執行測試、建立全新 staging 並驗搬移後的 package。
 
 Source 與 staging 的相對佈局相同；可搬移的 bundle 含兩個 verifier，沒有 installer 或 Grok launcher。CLI 不會執行 bundle 內的技能或其他程式。`--root` 選可信本地來源／副本，`--layout` 明選 source 或 staging。成功 exit 0 只證明該離線動作；受限 JSON／filesystem 拒絕 exit 1，用法錯誤 exit 2。錯誤不回印 packet 或 filesystem path；命令列用法診斷遵循 argparse。
 
 ### Consumer 證據 packet
 
-此格式只封裝相關工具名稱的 fixture 或 operator report，**不是 Grok 相容 API schema**，不接受 session／approval／runtime-ready 欄位。假例：
+此格式只封裝相關工具名稱的 fixture 或 operator report，**不是 Grok 相容 API schema**，不接受 session／approval／runtime-ready 欄位。假例與命令見[共用 packet 範例](#consumer-packet-example)。
 
-```json
-{"format":"grok-consumer-evidence/v1","runtime":"grok-build","documented_version":"1.0.52 (0920c8169e27)","source":{"kind":"fixture","sha256":"0000000000000000000000000000000000000000000000000000000000000000"},"observed_tool_names":["spawn_subagent"]}
-```
-
-以 `python3 scripts/grok_package.py packet --packet <local-file>` 驗其結構；packet 可為 0600 一般單連結檔，仍有 no-follow 與 size limit。來源 digest 是宣告，不驗證實際 capture 或完整 tool schema。輸出只標 `fixture_only`、`operator_report_unverified` 或 `not_supplied`；兩種 report 都不能升級 schema／runtime 資格。四個 readiness 欄位固定 false，G2-R01–R06 明列仍缺 sandbox/deny、loaded schema/model、派工、授權通道、session recovery、skill loading／entitlement。
+以共用範例中的 packet 命令驗其結構；packet 可為 0600 一般單連結檔，仍有 no-follow 與 size limit。來源 digest 是宣告，不驗證實際 capture 或完整 tool schema。輸出只標 `fixture_only`、`operator_report_unverified` 或 `not_supplied`；兩種 report 都不能升級 schema／runtime 資格。四個 readiness 欄位固定 false，G2-R01–R06 明列仍缺 sandbox/deny、loaded schema/model、派工、授權通道、session recovery、skill loading／entitlement。
 
 ### 驗收與邊界
 
@@ -53,12 +40,55 @@ Source 與 staging 的相對佈局相同；可搬移的 bundle 含兩個 verifie
 
 ## English
 
-Issue #6 adds two skill sources, focused Grok references, a consumer evidence envelope and fresh temporary assembly. The fixed Core revision, lock, eleven raw files and notices stay unchanged. Skills live under `skills/`; no discovery root or existing installation is updated. Triggering instructions creates no tools, authority or runtime qualification.
+[Issue #6](https://github.com/jeffery777/grok-build-dev-skills/issues/6) extends the accepted [P3-G1 package](p3-g-core-consumption.md). It adds two skill sources, focused Grok references, a consumer evidence envelope and fresh temporary assembly. Core stays fixed at `b4c37798b6d3a9efd91c8c6d518093f2dd847a98`; its lock, eleven raw files and complete notices do not change. See [Program Open Issues](https://chatgpt.com/space/page_548d81ee2cf08191a144063ee8fe571b) for coordination.
 
-The consumer manifest hashes nineteen payload files and travels with them as file twenty. Its own raw hash is output separately. Trust the reviewed Git source and manifest; simultaneous manifest/source rewriting by the same authority is outside this integrity check. Core still has separate code-owned anchors. Source layout permits development docs/tests but requires exact owned skill/reference/catalog roots; staging requires the exact whole package.
+### Sources and assembly
 
-Use the offline commands above with an existing Python 3.10+ standard library. Staging is new, below canonical system-temp roots and outside both source and executing repository. Captured bytes, no-follow regular/single-link checks, fixed file modes, exclusive creation and complete readback protect the copy. A failed fresh target can remain for inspection. Do not blindly replay, overwrite or delete it. The relocated package contains its verifiers; it contains no installer or Grok launcher.
+The [workflow skill](../../skills/grok-engineering-workflow/SKILL.md) and [review skill](../../skills/grok-review-change/SKILL.md) are minimal entry points. They require the fixed Core contracts and [Grok references](../../references/grok-capabilities.md). Sources live under `skills/`; this package does not write to `.grok/skills`, user skills or plugin discovery roots. A skill trigger loads guidance. It creates no tools, effective model/effort setting, runtime qualification or action authority.
 
-The JSON example is an internal evidence envelope, not a Grok wire schema. A fixture or operator report cannot authenticate the supplied source digest, validate full tool parameters or prove effective controls. All runtime, skill-loading, delegation and delivery flags remain false. Exit 0 validates only the requested offline action; invalid data/files exit 1, usage errors exit 2. Data/file errors are bounded; argparse handles command-line usage diagnostics.
+[grok.package.json](../../grok.package.json) is a consumer-owned format. It lists nineteen payload paths and SHA-256 digests. The original manifest travels with them as file twenty; it does not hash itself. Output reports its raw SHA-256 separately. Source layout permits development docs/tests but requires exact `skills/`, `references/` and `capabilities/` roots. Staging requires the exact whole package, with no extra hooks, MCP files, credentials, caches or other files.
 
-Tests and independent Codex forward-testing cover offline behavior, not Grok execution. The qualification checklist retains concrete blocked checks. No live transport, API calls, paid service, credentials, installation or global setting is involved. macOS is tested; other POSIX platforms need verification and Windows is unsupported. Full ASD-STE100 conformity is unverified.
+Trust the reviewed Git source and manifest. An actor who can rewrite both payload and manifest is outside this integrity guarantee. Digests do not establish signatures, source authenticity or human authorization. Core has separate G1 code-owned revision, collection and LICENSE anchors; changing package hashes alone cannot replace it.
+
+The shared staging helper validates captured bytes and canonical paths before writing. It creates a new target below canonical system temporary roots, outside both the configured source and executing repository. It retains no-follow descriptors, regular single-link 0644 files, the 1 MiB per-file limit, exclusive creation, 0700 directories, complete readback and inode checks. A failed fresh target remains for inspection. Do not blindly replay, overwrite or delete it. G1 CLI behavior and its fixed source stay unchanged.
+
+### Offline commands
+
+Use an existing Python 3.10+ and its standard library; install no dependencies. From the repository root, use the [shared offline commands](#offline-command-examples) to verify sources, inspect documented capabilities, run tests, create fresh staging and verify the relocated package.
+
+Source and staging use the same relative layout. The relocated bundle contains both verifiers and no installer or Grok launcher. The CLI does not invoke skills or run other programs. `--root` selects a trusted local source or copy; `--layout` selects source or staging. Exit 0 validates only that offline action; invalid data/files exit 1, usage errors exit 2. Data/file errors do not echo packet contents or filesystem paths. Argparse handles command-line usage diagnostics.
+
+### Consumer evidence packet
+
+The packet holds only relevant tool names from a fixture or operator report. It is **not a Grok API schema** and accepts no session, approval or runtime-ready fields. See the [shared packet example and command](#consumer-packet-example).
+
+A packet may be a 0600 regular single-link file; no-follow checks and the size limit still apply. Its source digest is a claim, not authentication of a capture or validation of the full tool schema. Output labels observations only as `fixture_only`, `operator_report_unverified` or `not_supplied`. Neither report type qualifies schemas or runtime behavior. All four runtime, skill-loading, delegation and delivery flags remain false. G2-R01–R06 retain the sandbox/deny, loaded schema/model, delegation, authorization-channel, session-recovery and loading/entitlement gaps.
+
+### Verification and limits
+
+Tests cover source/staging layouts, relocated verification, manifest/Core/reference drift, duplicate skill identities, unsafe paths, symlinks/hardlinks/FIFOs/modes, existing-target preservation, forged packets, foreign tools, duplicate keys, integer/nesting errors and false readiness. Independent Codex forward-testing checks offline skill guidance, not Grok skill loading or model qualification.
+
+The [qualification checklist](../verification/grok-delegation-capabilities.md#en) remains untested or blocked. This package includes no live ACP, model or API execution, subscription/paid-service authorization, global setting, installation or rollout. macOS is tested; other POSIX platforms remain unqualified and Windows is unsupported. English follows clarity/ASD-STE100 principles; full conformity is unverified.
+
+<a id="offline-command-examples"></a>
+
+## 共用離線命令 / Shared offline commands
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 python3 scripts/grok_package.py verify
+PYTHONDONTWRITEBYTECODE=1 python3 scripts/grok_package.py capabilities
+PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests -v
+p3g_parent="$(mktemp -d /private/tmp/grok-package.XXXXXX)"
+PYTHONDONTWRITEBYTECODE=1 python3 scripts/grok_package.py stage --destination "$p3g_parent/package"
+PYTHONDONTWRITEBYTECODE=1 python3 "$p3g_parent/package/scripts/grok_package.py" verify --layout staging
+```
+
+<a id="consumer-packet-example"></a>
+
+## 共用 packet 範例 / Shared packet example
+
+```json
+{"format":"grok-consumer-evidence/v1","runtime":"grok-build","documented_version":"1.0.52 (0920c8169e27)","source":{"kind":"fixture","sha256":"0000000000000000000000000000000000000000000000000000000000000000"},"observed_tool_names":["spawn_subagent"]}
+```
+
+Packet 命令 / Packet command: `python3 scripts/grok_package.py packet --packet <local-file>`.

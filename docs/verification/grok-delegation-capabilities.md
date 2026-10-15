@@ -46,7 +46,18 @@ Issue #6 qualifies offline structure only. Existing strict, authorization-channe
 
 The table records unresolved shell and session wording differences. Parent plan edit gates do not constrain children. Skill/persona/type names do not prove technical read-only behavior or effective model/effort. Inspect the actual child toolset, permission inheritance, shell/MCP exposure and any required isolation. Do not automatically enable optional messaging.
 
-G2-R01–R06 remain unverified or blocked: effective sandbox/deny, loaded schemas and model, native child lifecycle, complete approval forwarding/waiting/rejection/cancellation, explicit-session recovery and actual skill loading/entitlement. Later tests need harmless fixtures, bound identities and readback. Every model run/resume must select a verified profile and default/Ask permissions. No channel or profile means stop dependent runtime work and retain a checkpoint.
+### Checks that still block runtime readiness
+
+| ID | Recorded status | Required evidence (not executed by this package) |
+| --- | --- | --- |
+| G2-R01 | BLOCKED / unverified | A verified profile that can be applied, preferably strict. Explicit profile and initial default/Ask on every run/resume. Positive and negative read/write/rename/deny cases, with macOS network limits accounted for. |
+| G2-R02 | Unverified | Actual tool schemas, model/effort, managed pins/precedence and effective tools read back through a valid entry point. Missing evidence stays unknown. |
+| G2-R03 | Unverified | Native spawn/result/wait/cancel, depth/capacity, independent author/reviewer roles and applicable read-only constraints. No source/head/ownership drift. |
+| G2-R04 | BLOCKED / unverified | Complete question and original-request forwarding, waiting, answer/reject, cancel, late/duplicate answers and disconnect handling. Session/revision/action/path identity binding and side-effect sentinels. |
+| G2-R05 | Unverified | Resume/recovery with the complete session ID; verify cwd, owner, revision and pending requests. Read back uncertain external effects before any replay. |
+| G2-R06 | Unverified / not authorized | Separate tests of actual skill loading and adherence. Check API entitlement and any paid use, installation or rollout separately; documentation or connectivity establishes none. |
+
+The coordinator arranges later bounded qualification. Tests need harmless fixtures, bound identities and readback. No reliable interface means preserve the specific blocker and checkpoint, then stop dependent runtime work. Fake packets, valid JSON, exit 0, synthetic tests and code/docs review cannot upgrade these checks to Passed. Do not weaken sandbox/permissions, persist grants, copy credentials, start new services or treat a fake ACP transport as runtime evidence.
 
 The consumer packet accepts only documented relevant tool names as unauthenticated fixture/operator reports. It is not a Grok wire schema. No offline test, accepted flag or review can raise runtime readiness. ACP is a local stdio interface, not a durable hosted-task service. Availability does not grant subscription, API billing, installation or action authority. No live transport or new paid service is included.
 
