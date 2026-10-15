@@ -27,6 +27,8 @@
 
 私人執行紀錄保留精確 command、路徑與轉錄錯誤；此公開文件只保留必要且去識別的摘要。Help、API 回應或 exit 0 都不是 runtime 驗收。
 
+開發用[有界 probe 控制器](probe-controller.md#zh) 以無害 stub 驗證先存 PID、期限、清理錯誤與輸出保留；它沒有 Grok 執行入口，不改變本頁或 G2-R01–R06 的 runtime 資格。新的實際 probe 仍需另行批准。
+
 ### 文件差異與優先序
 
 官方 [Sandbox](https://docs.x.ai/build/features/sandbox) 明示 macOS strict/read-only 的子程序網路限制為 no-op，in-process model/web 網路也不受該限制；strict 不代表離線。網站的 write 範圍描述比隨版文件粗略，後者區分 sessions 與 daemon 目錄。實際有效範圍仍未驗證。
@@ -78,6 +80,8 @@ This result applies to this executor. It does not prove that strict is unavailab
 | Not run | Read/write/rename/deny positives and negatives, effective model/effort, network tests, forwarding/wait/answer/reject, cancel, and session resume/recovery. None is Passed |
 
 Private evidence retains exact command, paths, and the transcribed error. This public record contains a sanitized summary. Help, API responses, and exit 0 do not establish runtime qualification.
+
+The developer [bounded probe controller](probe-controller.md#en) tests persisted PID identity, deadlines, cleanup errors and output retention with harmless stubs. It has no Grok entry point and does not qualify this page's runtime checks or G2-R01–R06. A new real probe still needs separate approval.
 
 ### Documentation and precedence gaps
 
