@@ -15,6 +15,7 @@ import time
 import uuid
 
 import core_snapshot as core
+from initialize_exchange import InitializeExchange, PROJECTION, REQUEST
 
 
 def _write(fd: int, raw: bytes) -> None:
@@ -74,7 +75,7 @@ class _Evidence:
 
 def run_probe(*, argv: list[str], cwd: Path, evidence: Path, identity: dict,
               env: dict[str, str], input_data: bytes = b"", budget: float = 2.0,
-              output_limit: int = 65536) -> dict:
+              output_limit: int = 65536, initialize_only: bool = False) -> dict:
     """Run one caller-authorized harmless probe; no retry, recovery or approval.
 
     Only the direct child and its still-owned process group may be controlled.
@@ -102,6 +103,11 @@ def run_probe(*, argv: list[str], cwd: Path, evidence: Path, identity: dict,
             or type(output_limit) is not int or not 1 <= output_limit <= 262144
             or not isinstance(input_data, bytes) or len(input_data) > 4096):
         raise ValueError("invalid time/input/output limit")
+    if type(initialize_only) is not bool or (initialize_only and input_data):
+        raise ValueError("initialize mode requires no caller-supplied input")
+    exchange = InitializeExchange() if initialize_only else None
+    if exchange is not None:
+        input_data = REQUEST
     cwd, evidence = core.absolute_path(Path(cwd)), core.absolute_path(Path(evidence))
     roots = (Path(os.path.realpath("/tmp")), Path(os.path.realpath("/var/tmp")))
     if not any(evidence.is_relative_to(root) and evidence != root for root in roots):
@@ -126,6 +132,8 @@ def run_probe(*, argv: list[str], cwd: Path, evidence: Path, identity: dict,
         "runtime_qualified": False, "skill_loading_qualified": False,
         "delegation_qualified": False, "delivery_ready": False,
     }
+    if exchange is not None:
+        result["initialize_exchange"] = exchange.observation()
     proc = None
     selector = selectors.DefaultSelector()
     signal_failed = False
@@ -142,12 +150,31 @@ def run_probe(*, argv: list[str], cwd: Path, evidence: Path, identity: dict,
             error("journal_" + name, exception)
             return False
 
-    def unregister(pipe):
+    def unregister(pipe, close=True):
         try:
             selector.unregister(pipe)
         except KeyError:
             pass
-        pipe.close()
+        if close:
+            pipe.close()
+
+    def persist_output(name, raw):
+        field = name + "_bytes_stored"
+        quota = name + "_bytes_reserved"
+        retained = raw[:max(0, output_limit - result[quota])]
+        if len(retained) != len(raw):
+            result["output_truncated"] = True
+        if retained:
+            # A partial write or later fsync error must never release quota.
+            result[quota] += len(retained)
+            try:
+                _write(store.fds[name + ".bin"], retained)
+            except (Exception, KeyboardInterrupt):
+                result[field] = None
+                result["output_persistence_uncertain"] = True
+                raise
+            if result[field] is not None:
+                result[field] += len(retained)
 
     def pump(timeout):
         # One small read per ready stream prevents a noisy stream starving its peer.
@@ -157,28 +184,21 @@ def run_probe(*, argv: list[str], cwd: Path, evidence: Path, identity: dict,
                 count = os.write(pipe.fileno(), input_data[result["stdin_bytes_sent"]:])
                 result["stdin_bytes_sent"] += count
                 if result["stdin_bytes_sent"] == len(input_data):
-                    unregister(pipe)
+                    unregister(pipe, close=exchange is None)
                 continue
             raw = os.read(pipe.fileno(), 8192)
             if not raw:
+                if exchange is not None:
+                    exchange.eof(name)
+                    result["initialize_exchange"] = exchange.observation()
                 unregister(pipe)
                 continue
-            field = name + "_bytes_stored"
-            quota = name + "_bytes_reserved"
-            retained = raw[:max(0, output_limit - result[quota])]
-            if len(retained) != len(raw):
-                result["output_truncated"] = True
-            if retained:
-                # A partial write or later fsync error must never release quota.
-                result[quota] += len(retained)
-                try:
-                    _write(store.fds[name + ".bin"], retained)
-                except (Exception, KeyboardInterrupt):
-                    result[field] = None
-                    result["output_persistence_uncertain"] = True
-                    raise
-                if result[field] is not None:
-                    result[field] += len(retained)
+            if exchange is not None:
+                # The parser survives through cleanup. Never persist these raw bytes.
+                exchange.feed(name, raw)
+                result["initialize_exchange"] = exchange.observation()
+            else:
+                persist_output(name, raw)
 
     def send(sig):
         nonlocal signal_failed
@@ -248,6 +268,10 @@ def run_probe(*, argv: list[str], cwd: Path, evidence: Path, identity: dict,
                 result["reason"] = "running"
                 while time.monotonic() < action_deadline:
                     pump(min(0.02, action_deadline - time.monotonic()))
+                    if exchange is not None and exchange.done:
+                        result["reason"] = ("initialize_response" if exchange.accepted
+                                            else "initialize_rejected")
+                        break
                     if result["output_truncated"]:
                         result["reason"] = "output_limit"
                         break
@@ -260,6 +284,8 @@ def run_probe(*, argv: list[str], cwd: Path, evidence: Path, identity: dict,
         error("run", exception)
         result["reason"] = "controller_error"
     finally:
+        if exchange is not None:
+            event("initialize_observation", observation=exchange.observation())
         if proc is not None:
             try:
                 if not proc.stdin.closed:
@@ -292,15 +318,39 @@ def run_probe(*, argv: list[str], cwd: Path, evidence: Path, identity: dict,
             selector.close()
         except OSError as exception:
             error("close_selector", exception)
+        initialize_complete = False
+        if exchange is not None:
+            result["initialize_exchange"] = exchange.observation()
+            if exchange.done and not exchange.accepted:
+                result["reason"] = "initialize_rejected"
+            elif exchange.accepted and result["reason"] == "exited":
+                result["reason"] = "initialize_response"
+            initialize_complete = (exchange.accepted and result["reason"] == "initialize_response"
+                    and result["identity_persisted"]
+                    and result["direct_child_reaped"] and result["streams_eof"]
+                    and not result["errors"]
+                    and result["stdin_bytes_sent"] == len(input_data)
+                    and (result["returncode"] == 0 or (result["returncode"] == -signal.SIGTERM
+                         and any(s.get("signal") == "SIGTERM" and s.get("outcome") == "sent"
+                                 for s in result["signals"]))))
+            if initialize_complete:
+                try:
+                    persist_output("stdout", PROJECTION)
+                except (Exception, KeyboardInterrupt) as exception:
+                    error("projection", exception)
         result["cleanup_elapsed_seconds"] = time.monotonic() - start
         result["ended_at"] = datetime.now(timezone.utc).isoformat()
         result["cleanup_deadline_met"] = result["cleanup_elapsed_seconds"] <= budget
-        if (result["reason"] == "exited" and result["returncode"] == 0
+        if (exchange is None and result["reason"] == "exited" and result["returncode"] == 0
                 and result["identity_persisted"] and result["direct_child_reaped"]
                 and result["streams_eof"] and not result["errors"]
                 and not result["output_truncated"] and result["cleanup_deadline_met"]
                 and result["stdin_bytes_sent"] == len(input_data)):
             result["status"] = "COMPLETE_DIRECT_CHILD_ONLY"
+        if (initialize_complete and not result["errors"]
+                and not result["output_truncated"] and result["cleanup_deadline_met"]
+                and result["stdin_bytes_sent"] == len(input_data)):
+            result["status"] = "COMPLETE_INITIALIZE_DIRECT_CHILD_ONLY"
         event("finished", result=result)
         if result["errors"]:
             result["status"] = "BLOCKED"

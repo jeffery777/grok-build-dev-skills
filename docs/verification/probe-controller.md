@@ -10,6 +10,8 @@
 
 [Issue #10](https://github.com/jeffery777/grok-build-dev-skills/issues/10) 補足開發測試的程序身分、期限與證據保留邊界。[控制器](../../scripts/probe_controller.py) 是 Python 3.10+／POSIX 的函式工具，沒有 CLI 或 Grok、ACP、模型、授權及 recovery 接口，也不在既有二十檔 bundle。技能、manifest、Core lock／vendor 與 G2-R01–R06 狀態不變。
 
+以下輸出表格與 exit-0 完成條件描述預設 raw mode。[Issue #12 的離線 initialize 選項](initialize-exchange.md#zh) 另定固定請求、保存前 allowlist 投影及獨立完成狀態；不新增真實 ACP／Grok 接口。
+
 從 repo root 執行既有標準函式庫測試；測試只啟動固定的[無害 Python stub](../../tests/fixtures/probe_stub.py)，不啟動 Grok、不查其他程序、不讀憑證、不連網、不安裝軟體：
 
 ```sh
@@ -50,6 +52,8 @@ PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests -p test_probe_co
 ### Purpose and use
 
 [Issue #10](https://github.com/jeffery777/grok-build-dev-skills/issues/10) adds process identity, time limits and evidence retention for developer tests. The [controller](../../scripts/probe_controller.py) is a Python 3.10+/POSIX function helper. It has no CLI, Grok, ACP, model, approval or recovery integration. It is excluded from the existing twenty-file bundle. Skills, manifest, Core lock/vendor and G2-R01–R06 states do not change.
+
+The output table and exit-zero completion rule below describe default raw mode. The [Issue #12 offline initialize option](initialize-exchange.md#en) has a fixed request, an allowlist projection before persistence and a separate completion status. It adds no live ACP/Grok integration.
 
 Run the shared command in the Chinese section from the repository root. It runs only the fixed [harmless Python stub](../../tests/fixtures/probe_stub.py). Tests start no Grok process, inspect no unrelated process, read no credentials, use no network and install nothing.
 
