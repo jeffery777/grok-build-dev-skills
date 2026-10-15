@@ -4,6 +4,10 @@
 
 This design adapts the fixed Core P0 and Codex sources in the [source map](source-map.md) for Grok P2. It moves no executable code. The full source MIT notices follow. The root [LICENSE](../../LICENSE) does not replace them. No xAI source code or complete documentation is vendored. Future third-party substantial portions require their own license and notice review.
 
+P3-G1 additionally vendors the eleven fixed Core files at `b4c37798b6d3a9efd91c8c6d518093f2dd847a98`, with raw bytes unchanged. The [vendored LICENSE](../../vendor/engineering-workflow-core/LICENSE) and [upstream-notices](../../vendor/engineering-workflow-core/docs/provenance/upstream-notices.md) accompany the snapshot. The historical notices below remain intact. No Core executable is imported.
+
+P3-G1 另保留上述固定 P1 revision 的十一份原檔，不改 bytes；snapshot 隨附其 LICENSE 與完整 upstream notices。下方歷史 notices 原文保留；未引入 Core 執行程式。
+
 ## engineering-workflow-core
 
 Source: [LICENSE at 0815b74abe52d57efd032bd075e39c83c2ebf0d6](https://github.com/jeffery777/engineering-workflow-core/blob/0815b74abe52d57efd032bd075e39c83c2ebf0d6/LICENSE).

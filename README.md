@@ -12,11 +12,17 @@
 
 本專案適合維護 AI 開發流程的工程人員。例如，團隊想讓 Grok 在修改程式前讀取共同規範、在合併前保留審查證據，可先用這份設計確認所需能力與限制。
 
-**目前只有 P2-G（Grok 前置設計階段）的設計與資格查核紀錄，沒有可安裝技能或執行程式。** [Issue #2](https://github.com/jeffery777/grok-build-dev-skills/issues/2) 的 strict 啟動前檢查無法套用 sandbox，已停止模型路線；Grok runtime 尚未合格。請先閱讀 [控制介面查核](docs/verification/grok-control-qualification.md)。
+**目前支援 P3-G1 的固定 Core 文件離線驗證與全新臨時 staging。** 尚無可安裝技能或 Grok 執行接口；[Issue #2](https://github.com/jeffery777/grok-build-dev-skills/issues/2) 的 runtime 資格仍未完成。請閱讀 [離線消費方式](docs/design/p3-g-core-consumption.md) 與 [控制介面查核](docs/verification/grok-control-qualification.md)。
 
 ## 如何開始
 
-閱讀 [P2-G 準備設計](docs/design/p2-g-preparation.md) 與 [來源對照](docs/provenance/source-map.md)。本階段不提供安裝命令。P1 是共用契約抽取階段；正式 P3 接口實作須另立工作包，先確認 P1 已合併，並以不可變的 commit revision 與內容指紋 digest 固定 Core 文件，再完成設計對齊。
+P1 已抽取共用契約；本包以固定 commit revision 與內容指紋 digest 鎖定文件。使用既有 Python 標準函式庫，在 repo root 執行：
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 python3 scripts/core_snapshot.py verify
+```
+
+成功只證明固定十一檔與本地引用完整，不代表 Grok runtime 合格。本階段不提供安裝命令。其他 P3 接口／技能工作仍須另立範圍。原始 [P2-G 設計](docs/design/p2-g-preparation.md) 與 [來源對照](docs/provenance/source-map.md) 保留歷史與對齊資訊。
 
 [engineering-workflow-core](https://github.com/jeffery777/engineering-workflow-core) 承載純 Markdown 共用義務；[codex-dev-skills](https://github.com/jeffery777/codex-dev-skills) 與本專案各自實作接口。共用文字不表示工具、sandbox、permission 或 session 行為相同。
 
@@ -38,11 +44,17 @@ This project prepares Grok Build to use a fixed set of shared engineering rules.
 
 This project is for engineers who maintain AI development workflows. For example, a team can use this design to check what Grok needs to read shared rules before changing code and retain review evidence before a merge.
 
-**This repository contains design and qualification records for P2-G, the Grok preparation stage. It has no installable skills or executable adapter.** The strict startup check for [Issue #2](https://github.com/jeffery777/grok-build-dev-skills/issues/2) could not apply the sandbox. The model route stopped. Grok runtime qualification remains blocked. Read the [control qualification record](docs/verification/grok-control-qualification.md) first.
+**P3-G1 supports offline verification of fixed Core documents and fresh temporary staging.** It has no installable skills or Grok execution adapter. Runtime qualification under [Issue #2](https://github.com/jeffery777/grok-build-dev-skills/issues/2) is incomplete. Read the [offline consumption guide](docs/design/p3-g-core-consumption.md) and [control qualification record](docs/verification/grok-control-qualification.md).
 
 ## Getting started
 
-Read the [P2-G design](docs/design/p2-g-preparation.md) and [source map](docs/provenance/source-map.md). There is no installation command at this stage. P1 extracts the shared contracts. P3 implements the adapters in separate work packages. It requires merged P1 contracts, a fixed Core commit revision and content fingerprints called digests, and reviewed design alignment.
+P1 extracted the shared contracts. This package pins their commit revision and content fingerprints, called digests. Use an existing Python standard library from the repository root:
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 python3 scripts/core_snapshot.py verify
+```
+
+Success verifies eleven fixed files and local references; it does not qualify Grok runtime. There is no installation command. Further P3 adapter/skill work needs a separate scope. The [P2-G design](docs/design/p2-g-preparation.md) and [source map](docs/provenance/source-map.md) retain history and alignment information.
 
 [engineering-workflow-core](https://github.com/jeffery777/engineering-workflow-core) owns shared Markdown obligations. [codex-dev-skills](https://github.com/jeffery777/codex-dev-skills) and this project each own their adapter. Shared text does not prove equal tools, sandbox, permission, or session behavior.
 

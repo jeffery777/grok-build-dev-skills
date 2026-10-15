@@ -1,0 +1,133 @@
+# 固定 Core 的離線消費 / Offline Core consumption
+
+[繁體中文](#consumption-zh) · [English](#consumption-en)
+
+<a id="consumption-zh"></a>
+
+## 繁體中文
+
+### 能做什麼
+
+P3-G1 為 [Issue #4](https://github.com/jeffery777/grok-build-dev-skills/issues/4) 提供固定 Core snapshot、離線完整性驗證及新的臨時 staging。它不載入技能、不安裝、不下載、不啟動 Grok／模型／session，也不提供 permission 或 resume adapter。驗證成功只證明已列出的檔案與引用；runtime 與 delivery readiness 固定為 false。
+
+[core.lock.json](../../core.lock.json) 鎖定 Core repository、完整 revision `b4c37798b6d3a9efd91c8c6d518093f2dd847a98`、繁中權威語言、十份 Markdown 的 path/digest 與 LICENSE。程式另持有固定 revision、集合與 LICENSE digest，不能只改 lock 就切換信任來源。這些信任錨的更新必須有新的來源審查與受影響驗證。
+
+[固定副本](../../vendor/engineering-workflow-core/README.md) 保留十一份 upstream 原 bytes，都是 generated copies。唯一來源是固定 Core revision；不可手改副本或插入翻譯／generated header。衍生標記、改寫說明及來源放在 lock 和 [provenance](../provenance/source-map.md)。保留 [Core LICENSE](../../vendor/engineering-workflow-core/LICENSE) 與 [完整來源 notices](../../vendor/engineering-workflow-core/docs/provenance/upstream-notices.md)。
+
+### 集合與引用
+
+算法 ID：`sha256-path-tab-sha256-lf-v1`。
+
+1. 僅對 lock 的十份 Markdown，按 UTF-8 path bytes 排序。
+2. 每筆編碼為 `path + TAB + lowercase_sha256 + LF`，不含 JSON 引號或空格。
+3. 對十筆串接的 968 bytes 做 SHA-256，結果必須為 `8446dfbf5e2820dd696ef411e87cc7a92b39305c369c808122b63554b9be83f6`。
+4. LICENSE 不計入此集合，另驗 SHA-256 `49d64e81e9fd3b12470c1da48367b120b28d404ca08edfdd950278e28e4da34f`。
+
+P2 曾提出 NUL 分隔，沒有實作為正式 lock；P3-G1 明確採 TAB，不能混用 digest。Manifest path 限已核可的 ASCII POSIX 相對路徑，拒絕重複、空／點／父目錄片段、絕對／越界／未知路徑、反斜線及 TAB/LF/CR/NUL。每檔 digest 使用原 bytes，不做換行或 Unicode 正規化。
+
+四契約的相對檔案引用閉合是九份 Markdown 與 LICENSE；本包另外包含 README，以完整保留交接的十份 Markdown 集合。檢查本地檔案與 fragments，支持此固定集合所用的 inline/reference links、HTML href/src、explicit anchors 與 ATX headings。外部 URL 不連線。這不是通用 GFM validator；新 Core 內容或語法須重新審查 parser 與閉合。
+
+### 契約義務映射
+
+| Core 契約 | 本包消費方式與限制 |
+| --- | --- |
+| [workflow](../../vendor/engineering-workflow-core/contracts/workflow.md) | 完整 bytes／引用可用；八階段、能力與委派／Outcome 義務由後續技能入口必讀。本包沒有實作 workflow executor |
+| [authorization-and-stops](../../vendor/engineering-workflow-core/contracts/authorization-and-stops.md) | 不推定外寫授權，不覆寫既有 staging，失敗保留新目標；沒有 approval engine |
+| [review-and-security](../../vendor/engineering-workflow-core/contracts/review-and-security.md) | 程式與組裝邊界須獨立 review／適用 scan、findings disposition；不沿用 P2 的 scan N/A |
+| [exact-head-and-evidence](../../vendor/engineering-workflow-core/contracts/exact-head-and-evidence.md) | 固定文件／notices／明確集合；正式交付另綁 exact Git range、coherence、平台與授權，不以 CLI bool 代替 |
+
+### 使用與檔案安全
+
+在 repo root 使用既有 Python 3.10+ 的標準函式庫，不安裝依賴。以本機已選定的 `python3` 執行：
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 python3 scripts/core_snapshot.py verify
+PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests -v
+```
+
+macOS 臨時 staging 範例：
+
+```sh
+p3g_parent="$(mktemp -d /private/tmp/grok-core-stage.XXXXXX)"
+PYTHONDONTWRITEBYTECODE=1 python3 scripts/core_snapshot.py stage \
+  --destination "$p3g_parent/core"
+```
+
+`--lock`、`--snapshot` 可選擇核可的本地副本；所有祖先與檔案都不得是 symlink。Snapshot 必須是 exact inventory、一般且非 hardlinked 的 0644 檔案；單檔上限 1 MiB。程式以 no-follow descriptors 讀取，核對讀取期間的檔案／目錄變化，完整驗證後才建立 staging，並使用已驗證的記憶體 bytes 寫入後讀回。
+
+Staging 限系統 `/tmp` 或 `/var/tmp` 的 canonical 實體目錄下；不信任環境變數來擴大目的地。macOS 的 `/tmp` 本身是 symlink，範例因此使用 `/private/tmp`。父目錄必須已存在，目的地必須全新且位於 snapshot 之外。目錄為 0700，檔案為 0644；不採納、合併或覆寫既有目標。寫入失敗可能保留部分新目標；先檢視，不盲目重播、刪除或覆寫。
+
+驗證成功 exit 0；輸入／檔案拒絕 exit 1；CLI 用法錯誤 exit 2。錯誤不回印輸入內容或完整路徑。輸出記錄 Core identity、lock/assembler digest、assembler format version、layout 與 Python version。Assembler version 不是軟體 Release。正式交付者另記 adapter repo 的 exact Git revision、dirty diff／source version（若有）、使用章節、驗證環境與審查；CLI 本身不證明 Git／forge 身分、啟動狀態或授權。
+
+### 驗證邊界
+
+正負例涵蓋集合順序、錯 identity／schema／算法、缺件／多件／tamper、LICENSE、非法／重複 path、symlink／hardlink／FIFO、mode／size、引用越界／missing anchors、既有目的地保留及 CLI staging 讀回。這些是普通離線程式測試，不證明 Grok 的 sandbox、模型、permission、獨立 reviewer 品質、skill loading 或 session 行為。
+
+程式與信任錨必須可信；這不是對同一使用者可改寫程式或主機的攻擊者所建立的 sandbox。macOS 已做本包測試；其他 POSIX 平台仍須各自驗證。Windows 不在本包支援範圍。既有安裝與 runtime 診斷資料不納入產物。
+
+<a id="consumption-en"></a>
+
+## English
+
+### Supported scope
+
+[Issue #4](https://github.com/jeffery777/grok-build-dev-skills/issues/4) adds a pinned Core snapshot, offline verification, and fresh temporary staging. It does not load skills, install, download, start Grok/models/sessions, or implement permission/resume adapters. Success proves only the listed files and references. Runtime qualification and delivery readiness remain false.
+
+The [lock](../../core.lock.json) pins the Core repository, revision `b4c37798b6d3a9efd91c8c6d518093f2dd847a98`, Chinese contract authority, ten Markdown digests, and LICENSE. The verifier also fixes the revision and collection/license digests in code. Editing the lock alone cannot select another source. Anchor updates require source review and affected verification.
+
+The eleven [generated copies](../../vendor/engineering-workflow-core/README.md) retain raw upstream bytes. The fixed Core revision is the only source. Do not hand-edit copies or insert translations/generated headers. Keep modification and source records in the lock and [provenance](../provenance/source-map.md). Retain the [Core license](../../vendor/engineering-workflow-core/LICENSE) and [full upstream notices](../../vendor/engineering-workflow-core/docs/provenance/upstream-notices.md).
+
+### Collection and references
+
+Algorithm ID: `sha256-path-tab-sha256-lf-v1`.
+
+1. Sort the ten Markdown entries by UTF-8 path bytes.
+2. Encode each as `path + TAB + lowercase_sha256 + LF`, without JSON quotes or spaces.
+3. Hash the concatenated 968 bytes. Required SHA-256: `8446dfbf5e2820dd696ef411e87cc7a92b39305c369c808122b63554b9be83f6`.
+4. Exclude LICENSE from that collection. Verify its separate SHA-256: `49d64e81e9fd3b12470c1da48367b120b28d404ca08edfdd950278e28e4da34f`.
+
+P2 proposed NUL separation but did not implement a lock. P3-G1 selects TAB explicitly. The two digests are not interchangeable. Manifest paths are approved ASCII POSIX relative paths only. Reject duplicates, empty/dot/parent segments, absolute/escaping/unknown paths, backslashes, and TAB/LF/CR/NUL. Hash original bytes without newline or Unicode normalization.
+
+The four contracts need nine Markdown files and LICENSE for local file closure. README is also included to preserve the ten-file handoff collection. Check local files and fragments for the pinned collection's inline/reference links, HTML href/src, explicit anchors, and ATX headings. Never fetch external URLs. This is not a general GFM validator. Review parser coverage and closure when Core content or syntax changes.
+
+### Contract mapping
+
+| Contract | Consumption and limit |
+| --- | --- |
+| [workflow](../../vendor/engineering-workflow-core/contracts/workflow.md) | Complete bytes/references are available. Later skill entry points must read stages, capability/delegation, and Outcome obligations. No workflow executor is implemented |
+| [authorization and stops](../../vendor/engineering-workflow-core/contracts/authorization-and-stops.md) | No inferred external-write authority; no overwrite; retain failed fresh staging. No approval engine |
+| [review and security](../../vendor/engineering-workflow-core/contracts/review-and-security.md) | Independent review, applicable scan, and finding dispositions for program/assembly boundaries. P2 scan N/A is not reused |
+| [exact head and evidence](../../vendor/engineering-workflow-core/contracts/exact-head-and-evidence.md) | Fixed documents/notices and defined set digest. Delivery separately binds Git range, coherence, platform, and authority; CLI booleans do not replace them |
+
+### Use and file safety
+
+Use an existing Python 3.10+ with its standard library from the repository root. Install no dependencies:
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 python3 scripts/core_snapshot.py verify
+PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests -v
+```
+
+Example for temporary staging on macOS:
+
+```sh
+p3g_parent="$(mktemp -d /private/tmp/grok-core-stage.XXXXXX)"
+PYTHONDONTWRITEBYTECODE=1 python3 scripts/core_snapshot.py stage \
+  --destination "$p3g_parent/core"
+```
+
+Optional `--lock` and `--snapshot` select approved local copies. No path component may be a symlink. Require exact snapshot inventory, regular non-hardlinked 0644 files, and a 1 MiB limit per file. No-follow descriptors and change checks protect reads. Validate all bytes before creating staging, write the captured verified bytes, then read them back.
+
+Stage only below canonical system `/tmp` or `/var/tmp` roots. Environment variables cannot widen the destination. The macOS example uses `/private/tmp` because `/tmp` is a symlink. The parent must exist; the target must be new and outside the snapshot. Directories use 0700 and files 0644. Never adopt, merge, or overwrite an existing target. A failed write can leave a partial fresh target. Inspect it before recovery; do not blindly replay, delete, or overwrite it.
+
+Exit 0 means verification/staging succeeded; exit 1 rejects input/files; exit 2 is a CLI usage error. Errors do not echo input content or full paths. Output records Core identity, lock/assembler digests, assembler format version, layout, and Python version. The assembler version is not a Release. Delivery must separately record adapter Git revision, dirty diff/source version if any, consumed sections, environment, and reviews. CLI output does not attest Git/forge identity, runtime state, or authority.
+
+### Validation limits
+
+Tests cover ordering, identity/schema/algorithm errors, missing/extra/tampered files, LICENSE, unsafe/duplicate paths, symlinks/hardlinks/FIFOs, modes/sizes, reference escapes/anchors, existing-target preservation, and CLI staging readback. These are offline program tests. They do not qualify Grok sandbox, model, permission, reviewer quality, skill loading, or sessions.
+
+Trust the program and its anchors. This tool does not sandbox an attacker who can rewrite the program or host as the same user. This package is tested on macOS; other POSIX platforms need separate verification. Windows is unsupported. Existing installations and private runtime diagnostic data are outside the output.
+
+### 文件品質 / Document quality
+
+英文依 ASD-STE100 原則編寫，完整符合性未驗證；繁中採清晰性原則。English follows ASD-STE100 principles; full conformity is unverified. Chinese uses clarity principles.
