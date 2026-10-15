@@ -25,7 +25,7 @@ P3 的共同前置為：P1 已正式合併、必要審查完成、最終 Core im
 | 技能入口 | 有界交付、規劃／實作、唯讀 review、文件、接續入口；對照 P0 E21–E24。每個入口明示適用契約、必讀 references、停止與證據要求，不整包搬 Codex SKILL.md |
 | 程式適配 | 自己處理公開工具 schema、permission／deny、sandbox、model／effort 生效查核、session／cancel／resume／未知效果與 Git 外 checkpoint；不複製 Codex Desktop payload／profile 資格 |
 | 驗證器 | 分開驗證固定文件／引用閉合、組裝 inventory／bytes／modes、授權身分、runtime 能力、review findings、exact-head；所有程式留 Grok repo，Core 只描述義務 |
-| 審查與交付 | 作者與 reviewer 獨立。reviewer 唯讀；必要 scan 與 findings disposition 各自記錄。Grok 的 commit／push／PR／merge 由 Codex 入口統一執行 |
+| 審查與交付 | 作者與 reviewer 獨立。reviewer 唯讀；必要 scan 與 findings disposition 各自記錄。本次 Engineering Workflow Program 的 Grok commit／push／PR／merge 仍由核可的 Codex 入口統一執行；此 Program 分工不是可重用 Grok 技能的永久依賴 |
 | 延後邊界 | Memory／Hooks／Schedulers、Orca、第三方模型映射、Codex→Grok／LiteLLM 路由、consumer rollout 均不納入 |
 
 Grok 官方記載 project/user/plugin skill discovery；`allowed-tools` 不授予或限制工具，`model/effort/license/compatibility` 不會套用。因此技能 metadata 不能取代工具、模型與 license 的外部查核。[Skills](https://docs.x.ai/build/features/skills-plugins-marketplaces)
@@ -85,7 +85,7 @@ These are proposed responsibilities. No skill, program, schema, or installer exi
 | Skills | Bounded delivery, planning/implementation, read-only review, docs, and continuation; P0 E21–E24. State required contracts, references, stop conditions, and evidence. Do not copy complete Codex skills |
 | Programs | Own public tool schemas, permissions/deny, sandbox, effective model/effort checks, session/cancel/resume, uncertain effects, and private checkpoints. Do not copy Codex Desktop payloads or qualification |
 | Validators | Separate document/reference checks, assembly inventory/bytes/modes, authorization identity, runtime checks, findings, and exact-head evidence. Keep all programs in Grok; Core states obligations only |
-| Review and delivery | Keep reviewer and author independent. Reviewer is read-only. Record required scans and finding dispositions separately. Codex handles external Grok commits, pushes, PRs, and merges |
+| Review and delivery | Keep reviewer and author independent. Reviewer is read-only. Record required scans and finding dispositions separately. This Engineering Workflow Program still routes external Grok commits, pushes, PRs, and merges through its authorized Codex entry point. This Program arrangement is not a permanent dependency of the reusable Grok skill |
 | Deferred | Memory, Hooks, Schedulers, Orca, third-party model mapping, Codex→Grok/LiteLLM routing, and consumer rollout |
 
 Official skill documentation describes project, user, and plugin discovery. It does not apply tool restrictions or model, effort, license, and compatibility values from skill metadata. Verify those controls separately.[Skills](https://docs.x.ai/build/features/skills-plugins-marketplaces)
