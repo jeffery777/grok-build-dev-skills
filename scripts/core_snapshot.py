@@ -182,7 +182,22 @@ def load_lock(path: Path) -> tuple[dict, bytes]:
     return lock, raw
 
 
-def capture_snapshot(root: Path) -> dict[str, bytes]:
+def inventory_paths(names: set[str] | frozenset[str]) -> tuple[frozenset[str], frozenset[str]]:
+    """Validate a caller-owned inventory before using it as filesystem paths."""
+    files = frozenset(relative_path(name) for name in names)
+    if not files:
+        raise SnapshotError("empty file inventory")
+    directories = frozenset(
+        str(parent) for name in files for parent in PurePosixPath(name).parents
+        if str(parent) != "."
+    )
+    if files & directories:
+        raise SnapshotError("file and directory inventory collision")
+    return files, directories
+
+
+def capture_inventory(root: Path, names: set[str] | frozenset[str]) -> dict[str, bytes]:
+    expected_files, expected_directories = inventory_paths(names)
     files: dict[str, bytes] = {}
 
     def visit(fd: int, prefix: str) -> None:
@@ -191,11 +206,11 @@ def capture_snapshot(root: Path) -> dict[str, bytes]:
         with os.scandir(fd) as entries:
             for entry in entries:
                 name = prefix + entry.name
-                if name not in FILES and name not in DIRECTORIES:
+                if name not in expected_files and name not in expected_directories:
                     raise SnapshotError("unexpected snapshot entry")
                 seen.add(name)
                 info = os.stat(entry.name, dir_fd=fd, follow_symlinks=False)
-                if name in DIRECTORIES:
+                if name in expected_directories:
                     if not stat.S_ISDIR(info.st_mode):
                         raise SnapshotError("expected snapshot directory")
                     child = os.open(
@@ -209,7 +224,7 @@ def capture_snapshot(root: Path) -> dict[str, bytes]:
                 else:
                     files[name] = read_regular(fd, entry.name, snapshot=True)
         expected = {
-            name for name in FILES | DIRECTORIES
+            name for name in expected_files | expected_directories
             if name.startswith(prefix) and "/" not in name[len(prefix):]
         }
         if seen != expected:
@@ -223,6 +238,10 @@ def capture_snapshot(root: Path) -> dict[str, bytes]:
     finally:
         os.close(root_fd)
     return files
+
+
+def capture_snapshot(root: Path) -> dict[str, bytes]:
+    return capture_inventory(root, FILES)
 
 
 def markdown_body(text: str) -> str:
@@ -319,15 +338,19 @@ def verify(lock_path: Path, snapshot: Path) -> tuple[dict, dict[str, bytes]]:
     return result, files
 
 
-def stage(lock_path: Path, snapshot: Path, destination: Path) -> dict:
-    result, files = verify(lock_path, snapshot)
+def stage_verified_files(
+    files: dict[str, bytes], destination: Path, *, source_roots: tuple[Path, ...]
+) -> None:
+    """Copy already-verified data to a fresh system-temp target; never install."""
+    inventory_paths(set(files))
+    if any(not isinstance(data, bytes) or len(data) > MAX_FILE_BYTES for data in files.values()):
+        raise SnapshotError("invalid captured file bytes")
     destination = absolute_path(destination)
-    snapshot = absolute_path(snapshot)
     # Only system temp roots, never an environment-supplied TMPDIR allow grant.
     temp_roots = {Path(os.path.realpath(path)) for path in ("/tmp", "/var/tmp")}
     if not any(destination.is_relative_to(root) and destination != root for root in temp_roots):
         raise SnapshotError("staging destination must be below a system temp root")
-    if destination.is_relative_to(snapshot):
+    if any(destination.is_relative_to(absolute_path(root)) for root in source_roots):
         raise SnapshotError("staging must not alter the source snapshot")
     parent = open_directory(destination.parent)
     target = None
@@ -365,19 +388,24 @@ def stage(lock_path: Path, snapshot: Path, destination: Path) -> dict:
                     os.close(fd)
             finally:
                 os.close(directory)
-        if capture_snapshot(destination) != files:
+        if capture_inventory(destination, set(files)) != files:
             raise SnapshotError("staging readback differs from verified bytes")
         current = os.stat(destination.name, dir_fd=parent, follow_symlinks=False)
         opened = os.fstat(target)
         if (current.st_dev, current.st_ino) != (opened.st_dev, opened.st_ino):
             raise SnapshotError("staging directory identity changed")
-        result["status"] = "staged"
-        return result
     finally:
         if target is not None:
             os.close(target)
         os.close(parent)
     # Failure retains the fresh partial target for inspection; never removes data.
+
+
+def stage(lock_path: Path, snapshot: Path, destination: Path) -> dict:
+    result, files = verify(lock_path, snapshot)
+    stage_verified_files(files, destination, source_roots=(snapshot,))
+    result["status"] = "staged"
+    return result
 
 
 def main() -> int:
