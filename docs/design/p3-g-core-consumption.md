@@ -10,11 +10,13 @@
 
 P3-G1 為 [Issue #4](https://github.com/jeffery777/grok-build-dev-skills/issues/4) 提供固定 Core snapshot、離線完整性驗證及新的臨時 staging。它不載入技能、不安裝、不下載、不啟動 Grok／模型／session，也不提供 permission 或 resume adapter。驗證成功只證明已列出的檔案與引用；runtime 與 delivery readiness 固定為 false。
 
-[core.lock.json](../../core.lock.json) 鎖定 Core repository、完整 revision `345cd601bffbacc777f87fb24f22b5caefa30a3b`、繁中權威語言、十份 Markdown 的 path/digest 與 LICENSE。程式另持有固定 revision、集合與 LICENSE digest，不能只改 lock 就切換信任來源。這些信任錨的更新必須有新的來源審查與受影響驗證。
+[core.lock.json](../../core.lock.json) 鎖定 Core repository、完整 revision `784ed24f4a09ec35ac7209e0fd2287b214aea260`、繁中權威語言、十份 Markdown 的 path/digest 與 LICENSE。程式另持有固定 revision、集合與 LICENSE digest，不能只改 lock 就切換信任來源。這些信任錨的更新必須有新的來源審查與受影響驗證。
 
 [固定副本](../../vendor/engineering-workflow-core/README.md) 保留十一份 upstream 原 bytes，都是 generated copies。唯一來源是固定 Core revision；不可手改副本或插入翻譯／generated header。衍生標記、改寫說明及來源放在 lock 和 [provenance](../provenance/source-map.md)。保留 [Core LICENSE](../../vendor/engineering-workflow-core/LICENSE) 與 [完整來源 notices](../../vendor/engineering-workflow-core/docs/provenance/upstream-notices.md)。
 
 [G-W1 / Issue #16](https://github.com/jeffery777/grok-build-dev-skills/issues/16) 將固定來源更新至 [Core PR #8](https://github.com/jeffery777/engineering-workflow-core/pull/8) 的 merge revision，讓 skills 引用 [共用寫作條款](../../vendor/engineering-workflow-core/contracts/workflow.md#wf-writing)。這次更新保留既有驗證算法、介面與 readiness 限制；詳細來源與 digest 見 [provenance](../provenance/source-map.md)。
+
+[GG1 / Issue #18](https://github.com/jeffery777/grok-build-dev-skills/issues/18) 現接入 [Core PR #12](https://github.com/jeffery777/engineering-workflow-core/pull/12) 的最終 revision，同包採用證據生命週期與風險優先審查；前述 G-W1 是先前寫作接入記錄。入口操作見 [專案政策](../../README.md#採用的工作流與專案政策)，現行 lock／程式 anchors／snapshot／manifest 一致更新，驗證算法與 false readiness 不變。
 
 ### 集合與引用
 
@@ -22,7 +24,7 @@ P3-G1 為 [Issue #4](https://github.com/jeffery777/grok-build-dev-skills/issues/
 
 1. 僅對 lock 的十份 Markdown，按 UTF-8 path bytes 排序。
 2. 每筆編碼為 `path + TAB + lowercase_sha256 + LF`，不含 JSON 引號或空格。
-3. 對十筆串接的 968 bytes 做 SHA-256，結果必須為 `ba32220ff76ad4ee3b48195984cd653637a817268b6ed0876869486b81a5dc00`。
+3. 對十筆串接的 968 bytes 做 SHA-256，結果必須為 `f308093e1dbb6ba2796a3b286406a5f02adde692d05a200b2894e88527bed3c4`。
 4. LICENSE 不計入此集合，另驗 SHA-256 `49d64e81e9fd3b12470c1da48367b120b28d404ca08edfdd950278e28e4da34f`。
 
 P2 曾提出 NUL 分隔，沒有實作為正式 lock；P3-G1 明確採 TAB，不能混用 digest。Manifest path 限已核可的 ASCII POSIX 相對路徑，拒絕重複、空／點／父目錄片段、絕對／越界／未知路徑、反斜線及 TAB/LF/CR/NUL。每檔 digest 使用原 bytes，不做換行或 Unicode 正規化。
@@ -33,7 +35,7 @@ P2 曾提出 NUL 分隔，沒有實作為正式 lock；P3-G1 明確採 TAB，不
 
 | Core 契約 | 本包消費方式與限制 |
 | --- | --- |
-| [workflow](../../vendor/engineering-workflow-core/contracts/workflow.md) | 完整 bytes／引用可用；技能入口必讀八階段、簡明寫作、能力與委派／Outcome 義務。本包沒有實作 workflow executor |
+| [workflow](../../vendor/engineering-workflow-core/contracts/workflow.md) | 完整 bytes／引用可用；技能入口必讀八階段、風險與檢查時機、證據生命週期、簡明寫作、能力與委派／Outcome 義務。本包沒有實作 workflow executor |
 | [authorization-and-stops](../../vendor/engineering-workflow-core/contracts/authorization-and-stops.md) | 不推定外寫授權，不覆寫既有 staging，失敗保留新目標；沒有 approval engine |
 | [review-and-security](../../vendor/engineering-workflow-core/contracts/review-and-security.md) | 程式與組裝邊界須獨立 review／適用 scan、findings disposition；不沿用 P2 的 scan N/A |
 | [exact-head-and-evidence](../../vendor/engineering-workflow-core/contracts/exact-head-and-evidence.md) | 固定文件／notices／明確集合；正式交付另綁 exact Git range、coherence、平台與授權，不以 CLI bool 代替 |
@@ -75,11 +77,13 @@ Staging 限系統 `/tmp` 或 `/var/tmp` 的 canonical 實體目錄下；不信�
 
 [Issue #4](https://github.com/jeffery777/grok-build-dev-skills/issues/4) adds a pinned Core snapshot, offline verification, and fresh temporary staging. It does not load skills, install, download, start Grok/models/sessions, or implement permission/resume adapters. Success proves only the listed files and references. Runtime qualification and delivery readiness remain false.
 
-The [lock](../../core.lock.json) pins the Core repository, revision `345cd601bffbacc777f87fb24f22b5caefa30a3b`, Chinese contract authority, ten Markdown digests, and LICENSE. The verifier also fixes the revision and collection/license digests in code. Editing the lock alone cannot select another source. Anchor updates require source review and affected verification.
+The [lock](../../core.lock.json) pins the Core repository, revision `784ed24f4a09ec35ac7209e0fd2287b214aea260`, Chinese contract authority, ten Markdown digests, and LICENSE. The verifier also fixes the revision and collection/license digests in code. Editing the lock alone cannot select another source. Anchor updates require source review and affected verification.
 
 The eleven [generated copies](../../vendor/engineering-workflow-core/README.md) retain raw upstream bytes. The fixed Core revision is the only source. Do not hand-edit copies or insert translations/generated headers. Keep modification and source records in the lock and [provenance](../provenance/source-map.md). Retain the [Core license](../../vendor/engineering-workflow-core/LICENSE) and [full upstream notices](../../vendor/engineering-workflow-core/docs/provenance/upstream-notices.md).
 
 [G-W1 / Issue #16](https://github.com/jeffery777/grok-build-dev-skills/issues/16) updates the source to the [Core PR #8](https://github.com/jeffery777/engineering-workflow-core/pull/8) merge revision. The skills refer to the shared [plain-writing requirements](../../vendor/engineering-workflow-core/contracts/workflow.md#wf-writing). The verification algorithm, interfaces and readiness limits remain unchanged. See [provenance](../provenance/source-map.md) for source and digest details.
+
+[GG1 / Issue #18](https://github.com/jeffery777/grok-build-dev-skills/issues/18) now adopts evidence lifecycle and risk-first review from the final [Core PR #12](https://github.com/jeffery777/engineering-workflow-core/pull/12) revision. G-W1 above records the earlier writing update. See [project policy](../../README.md#adopted-workflow-and-project-policy) for entry-point behavior. The lock, code anchors, snapshot and manifest change together; verification algorithms and false readiness remain.
 
 ### Collection and references
 
@@ -87,7 +91,7 @@ Algorithm ID: `sha256-path-tab-sha256-lf-v1`.
 
 1. Sort the ten Markdown entries by UTF-8 path bytes.
 2. Encode each as `path + TAB + lowercase_sha256 + LF`, without JSON quotes or spaces.
-3. Hash the concatenated 968 bytes. Required SHA-256: `ba32220ff76ad4ee3b48195984cd653637a817268b6ed0876869486b81a5dc00`.
+3. Hash the concatenated 968 bytes. Required SHA-256: `f308093e1dbb6ba2796a3b286406a5f02adde692d05a200b2894e88527bed3c4`.
 4. Exclude LICENSE from that collection. Verify its separate SHA-256: `49d64e81e9fd3b12470c1da48367b120b28d404ca08edfdd950278e28e4da34f`.
 
 P2 proposed NUL separation but did not implement a lock. P3-G1 selects TAB explicitly. The two digests are not interchangeable. Manifest paths are approved ASCII POSIX relative paths only. Reject duplicates, empty/dot/parent segments, absolute/escaping/unknown paths, backslashes, and TAB/LF/CR/NUL. Hash original bytes without newline or Unicode normalization.
@@ -98,7 +102,7 @@ The four contracts need nine Markdown files and LICENSE for local file closure. 
 
 | Contract | Consumption and limit |
 | --- | --- |
-| [workflow](../../vendor/engineering-workflow-core/contracts/workflow.md) | Complete bytes/references are available. Skill entry points must read stages, plain-writing, capability/delegation, and Outcome obligations. No workflow executor is implemented |
+| [workflow](../../vendor/engineering-workflow-core/contracts/workflow.md) | Complete bytes/references are available. Skill entry points must read stages, risk/timing, evidence lifecycle, plain-writing, capability/delegation, and Outcome obligations. No workflow executor is implemented |
 | [authorization and stops](../../vendor/engineering-workflow-core/contracts/authorization-and-stops.md) | No inferred external-write authority; no overwrite; retain failed fresh staging. No approval engine |
 | [review and security](../../vendor/engineering-workflow-core/contracts/review-and-security.md) | Independent review, applicable scan, and finding dispositions for program/assembly boundaries. P2 scan N/A is not reused |
 | [exact head and evidence](../../vendor/engineering-workflow-core/contracts/exact-head-and-evidence.md) | Fixed documents/notices and defined set digest. Delivery separately binds Git range, coherence, platform, and authority; CLI booleans do not replace them |

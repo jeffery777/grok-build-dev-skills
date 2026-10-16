@@ -28,6 +28,16 @@ Core 命令驗固定十一檔；package 命令驗二十檔 bundle。成功只證
 
 [engineering-workflow-core](https://github.com/jeffery777/engineering-workflow-core) 承載純 Markdown 共用義務；[codex-dev-skills](https://github.com/jeffery777/codex-dev-skills) 與本專案各自實作接口。共用文字不表示工具、sandbox、permission 或 session 行為相同。
 
+## 採用的工作流與專案政策
+
+兩個既有 [執行技能](skills/grok-engineering-workflow/SKILL.md) 與 [review 技能](skills/grok-review-change/SKILL.md) 已接入固定 Core 的 [風險與檢查時機](vendor/engineering-workflow-core/contracts/review-and-security.md#review-risk-timing) 及 [證據生命週期](vendor/engineering-workflow-core/contracts/workflow.md#wf-evidence-lifecycle)。先記任務風險及依據；資訊不足不默認低風險，scope／設計／影響變動就重評。高風險及早做獨立深入設計／code review 與安全分析，有實質 diff 就做必要比例掃描；開發中持續快速測試與適用廉價檢查，不等最終候選才開始深查。
+
+有效專案政策可明定檢查時機、深度、判準及有理由的適用性例外，也可專化證據位置、保留期及歸檔方式；不得弱化必要安全、授權、保存、獨立 review、exact-head 或指令優先序。未選其他有效政策時，採固定 Core 的共用預設。最終候選綁定必要驗收證據；Merge Review 查充分性、當前性與完整範圍，不機械重做全庫 deep scan。變更後依影響補測／重審／必要重掃，記重用理由與 coverage；每個新 head 仍須完整 base-to-head review。
+
+續行與結案保留精簡原因／修正／版本／scope／outcome／替代引用及必要實質證據。新成功須覆蓋原失敗與受影響邊界；無關 PASS 或間歇問題的一次成功不代表結清。保護未解、間歇、安全／資料遺失、共享／仍引用及 review／merge／acceptance 所需記錄。可先載入索引與必要來源；來源缺失須明記未驗證，摘要不升格為原證據。
+
+本專案未設定通用保留天數或自動清理。缺有效 retention 政策或期間時，先保留來源並記待決事項；減少上下文載入不授權刪除。實際搬移／歸檔／清理前另查政策、保護例外、引用／其他使用者、精確 scope、授權與必要 preview／dry-run；不可逆刪除須操作當下確認。本包未執行歷史清理，也不要求每份 raw log 永久保存。
+
 ## 限制與授權
 
 本包不部署、不發布 Tag／Release、不更新既有技能或全域設定，不啟用 Memory／Hooks／Schedulers。模型執行及 resume 必須顯式指定已驗證的 sandbox profile，初始 permission 為 ask；沒有可靠授權通道即停止。新的授權交回あき與使用者，不能以逾時或沉默代替同意。
@@ -61,6 +71,16 @@ PYTHONDONTWRITEBYTECODE=1 python3 scripts/grok_package.py capabilities
 The Core command verifies eleven fixed files; the package command verifies a twenty-file bundle. Success proves offline bytes/references, not skill loading, native delegation or runtime qualification. The packet is a consumer evidence envelope, not a Grok API schema. All readiness flags stay false. There is no installer or live transport. The [P2-G design](docs/design/p2-g-preparation.md) and [source map](docs/provenance/source-map.md) retain history and alignment information.
 
 [engineering-workflow-core](https://github.com/jeffery777/engineering-workflow-core) owns shared Markdown obligations. [codex-dev-skills](https://github.com/jeffery777/codex-dev-skills) and this project each own their adapter. Shared text does not prove equal tools, sandbox, permission, or session behavior.
+
+## Adopted workflow and project policy
+
+The existing [execution skill](skills/grok-engineering-workflow/SKILL.md) and [review skill](skills/grok-review-change/SKILL.md) now use the fixed Core [risk/timing rules](vendor/engineering-workflow-core/contracts/review-and-security.md#review-risk-timing) and [evidence lifecycle](vendor/engineering-workflow-core/contracts/workflow.md#wf-evidence-lifecycle). Record task risk and its basis first. Missing information is not low risk. Reassess scope, design or impact changes. High-risk work needs early independent in-depth design/code review and security analysis. Start required proportionate scans on a meaningful diff, with fast tests and cheap applicable checks during development. Do not wait for a final candidate to begin in-depth work.
+
+A valid project policy may set check timing, depth, criteria and justified applicability exceptions, as well as evidence locations, retention periods and archive methods. It cannot weaken mandatory safety/security, authorization, retention, independent review, exact-head requirements or instruction priority. Use the fixed Core defaults when no other valid policy is selected. The final candidate binds acceptance evidence. Merge Review checks sufficient current coverage of the complete range; it does not automatically repeat a whole-repository deep scan. After changes, justify affected retests/reviews/necessary rescans and evidence reuse/coverage. Every changed head still needs complete base-to-head review.
+
+At continuation and closeout, retain compact cause/fix/version/scope/outcome/replacement references and required substantive evidence. A success must cover the original failure and affected boundaries. An unrelated PASS or one success after an intermittent failure does not close it. Protect unresolved, intermittent, security/data-loss, shared, cited and review/merge/acceptance records. Load indexes and needed sources first. Mark missing sources unverified; summaries do not become original evidence.
+
+This project sets no universal retention period or automatic cleanup. Without a valid retention policy or duration, keep sources and pending decisions. Loading less context does not authorize deletion. Actual movement/archive/cleanup requires policy, protection, references/other users, exact scope, authority and required preview/dry-run checks. Irreversible deletion needs confirmation at action time. This package performs no historical cleanup and does not require every raw log to be kept forever.
 
 ## Limits and license
 

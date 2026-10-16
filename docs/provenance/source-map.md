@@ -48,18 +48,18 @@ See the [qualification record](../verification/grok-control-qualification.md) fo
 
 ## 現行固定消費 / Current pinned consumption
 
-Active Core revision: `345cd601bffbacc777f87fb24f22b5caefa30a3b`，來自已合併的 [Core PR #8](https://github.com/jeffery777/engineering-workflow-core/pull/8)，由 [G-W1 / Issue #16](https://github.com/jeffery777/grok-build-dev-skills/issues/16) 接入。P3-G1 原固定 P1 revision `b4c37798b6d3a9efd91c8c6d518093f2dd847a98`；上方 P0 與原 P1 身分是歷史來源，不是現行 lock。Core PR #8 is the current source; P0 and the original P1 pin remain historical.
+Active Core revision: `784ed24f4a09ec35ac7209e0fd2287b214aea260`，來自已合併的 [Core PR #12](https://github.com/jeffery777/engineering-workflow-core/pull/12)，由 [GG1 / Issue #18](https://github.com/jeffery777/grok-build-dev-skills/issues/18) 接入。G-W1 原固定 `345cd601bffbacc777f87fb24f22b5caefa30a3b`；P3-G1 原固定 P1 revision `b4c37798b6d3a9efd91c8c6d518093f2dd847a98`；上方 P0 與原 P1 身分是歷史來源，不是現行 lock。Core PR #12 is the current source; P0, P1 and G-W1 pins remain historical.
 
 [core.lock.json](../../core.lock.json) 固定全部十份 Markdown digest 與另驗的 LICENSE；[snapshot](../../vendor/engineering-workflow-core/README.md) 是原 bytes 的 generated copy，唯一來源為該 Core revision，不手改副本。The lock pins all ten Markdown digests and a separate license digest. Generated copies retain exact upstream bytes and must not be hand-edited.
 
 | Core 契約 / Contract | SHA-256 |
 | --- | --- |
-| [workflow](../../vendor/engineering-workflow-core/contracts/workflow.md) | `567a10e20aa91a5a1302f83b82dda69a5deea11fd4971813fa0c53767b4bf859` |
-| [authorization-and-stops](../../vendor/engineering-workflow-core/contracts/authorization-and-stops.md) | `26924aba9211929583d2ae31c14a12f9c220c13c8dfbdc43ddf6970d9d5919d7` |
-| [review-and-security](../../vendor/engineering-workflow-core/contracts/review-and-security.md) | `28acff344b14968ead954903fb6815d283ed1b4bb8dc2e977a3e37fca7845501` |
-| [exact-head-and-evidence](../../vendor/engineering-workflow-core/contracts/exact-head-and-evidence.md) | `c55f08e77a47583485403f7318afe5f2ef1a90ff137279a0c0c59104d5c2e7de` |
+| [workflow](../../vendor/engineering-workflow-core/contracts/workflow.md) | `e9688c8e3c48655a4e385a42cfaef6f60e8b6edec42d2c2a83871ba67b484701` |
+| [authorization-and-stops](../../vendor/engineering-workflow-core/contracts/authorization-and-stops.md) | `27f02076fdd034c090e341610d7e04f8e79143ec17c1d37a4b57629a04c5e699` |
+| [review-and-security](../../vendor/engineering-workflow-core/contracts/review-and-security.md) | `08f3b8be2ba2a8386077120141f925f5e0a33433e1ffe757535c16834fe81bbd` |
+| [exact-head-and-evidence](../../vendor/engineering-workflow-core/contracts/exact-head-and-evidence.md) | `ba3419d7090fecce3e84f4ea35cd7695135fb7bbf8c1451502941163d8e873a4` |
 
-集合算法為 `sha256-path-tab-sha256-lf-v1`，集合 SHA-256 為 `ba32220ff76ad4ee3b48195984cd653637a817268b6ed0876869486b81a5dc00`，LICENSE 不在集合內。The collection algorithm uses TAB, not the historical NUL proposal; LICENSE is separate. [消費與限制 / Consumption and limits](../design/p3-g-core-consumption.md) 將原契約義務與本包的離線驗證分開，不宣稱 runtime 合格 / separates obligations from offline checks and makes no runtime qualification claim.
+集合算法為 `sha256-path-tab-sha256-lf-v1`，集合 SHA-256 為 `f308093e1dbb6ba2796a3b286406a5f02adde692d05a200b2894e88527bed3c4`，LICENSE 不在集合內。The collection algorithm uses TAB, not the historical NUL proposal; LICENSE is separate. [消費與限制 / Consumption and limits](../design/p3-g-core-consumption.md) 將原契約義務與本包的離線驗證分開，不宣稱 runtime 合格 / separates obligations from offline checks and makes no runtime qualification claim.
 
 ## P3-G2 能力映射 / Capability mapping
 
@@ -78,3 +78,13 @@ Core 交付的十一檔 aggregate `269b1d5a05cc5c8ff9624b9988a0568073fd68ad6e953
 兩技能只引用 [Core 寫作條款](../../vendor/engineering-workflow-core/contracts/workflow.md#wf-writing)，在既有 Docs Sync／coherence review 記抽查與限制，不複製一套規則或新增 gate。新增條款來自使用者要求，見 Core 的 [更新來源](../../vendor/engineering-workflow-core/docs/provenance/source-map.md#plain-writing-update)，不是原 Codex P1 抽取內容。英文依 ASD-STE100 原則編寫，尚未完成完整符合性驗證；繁中採對應簡明原則，不宣稱符合英文標準。The skills refer to the shared clause within existing review. Its source is the accepted user requirement, not the original P1 extraction. English follows ASD-STE100 principles; full conformity is unverified. Traditional Chinese uses adapted clarity principles.
 
 這次更新不改既有安裝或 trusted fixture，不啟動 Grok runtime；原資格記錄與 false readiness 保留。This update does not change existing installations or the trusted fixture, start Grok, or upgrade runtime qualification/readiness.
+
+## GG1 治理契約接入 / Governance contract adoption
+
+[Issue #18](https://github.com/jeffery777/grok-build-dev-skills/issues/18) 採 Core Issue9/PR10、Issue11/PR12 的最終 immutable revision `784ed24f4a09ec35ac7209e0fd2287b214aea260`，tree `100af4a54e1741bb0fc214ad2c1d664f4c065f81`。十一份 generated raw files 依 Git blob／SHA-256／size／100644 mode 核對；相對 G-W1 六檔變動：README、四契約及 Core source-map，其餘五檔與完整 notices 不變。This package adopts the final immutable Core revision after both governance packages; six generated files change and five retain their bytes.
+
+十一檔 handoff aggregate `9517d611999058c1667eb255e38791f7189db501ca36d004759a62165d977b53` 只比對來源；consumer 使用上節十份 Markdown collection，LICENSE 仍分驗。The eleven-file aggregate is a source comparison, separate from the consumer collection and LICENSE.
+
+現有 skills／README 接入 [風險與檢查時機](../../vendor/engineering-workflow-core/contracts/review-and-security.md#review-risk-timing) 及 [證據生命週期](../../vendor/engineering-workflow-core/contracts/workflow.md#wf-evidence-lifecycle)，不新增執行框架或改 schema。新共同義務來自使用者接受的要求，見 Core [lifecycle 來源](../../vendor/engineering-workflow-core/docs/provenance/source-map.md#evidence-lifecycle-update) 與 [risk 來源](../../vendor/engineering-workflow-core/docs/provenance/source-map.md#risk-review-update)；不倒寫成 P1 Codex 抽取義務，也不升級既有寫作符合性證據。Existing entry points consume both user-origin contracts without a new executor or schema. Prior provenance and writing/conformity limits remain.
+
+本包先檢查敏感治理／信任邊界，依實質 diff 做比例安全檢查，再以最終候選核對必要證據。沒有全庫 deep scan 的通用要求或成本改善承諾；變更後須有受影響驗證及可證未變證據的重用理由。未執行 Grok／runtime、歷史 cleanup／搬移／歸檔／刪除、安裝或 global rollout；舊 trusted fixture 保持原 pin。This package performs no runtime, historical evidence cleanup or installed/global rollout.

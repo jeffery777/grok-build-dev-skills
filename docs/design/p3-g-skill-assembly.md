@@ -8,7 +8,9 @@
 
 [Issue #6](https://github.com/jeffery777/grok-build-dev-skills/issues/6) 承接已驗收的 [P3-G1](p3-g-core-consumption.md)，提供兩個技能原稿、Grok 能力對照、consumer 證據格式及全新臨時組裝。Core 固定於 `b4c37798b6d3a9efd91c8c6d518093f2dd847a98`；lock、十一份原 bytes 與完整 notices 不變。協調入口見 [Program Open Issues](https://chatgpt.com/space/page_548d81ee2cf08191a144063ee8fe571b)。
 
-上述 Issue #6 是原組裝包的歷史身分。[G-W1 / Issue #16](https://github.com/jeffery777/grok-build-dev-skills/issues/16) 現將 Core 更新為 `345cd601bffbacc777f87fb24f22b5caefa30a3b`，並讓兩技能引用 [共用寫作條款](../../vendor/engineering-workflow-core/contracts/workflow.md#wf-writing)，沿用 Docs Sync 與 coherence review。Lock、原 bytes、code-owned anchors 與 manifest 同包更新；完整 notices、離線邊界與 readiness 限制保留。
+上述 Issue #6 是原組裝包的歷史身分。[G-W1 / Issue #16](https://github.com/jeffery777/grok-build-dev-skills/issues/16) 當時將 Core 更新為 `345cd601bffbacc777f87fb24f22b5caefa30a3b`，並讓兩技能引用 [共用寫作條款](../../vendor/engineering-workflow-core/contracts/workflow.md#wf-writing)，沿用 Docs Sync 與 coherence review。Lock、原 bytes、code-owned anchors 與 manifest 同包更新；完整 notices、離線邊界與 readiness 限制保留。
+
+[GG1 / Issue #18](https://github.com/jeffery777/grok-build-dev-skills/issues/18) 現固定 Core `784ed24f4a09ec35ac7209e0fd2287b214aea260`，保留寫作採用，將風險起始／變動重評、早期設計／code／安全工作及證據替代／保護接入既有執行、委派 brief、review 與 closeout。有效 [專案政策](../../README.md#採用的工作流與專案政策) 在 mandatory obligations 內專化，不新增控制器、gate 或清理框架；snapshot／lock／程式 anchors／manifest／受影響測試同包對齊。
 
 ### 來源與組裝
 
@@ -44,7 +46,9 @@ Source 與 staging 的相對佈局相同；可搬移的 bundle 含兩個 verifie
 
 [Issue #6](https://github.com/jeffery777/grok-build-dev-skills/issues/6) extends the accepted [P3-G1 package](p3-g-core-consumption.md). It adds two skill sources, focused Grok references, a consumer evidence envelope and fresh temporary assembly. Core stays fixed at `b4c37798b6d3a9efd91c8c6d518093f2dd847a98`; its lock, eleven raw files and complete notices do not change. See [Program Open Issues](https://chatgpt.com/space/page_548d81ee2cf08191a144063ee8fe571b) for coordination.
 
-Issue #6 above identifies the original assembly package. [G-W1 / Issue #16](https://github.com/jeffery777/grok-build-dev-skills/issues/16) now updates Core to `345cd601bffbacc777f87fb24f22b5caefa30a3b`. Both skills refer to the shared [plain-writing requirements](../../vendor/engineering-workflow-core/contracts/workflow.md#wf-writing) within Docs Sync and coherence review. The lock, raw files, code-owned anchors and manifest change together. Complete notices, offline boundaries and readiness limits remain.
+Issue #6 above identifies the original assembly package. [G-W1 / Issue #16](https://github.com/jeffery777/grok-build-dev-skills/issues/16) updated Core at that time to `345cd601bffbacc777f87fb24f22b5caefa30a3b`. Both skills refer to the shared [plain-writing requirements](../../vendor/engineering-workflow-core/contracts/workflow.md#wf-writing) within Docs Sync and coherence review. The lock, raw files, code-owned anchors and manifest change together. Complete notices, offline boundaries and readiness limits remain.
+
+[GG1 / Issue #18](https://github.com/jeffery777/grok-build-dev-skills/issues/18) now pins Core `784ed24f4a09ec35ac7209e0fd2287b214aea260` and preserves writing adoption. Existing execution, delegation briefs, review and closeout now apply risk reassessment, early design/code/security work, evidence replacement coverage and retention protection. Valid [project policy](../../README.md#adopted-workflow-and-project-policy) specializes within mandatory obligations; no controller, gate or cleanup framework is added. Snapshot, lock, code anchors, manifest and affected tests change together.
 
 ### Sources and assembly
 
