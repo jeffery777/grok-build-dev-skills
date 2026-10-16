@@ -8,9 +8,13 @@ The original P3-G1 package additionally vendored the eleven fixed Core files at 
 
 原 P3-G1 包另保留上述固定 P1 revision 的十一份原檔，不改 bytes；snapshot 隨附其 LICENSE 與完整 upstream notices。下方歷史 notices 原文保留；未引入 Core 執行程式。
 
-[G-W1 / Issue #16](https://github.com/jeffery777/grok-build-dev-skills/issues/16) updates the active snapshot to Core `345cd601bffbacc777f87fb24f22b5caefa30a3b`. All eleven files retain their raw bytes from that revision. The new writing clause follows the accepted user requirement recorded in [Core provenance](../../vendor/engineering-workflow-core/docs/provenance/source-map.md#plain-writing-update). The complete Core and historical notices remain; no full ASD-STE100 standard is reproduced.
+[G-W1 / Issue #16](https://github.com/jeffery777/grok-build-dev-skills/issues/16) updated the snapshot at that time to Core `345cd601bffbacc777f87fb24f22b5caefa30a3b`. All eleven files retain their raw bytes from that revision. The new writing clause follows the accepted user requirement recorded in [Core provenance](../../vendor/engineering-workflow-core/docs/provenance/source-map.md#plain-writing-update). The complete Core and historical notices remain; no full ASD-STE100 standard is reproduced.
 
-G-W1 將現行 snapshot 更新至上述 Core revision，保留十一份原 bytes。新寫作條款另記使用者需求來源，完整 Core 與歷史 notices 保留；未重製完整 ASD-STE100 標準。
+G-W1 當時將 snapshot 更新至上述 Core revision，保留十一份原 bytes。新寫作條款另記使用者需求來源，完整 Core 與歷史 notices 保留；未重製完整 ASD-STE100 標準。
+
+[GG1 / Issue #18](https://github.com/jeffery777/grok-build-dev-skills/issues/18) updates the active snapshot to Core `784ed24f4a09ec35ac7209e0fd2287b214aea260`. All eleven files are raw copies of that revision. New evidence-lifecycle and risk-first-review clauses retain their user-origin provenance in the [Core source map](../../vendor/engineering-workflow-core/docs/provenance/source-map.md#evidence-lifecycle-update). Full Core and historical MIT notices remain unchanged; no Core executable or complete ASD standard is imported.
+
+GG1 將現行 snapshot 更新至上述最終 revision，保留十一份原 bytes、新義務的使用者來源與完整 MIT notices；既有寫作及符合性限制保留，不引入 Core 程式或完整 ASD 標準。
 
 ## engineering-workflow-core
 

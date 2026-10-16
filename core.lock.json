@@ -1,32 +1,32 @@
 {
   "schema_version": 1,
   "core_repository": "https://github.com/jeffery777/engineering-workflow-core",
-  "core_revision": "345cd601bffbacc777f87fb24f22b5caefa30a3b",
+  "core_revision": "784ed24f4a09ec35ac7209e0fd2287b214aea260",
   "contract_language": "zh-TW",
   "collection": {
     "algorithm": "sha256-path-tab-sha256-lf-v1",
-    "sha256": "ba32220ff76ad4ee3b48195984cd653637a817268b6ed0876869486b81a5dc00"
+    "sha256": "f308093e1dbb6ba2796a3b286406a5f02adde692d05a200b2894e88527bed3c4"
   },
   "files": [
     {
       "path": "README.md",
-      "sha256": "035a00ad749da99743984083d29c184ff335c64e8ca0b5a1ec845168fa6ca96c"
+      "sha256": "fc8864d6e21d2f808b2d9d139abf50136335a290ce46d8d47eed5906fd6e8f2c"
     },
     {
       "path": "contracts/authorization-and-stops.md",
-      "sha256": "26924aba9211929583d2ae31c14a12f9c220c13c8dfbdc43ddf6970d9d5919d7"
+      "sha256": "27f02076fdd034c090e341610d7e04f8e79143ec17c1d37a4b57629a04c5e699"
     },
     {
       "path": "contracts/exact-head-and-evidence.md",
-      "sha256": "c55f08e77a47583485403f7318afe5f2ef1a90ff137279a0c0c59104d5c2e7de"
+      "sha256": "ba3419d7090fecce3e84f4ea35cd7695135fb7bbf8c1451502941163d8e873a4"
     },
     {
       "path": "contracts/review-and-security.md",
-      "sha256": "28acff344b14968ead954903fb6815d283ed1b4bb8dc2e977a3e37fca7845501"
+      "sha256": "08f3b8be2ba2a8386077120141f925f5e0a33433e1ffe757535c16834fe81bbd"
     },
     {
       "path": "contracts/workflow.md",
-      "sha256": "567a10e20aa91a5a1302f83b82dda69a5deea11fd4971813fa0c53767b4bf859"
+      "sha256": "e9688c8e3c48655a4e385a42cfaef6f60e8b6edec42d2c2a83871ba67b484701"
     },
     {
       "path": "docs/architecture/dependency-inventory.md",
@@ -42,7 +42,7 @@
     },
     {
       "path": "docs/provenance/source-map.md",
-      "sha256": "d435ce323d2d3c9269ca35bb674fe4562a8d9b8a0ddb8c1fc5da33e4cdf5e57d"
+      "sha256": "f878088816780e97b22cae6d142b5feb81f36951476594070994995526345032"
     },
     {
       "path": "docs/provenance/upstream-notices.md",

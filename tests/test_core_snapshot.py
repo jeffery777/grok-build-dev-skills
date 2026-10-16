@@ -48,10 +48,10 @@ class SnapshotTests(unittest.TestCase):
 
     def test_pinned_bytes_and_false_authority(self):
         result, files = core.verify(self.lock, self.snapshot)
-        self.assertEqual(result["core_revision"], "345cd601bffbacc777f87fb24f22b5caefa30a3b")
-        self.assertEqual(result["collection_sha256"], "ba32220ff76ad4ee3b48195984cd653637a817268b6ed0876869486b81a5dc00")
+        self.assertEqual(result["core_revision"], "784ed24f4a09ec35ac7209e0fd2287b214aea260")
+        self.assertEqual(result["collection_sha256"], "f308093e1dbb6ba2796a3b286406a5f02adde692d05a200b2894e88527bed3c4")
         self.assertEqual(result["verified_files"], 11)
-        self.assertEqual(result["local_references"], 274)
+        self.assertEqual(result["local_references"], 298)
         self.assertFalse(result["runtime_qualified"])
         self.assertFalse(result["delivery_ready"])
         self.assertEqual(set(files), core.FILES)

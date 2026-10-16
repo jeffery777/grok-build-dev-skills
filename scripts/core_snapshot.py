@@ -19,9 +19,9 @@ from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 CORE_REPOSITORY = "https://github.com/jeffery777/engineering-workflow-core"
-CORE_REVISION = "345cd601bffbacc777f87fb24f22b5caefa30a3b"
+CORE_REVISION = "784ed24f4a09ec35ac7209e0fd2287b214aea260"
 ALGORITHM = "sha256-path-tab-sha256-lf-v1"
-COLLECTION_SHA256 = "ba32220ff76ad4ee3b48195984cd653637a817268b6ed0876869486b81a5dc00"
+COLLECTION_SHA256 = "f308093e1dbb6ba2796a3b286406a5f02adde692d05a200b2894e88527bed3c4"
 LICENSE_SHA256 = "49d64e81e9fd3b12470c1da48367b120b28d404ca08edfdd950278e28e4da34f"
 MARKDOWN_PATHS = frozenset({
     "README.md",
