@@ -4,9 +4,13 @@
 
 This design adapts the fixed Core P0 and Codex sources in the [source map](source-map.md) for Grok P2. It moves no executable code. The full source MIT notices follow. The root [LICENSE](../../LICENSE) does not replace them. No xAI source code or complete documentation is vendored. Future third-party substantial portions require their own license and notice review.
 
-P3-G1 additionally vendors the eleven fixed Core files at `b4c37798b6d3a9efd91c8c6d518093f2dd847a98`, with raw bytes unchanged. The [vendored LICENSE](../../vendor/engineering-workflow-core/LICENSE) and [upstream-notices](../../vendor/engineering-workflow-core/docs/provenance/upstream-notices.md) accompany the snapshot. The historical notices below remain intact. No Core executable is imported.
+The original P3-G1 package additionally vendored the eleven fixed Core files at `b4c37798b6d3a9efd91c8c6d518093f2dd847a98`, with raw bytes unchanged. The [vendored LICENSE](../../vendor/engineering-workflow-core/LICENSE) and [upstream-notices](../../vendor/engineering-workflow-core/docs/provenance/upstream-notices.md) accompany the snapshot. The historical notices below remain intact. No Core executable is imported.
 
-P3-G1 另保留上述固定 P1 revision 的十一份原檔，不改 bytes；snapshot 隨附其 LICENSE 與完整 upstream notices。下方歷史 notices 原文保留；未引入 Core 執行程式。
+原 P3-G1 包另保留上述固定 P1 revision 的十一份原檔，不改 bytes；snapshot 隨附其 LICENSE 與完整 upstream notices。下方歷史 notices 原文保留；未引入 Core 執行程式。
+
+[G-W1 / Issue #16](https://github.com/jeffery777/grok-build-dev-skills/issues/16) updates the active snapshot to Core `345cd601bffbacc777f87fb24f22b5caefa30a3b`. All eleven files retain their raw bytes from that revision. The new writing clause follows the accepted user requirement recorded in [Core provenance](../../vendor/engineering-workflow-core/docs/provenance/source-map.md#plain-writing-update). The complete Core and historical notices remain; no full ASD-STE100 standard is reproduced.
+
+G-W1 將現行 snapshot 更新至上述 Core revision，保留十一份原 bytes。新寫作條款另記使用者需求來源，完整 Core 與歷史 notices 保留；未重製完整 ASD-STE100 標準。
 
 ## engineering-workflow-core
 

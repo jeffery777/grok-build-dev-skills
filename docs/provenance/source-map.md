@@ -46,20 +46,20 @@ SHA-256 均針對 Git blob 的原 bytes / All SHA-256 values cover raw Git blob 
 
 See the [qualification record](../verification/grok-control-qualification.md) for conflicts and unknowns. Recheck affected evidence when source revisions or execution conditions change.
 
-## P3-G1 固定消費 / P3-G1 pinned consumption
+## 現行固定消費 / Current pinned consumption
 
-Active Core revision: `b4c37798b6d3a9efd91c8c6d518093f2dd847a98`，來自已合併的 [Core PR #4](https://github.com/jeffery777/engineering-workflow-core/pull/4)。上方 P0 revision/digests 為歷史盤點，不是此 active lock。The P0 records above remain historical; the merged P1 revision is the active source.
+Active Core revision: `345cd601bffbacc777f87fb24f22b5caefa30a3b`，來自已合併的 [Core PR #8](https://github.com/jeffery777/engineering-workflow-core/pull/8)，由 [G-W1 / Issue #16](https://github.com/jeffery777/grok-build-dev-skills/issues/16) 接入。P3-G1 原固定 P1 revision `b4c37798b6d3a9efd91c8c6d518093f2dd847a98`；上方 P0 與原 P1 身分是歷史來源，不是現行 lock。Core PR #8 is the current source; P0 and the original P1 pin remain historical.
 
 [core.lock.json](../../core.lock.json) 固定全部十份 Markdown digest 與另驗的 LICENSE；[snapshot](../../vendor/engineering-workflow-core/README.md) 是原 bytes 的 generated copy，唯一來源為該 Core revision，不手改副本。The lock pins all ten Markdown digests and a separate license digest. Generated copies retain exact upstream bytes and must not be hand-edited.
 
 | Core 契約 / Contract | SHA-256 |
 | --- | --- |
-| [workflow](../../vendor/engineering-workflow-core/contracts/workflow.md) | `318380ef6783de944b1992b31c4384c8be5ec022a6b429616c7caa42508dd6e5` |
+| [workflow](../../vendor/engineering-workflow-core/contracts/workflow.md) | `567a10e20aa91a5a1302f83b82dda69a5deea11fd4971813fa0c53767b4bf859` |
 | [authorization-and-stops](../../vendor/engineering-workflow-core/contracts/authorization-and-stops.md) | `26924aba9211929583d2ae31c14a12f9c220c13c8dfbdc43ddf6970d9d5919d7` |
 | [review-and-security](../../vendor/engineering-workflow-core/contracts/review-and-security.md) | `28acff344b14968ead954903fb6815d283ed1b4bb8dc2e977a3e37fca7845501` |
 | [exact-head-and-evidence](../../vendor/engineering-workflow-core/contracts/exact-head-and-evidence.md) | `c55f08e77a47583485403f7318afe5f2ef1a90ff137279a0c0c59104d5c2e7de` |
 
-集合算法為 `sha256-path-tab-sha256-lf-v1`，集合 SHA-256 為 `8446dfbf5e2820dd696ef411e87cc7a92b39305c369c808122b63554b9be83f6`，LICENSE 不在集合內。The collection algorithm uses TAB, not the historical NUL proposal; LICENSE is separate. [消費與限制 / Consumption and limits](../design/p3-g-core-consumption.md) 將原契約義務與本包的離線驗證分開，不宣稱 runtime 合格 / separates obligations from offline checks and makes no runtime qualification claim.
+集合算法為 `sha256-path-tab-sha256-lf-v1`，集合 SHA-256 為 `ba32220ff76ad4ee3b48195984cd653637a817268b6ed0876869486b81a5dc00`，LICENSE 不在集合內。The collection algorithm uses TAB, not the historical NUL proposal; LICENSE is separate. [消費與限制 / Consumption and limits](../design/p3-g-core-consumption.md) 將原契約義務與本包的離線驗證分開，不宣稱 runtime 合格 / separates obligations from offline checks and makes no runtime qualification claim.
 
 ## P3-G2 能力映射 / Capability mapping
 
@@ -68,3 +68,13 @@ Active Core revision: `b4c37798b6d3a9efd91c8c6d518093f2dd847a98`，來自已合�
 [Catalog](../../capabilities/grok-build-1.0.52.json) 記錄既有 1.0.52 help／隨版文件與 2026-10-15 官方研究；網站是可變文件，不是 runtime receipt。新增固定文件指紋：`16-subagents.md` 為 `6556ef4eab94ff5dc01343feedacf525334b23131d626b38b4cd752eeb6c8c78`，`08-skills.md` 為 `a37b169de29bd78160c0cd5c51490610e82a690fc2c866745a7456acdc5345bd`；`14-headless-mode.md` 沿用上方指紋。不分發第三方全文，不匯入其程式。The catalog distinguishes fixed bundled text from mutable websites and unauthenticated operator reports.
 
 [組裝設計](../design/p3-g-skill-assembly.md) 與 [委派資格](../verification/grok-delegation-capabilities.md) 保留 documented／schema-observed／runtime-verified 的界線。Package manifest／packet 是 consumer 自有格式，沒有冒充 Grok 相容 schema；離線驗證不啟用服務、不證明訂閱／API entitlement，且所有 readiness 固定 false。
+
+## G-W1 共用寫作接入 / Shared writing requirements
+
+本包從 immutable Core tree `4a978ea6cb3b168882b2f6e90a4780055ce9b922` 取得十一份原檔，核對 Git blob 與 raw SHA-256，保留 0644 mode。相對原 pin 的五個 generated changes 為 README、workflow、source-map、migration-plan 與 project-split；後兩份包含前一個 Core 導讀包。其餘檔案及 LICENSE bytes 不變。This package consumes eleven immutable raw files with checked blob identities, SHA-256 digests and 0644 modes. Five generated files differ from the original pin; the other files and LICENSE retain their bytes.
+
+Core 交付的十一檔 aggregate `269b1d5a05cc5c8ff9624b9988a0568073fd68ad6e9530ebae0da0286e9e2c12` 僅為來源比對；consumer 仍用上節十份 Markdown collection，LICENSE 分驗，不混用。The eleven-file source aggregate is not the consumer Markdown collection digest.
+
+兩技能只引用 [Core 寫作條款](../../vendor/engineering-workflow-core/contracts/workflow.md#wf-writing)，在既有 Docs Sync／coherence review 記抽查與限制，不複製一套規則或新增 gate。新增條款來自使用者要求，見 Core 的 [更新來源](../../vendor/engineering-workflow-core/docs/provenance/source-map.md#plain-writing-update)，不是原 Codex P1 抽取內容。英文依 ASD-STE100 原則編寫，尚未完成完整符合性驗證；繁中採對應簡明原則，不宣稱符合英文標準。The skills refer to the shared clause within existing review. Its source is the accepted user requirement, not the original P1 extraction. English follows ASD-STE100 principles; full conformity is unverified. Traditional Chinese uses adapted clarity principles.
+
+這次更新不改既有安裝或 trusted fixture，不啟動 Grok runtime；原資格記錄與 false readiness 保留。This update does not change existing installations or the trusted fixture, start Grok, or upgrade runtime qualification/readiness.
