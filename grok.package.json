@@ -1,6 +1,6 @@
 {
   "format": "grok-offline-package/v1",
-  "core_revision": "b4c37798b6d3a9efd91c8c6d518093f2dd847a98",
+  "core_revision": "345cd601bffbacc777f87fb24f22b5caefa30a3b",
   "files": [
     {
       "path": "LICENSE",
@@ -12,7 +12,7 @@
     },
     {
       "path": "core.lock.json",
-      "sha256": "0d5bb2aab12cf3923c42806b0d3cee1d769b9f0280f17730ba34ed07f58f76c8"
+      "sha256": "828bca5d3984e00b1c2afd123b09831d6e70b6ef7a7b0a8db56d3366bffd5fca"
     },
     {
       "path": "references/grok-capabilities.md",
@@ -20,7 +20,7 @@
     },
     {
       "path": "scripts/core_snapshot.py",
-      "sha256": "8f67cca2aaf03299495cbc6f4a254ea65f0d5200b932b9e5573a90804ec4df67"
+      "sha256": "af43eb962dd88d5376d632d2bb171e0f06394a6f33bcb27a681c3eb264f195d7"
     },
     {
       "path": "scripts/grok_package.py",
@@ -28,11 +28,11 @@
     },
     {
       "path": "skills/grok-engineering-workflow/SKILL.md",
-      "sha256": "80c3aebd9bda09a1b1a453c363b2ba5f6424657261a40c3786c943f564edfa9b"
+      "sha256": "e693831705e399d6df3136539bd524644b94dcf970a8033205280bacebbe62f9"
     },
     {
       "path": "skills/grok-review-change/SKILL.md",
-      "sha256": "9773a37e5649ba0888f50a7665e9ea7856f18514f006edb304d2c12dd6870b5f"
+      "sha256": "fac6095102ff8846501827fece92e28c0096a8307c619f93cc3993a6018da503"
     },
     {
       "path": "vendor/engineering-workflow-core/LICENSE",
@@ -40,7 +40,7 @@
     },
     {
       "path": "vendor/engineering-workflow-core/README.md",
-      "sha256": "1b32eb6d5ed5e06b4b798dca52a793c21b526b4515be07b7e974341c16024751"
+      "sha256": "035a00ad749da99743984083d29c184ff335c64e8ca0b5a1ec845168fa6ca96c"
     },
     {
       "path": "vendor/engineering-workflow-core/contracts/authorization-and-stops.md",
@@ -56,7 +56,7 @@
     },
     {
       "path": "vendor/engineering-workflow-core/contracts/workflow.md",
-      "sha256": "318380ef6783de944b1992b31c4384c8be5ec022a6b429616c7caa42508dd6e5"
+      "sha256": "567a10e20aa91a5a1302f83b82dda69a5deea11fd4971813fa0c53767b4bf859"
     },
     {
       "path": "vendor/engineering-workflow-core/docs/architecture/dependency-inventory.md",
@@ -64,15 +64,15 @@
     },
     {
       "path": "vendor/engineering-workflow-core/docs/architecture/migration-plan.md",
-      "sha256": "fadd65adb453bcffde5131fdc3834226a0397914d472712bad037b6ccd24b748"
+      "sha256": "6fbba9ed9a15d32d63dbe138b673c25aec34a81b262d7ada82108077ca67e8cf"
     },
     {
       "path": "vendor/engineering-workflow-core/docs/architecture/project-split.md",
-      "sha256": "5cbb00d07456c56ce52153ab23952ff7626b8b178103229cbaa95f6b25ae8226"
+      "sha256": "18e3e3b620d917aeff7881f4bfe5d4736725d6cac0eb8c758b810564df5f8d84"
     },
     {
       "path": "vendor/engineering-workflow-core/docs/provenance/source-map.md",
-      "sha256": "fe601e2dc914c8370997cf46232dd3a10cb55d72556b07dafe0e9ab5d7cc67db"
+      "sha256": "d435ce323d2d3c9269ca35bb674fe4562a8d9b8a0ddb8c1fc5da33e4cdf5e57d"
     },
     {
       "path": "vendor/engineering-workflow-core/docs/provenance/upstream-notices.md",

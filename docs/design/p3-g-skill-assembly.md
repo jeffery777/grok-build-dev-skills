@@ -8,6 +8,8 @@
 
 [Issue #6](https://github.com/jeffery777/grok-build-dev-skills/issues/6) 承接已驗收的 [P3-G1](p3-g-core-consumption.md)，提供兩個技能原稿、Grok 能力對照、consumer 證據格式及全新臨時組裝。Core 固定於 `b4c37798b6d3a9efd91c8c6d518093f2dd847a98`；lock、十一份原 bytes 與完整 notices 不變。協調入口見 [Program Open Issues](https://chatgpt.com/space/page_548d81ee2cf08191a144063ee8fe571b)。
 
+上述 Issue #6 是原組裝包的歷史身分。[G-W1 / Issue #16](https://github.com/jeffery777/grok-build-dev-skills/issues/16) 現將 Core 更新為 `345cd601bffbacc777f87fb24f22b5caefa30a3b`，並讓兩技能引用 [共用寫作條款](../../vendor/engineering-workflow-core/contracts/workflow.md#wf-writing)，沿用 Docs Sync 與 coherence review。Lock、原 bytes、code-owned anchors 與 manifest 同包更新；完整 notices、離線邊界與 readiness 限制保留。
+
 ### 來源與組裝
 
 [workflow 技能](../../skills/grok-engineering-workflow/SKILL.md) 與 [review 技能](../../skills/grok-review-change/SKILL.md) 保留最小入口，必讀固定 Core 與 [Grok references](../../references/grok-capabilities.md)。原稿放在 `skills/`，沒有寫入 `.grok/skills`、使用者技能或 plugin discovery roots。Skill 觸發只載入指引，不產生工具、模型／effort 實效、runtime 資格或操作權。
@@ -16,7 +18,7 @@
 
 Manifest 必須來自已審的可信 Git revision；可同時改寫 manifest 與技能的同權限攻擊者不在其完整性保障內。Digest 不驗簽章、來源真實性或人類授權。Core 另由 G1 的 code-owned revision／集合／LICENSE anchors 驗證，不能靠改 package manifest 替換 Core。
 
-共用 staging helper 先驗 captured bytes／canonical paths，僅在 canonical 系統暫存目錄下建立全新目標，且位於 configured source 及執行程式 repo 之外。No-follow descriptors、regular/single-link 0644 files、單檔 1 MiB、exclusive creation、0700 directories、讀回與 inode 查核維持。失敗保留新 partial target，先檢視，不盲目覆寫、刪除或重播。G1 CLI 原行為與固定來源保持。
+共用 staging helper 先驗 captured bytes／canonical paths，僅在 canonical 系統暫存目錄下建立全新目標，且位於 configured source 及執行程式 repo 之外。No-follow descriptors、regular/single-link 0644 files、單檔 1 MiB、exclusive creation、0700 directories、讀回與 inode 查核維持。失敗保留新 partial target，先檢視，不盲目覆寫、刪除或重播。G1 CLI 行為保持；現行固定來源見 lock。
 
 ### 離線命令
 
@@ -42,6 +44,8 @@ Source 與 staging 的相對佈局相同；可搬移的 bundle 含兩個 verifie
 
 [Issue #6](https://github.com/jeffery777/grok-build-dev-skills/issues/6) extends the accepted [P3-G1 package](p3-g-core-consumption.md). It adds two skill sources, focused Grok references, a consumer evidence envelope and fresh temporary assembly. Core stays fixed at `b4c37798b6d3a9efd91c8c6d518093f2dd847a98`; its lock, eleven raw files and complete notices do not change. See [Program Open Issues](https://chatgpt.com/space/page_548d81ee2cf08191a144063ee8fe571b) for coordination.
 
+Issue #6 above identifies the original assembly package. [G-W1 / Issue #16](https://github.com/jeffery777/grok-build-dev-skills/issues/16) now updates Core to `345cd601bffbacc777f87fb24f22b5caefa30a3b`. Both skills refer to the shared [plain-writing requirements](../../vendor/engineering-workflow-core/contracts/workflow.md#wf-writing) within Docs Sync and coherence review. The lock, raw files, code-owned anchors and manifest change together. Complete notices, offline boundaries and readiness limits remain.
+
 ### Sources and assembly
 
 The [workflow skill](../../skills/grok-engineering-workflow/SKILL.md) and [review skill](../../skills/grok-review-change/SKILL.md) are minimal entry points. They require the fixed Core contracts and [Grok references](../../references/grok-capabilities.md). Sources live under `skills/`; this package does not write to `.grok/skills`, user skills or plugin discovery roots. A skill trigger loads guidance. It creates no tools, effective model/effort setting, runtime qualification or action authority.
@@ -50,7 +54,7 @@ The [workflow skill](../../skills/grok-engineering-workflow/SKILL.md) and [revie
 
 Trust the reviewed Git source and manifest. An actor who can rewrite both payload and manifest is outside this integrity guarantee. Digests do not establish signatures, source authenticity or human authorization. Core has separate G1 code-owned revision, collection and LICENSE anchors; changing package hashes alone cannot replace it.
 
-The shared staging helper validates captured bytes and canonical paths before writing. It creates a new target below canonical system temporary roots, outside both the configured source and executing repository. It retains no-follow descriptors, regular single-link 0644 files, the 1 MiB per-file limit, exclusive creation, 0700 directories, complete readback and inode checks. A failed fresh target remains for inspection. Do not blindly replay, overwrite or delete it. G1 CLI behavior and its fixed source stay unchanged.
+The shared staging helper validates captured bytes and canonical paths before writing. It creates a new target below canonical system temporary roots, outside both the configured source and executing repository. It retains no-follow descriptors, regular single-link 0644 files, the 1 MiB per-file limit, exclusive creation, 0700 directories, complete readback and inode checks. A failed fresh target remains for inspection. Do not blindly replay, overwrite or delete it. G1 CLI behavior stays unchanged; the lock identifies the current fixed source.
 
 ### Offline commands
 
