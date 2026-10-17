@@ -15,6 +15,10 @@
       "sha256": "72671360436a356436013f862b001cf85ee683b1342cee29c6d5a29831d5d991"
     },
     {
+      "path": "plugin.json",
+      "sha256": "d5485c5fb33b371d32e0301a4df7eba52ecf2ec1c752dc1bcd332238014e8af5"
+    },
+    {
       "path": "references/grok-capabilities.md",
       "sha256": "8717a2f2af9b224042b95cd695be6182d739c2eeb4966132426982fdebf63bfc"
     },
@@ -24,7 +28,7 @@
     },
     {
       "path": "scripts/grok_package.py",
-      "sha256": "c676fcdb3cbea01c8e7f287484c8cfc1c1b74b926c7b24cfb47a7778e8c419c0"
+      "sha256": "8bc6f8a6b23fe0cd21bf0bd501a69c8286a63c2fc7d0fba5ae300719cce37da3"
     },
     {
       "path": "skills/grok-engineering-workflow/SKILL.md",
