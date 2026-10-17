@@ -1,0 +1,5 @@
+{
+  "name": "grok-build-dev-skills",
+  "version": "0.1.0-candidate.1",
+  "description": "Offline engineering workflow skills; fixed Core 64b19bb5658432c42cd6a26aa357fd6b1d0fd857. Native installation and runtime qualification are not verified."
+}

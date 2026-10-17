@@ -18,9 +18,16 @@ PACKET_FORMAT = "grok-consumer-evidence/v1"
 VERSION = "1.0.52 (0920c8169e27)"
 CATALOG = "capabilities/grok-build-1.0.52.json"
 MANIFEST = "grok.package.json"
+PLUGIN = "plugin.json"
+PACKAGE_NAME = "grok-build-dev-skills"
+PACKAGE_VERSION = "0.1.0-candidate.1"
+PLUGIN_DESCRIPTION = (
+    f"Offline engineering workflow skills; fixed Core {core.CORE_REVISION}. "
+    "Native installation and runtime qualification are not verified."
+)
 SKILLS = ("grok-engineering-workflow", "grok-review-change")
 PATHS = frozenset({
-    "LICENSE", "core.lock.json", CATALOG, "references/grok-capabilities.md",
+    "LICENSE", "core.lock.json", PLUGIN, CATALOG, "references/grok-capabilities.md",
     "scripts/core_snapshot.py", "scripts/grok_package.py",
     *(f"skills/{name}/SKILL.md" for name in SKILLS),
     *(f"vendor/engineering-workflow-core/{name}" for name in core.FILES),
@@ -133,9 +140,14 @@ def validate_skills(files: dict[str, bytes]) -> None:
         seen.add(match.group(1))
 
 
-def verify(root: Path, layout: str = "source") -> tuple[dict, dict[str, bytes], dict]:
+def verify(
+    root: Path, layout: str = "source", *, expected_manifest_sha256: str | None = None
+) -> tuple[dict, dict[str, bytes], dict]:
     root = core.absolute_path(root)
     raw_manifest = read_file(root, MANIFEST)
+    if (expected_manifest_sha256 is not None
+            and core.sha256(raw_manifest) != digest(expected_manifest_sha256)):
+        raise core.SnapshotError("package manifest does not match the trusted source")
     manifest = core.exact_keys(json_data(raw_manifest), {"format", "core_revision", "files"})
     if manifest["format"] != FORMAT or manifest["core_revision"] != core.CORE_REVISION:
         raise core.SnapshotError("unsupported package identity")
@@ -173,10 +185,18 @@ def verify(root: Path, layout: str = "source") -> tuple[dict, dict[str, bytes], 
     if core.sha256(files["core.lock.json"]) != core_result["lock_sha256"]:
         raise core.SnapshotError("Core lock changed during package capture")
     validate_skills(files)
+    plugin = core.exact_keys(json_data(files[PLUGIN]), {"name", "version", "description"})
+    if plugin != {
+        "name": PACKAGE_NAME, "version": PACKAGE_VERSION,
+        "description": PLUGIN_DESCRIPTION,
+    }:
+        raise core.SnapshotError("unsupported plugin identity or Core description")
     catalog = catalog_data(files[CATALOG])
     references = core.validate_references(files)
     result = {
         "status": "package_verified", "format": FORMAT, "layout": layout,
+        "product_name": PACKAGE_NAME, "product_version": PACKAGE_VERSION,
+        "documented_grok_version": VERSION,
         "core_revision": core.CORE_REVISION, "core_collection_sha256": core.COLLECTION_SHA256,
         "manifest_sha256": core.sha256(raw_manifest), "verified_files": len(files),
         "local_references": references, "skills": list(SKILLS),
@@ -220,6 +240,9 @@ def capability_report(catalog: dict, packet: bytes | None = None) -> dict:
         })
     return {
         "status": "packet_validated" if packet is not None else "documented_catalog",
+        "product_name": PACKAGE_NAME, "product_version": PACKAGE_VERSION,
+        "core_revision": core.CORE_REVISION,
+        "core_collection_sha256": core.COLLECTION_SHA256,
         "packet_format": PACKET_FORMAT, "documented_version": VERSION,
         "source_digest_authenticated": False, "full_grok_schema_validated": False,
         "capabilities": observations, "runtime_qualified": False,
@@ -228,8 +251,11 @@ def capability_report(catalog: dict, packet: bytes | None = None) -> dict:
     }
 
 
-def stage(root: Path, destination: Path, layout: str = "source") -> dict:
-    result, files, _ = verify(root, layout)
+def stage(
+    root: Path, destination: Path, layout: str = "source", *,
+    expected_manifest_sha256: str | None = None,
+) -> dict:
+    result, files, _ = verify(root, layout, expected_manifest_sha256=expected_manifest_sha256)
     core.stage_verified_files(files, destination, source_roots=(root, ROOT))
     readback, _, _ = verify(destination, "staging")
     if readback["manifest_sha256"] != result["manifest_sha256"]:
@@ -245,6 +271,7 @@ def main() -> int:
     parser.add_argument("--layout", choices=("source", "staging"), default="source")
     parser.add_argument("--destination", type=Path)
     parser.add_argument("--packet", type=Path)
+    parser.add_argument("--expected-manifest-sha256", help="Raw manifest digest from a trusted fixed source")
     args = parser.parse_args()
     if (args.action == "stage") != (args.destination is not None):
         parser.error("--destination is required only for stage")
@@ -252,9 +279,11 @@ def main() -> int:
         parser.error("--packet is required only for packet")
     try:
         if args.action == "stage":
-            result = stage(args.root, args.destination, args.layout)
+            result = stage(args.root, args.destination, args.layout,
+                           expected_manifest_sha256=args.expected_manifest_sha256)
         else:
-            result, _, catalog = verify(args.root, args.layout)
+            result, _, catalog = verify(args.root, args.layout,
+                                        expected_manifest_sha256=args.expected_manifest_sha256)
             if args.action in {"capabilities", "packet"}:
                 raw = None
                 if args.packet is not None:

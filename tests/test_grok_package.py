@@ -10,6 +10,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
@@ -69,13 +70,17 @@ class PackageTests(unittest.TestCase):
 
     def test_source_and_staging_layouts(self):
         result, files, _ = package.verify(self.root)
-        self.assertEqual(result["verified_files"], 20)
+        self.assertEqual(result["verified_files"], 21)
         self.assertEqual(result["local_references"], 346)
+        self.assertEqual(result["product_name"], "grok-build-dev-skills")
+        self.assertEqual(result["product_version"], "0.1.0-candidate.1")
+        self.assertEqual(result["documented_grok_version"], package.VERSION)
+        self.assertEqual(result["core_revision"], package.core.CORE_REVISION)
         self.assert_unqualified(result)
         self.assertEqual(set(files), package.PATHS | {package.MANIFEST})
         extra = self.root / "development-only.txt"
         extra.write_text("not packaged")
-        self.assertEqual(package.verify(self.root)[0]["verified_files"], 20)
+        self.assertEqual(package.verify(self.root)[0]["verified_files"], 21)
         with self.assertRaises(package.core.SnapshotError):
             package.verify(self.root, "staging")
 
@@ -107,6 +112,79 @@ class PackageTests(unittest.TestCase):
             package.stage(self.root, self.destination)
         self.assertEqual(sentinel.read_text(), "unchanged")
         self.assertEqual(list(self.destination.iterdir()), [sentinel])
+
+    def test_trusted_manifest_digest_before_payload_or_write(self):
+        trusted = hashlib.sha256((self.root / package.MANIFEST).read_bytes()).hexdigest()
+        self.assertEqual(package.verify(self.root, expected_manifest_sha256=trusted)[0]["verified_files"], 21)
+        # A changed skill and a matching rewritten local manifest still differ
+        # from the digest obtained independently from the trusted fixed source.
+        skill = "skills/grok-engineering-workflow/SKILL.md"
+        (self.root / skill).write_bytes((self.root / skill).read_bytes() + b"\nCustom text.\n")
+        self.rehash(skill)
+        with self.assertRaisesRegex(package.core.SnapshotError, "trusted source"):
+            package.stage(self.root, self.destination, expected_manifest_sha256=trusted)
+        self.assertFalse(self.destination.exists())
+        self.assertTrue((self.root / skill).read_bytes().endswith(b"Custom text.\n"))
+
+    def test_cli_rejects_untrusted_manifest_without_staging(self):
+        result = self.cli("stage", "--destination", str(self.destination),
+                          "--expected-manifest-sha256", "0" * 64)
+        self.assertEqual(result.returncode, 1)
+        self.assertFalse(self.destination.exists())
+        for value in ["main", "A" * 64, "a" * 63]:
+            with self.subTest(value=value), self.assertRaises(package.core.SnapshotError):
+                package.verify(self.root, expected_manifest_sha256=value)
+
+    def test_rehashed_plugin_identity_and_component_injection_are_rejected(self):
+        original = (self.root / package.PLUGIN).read_bytes()
+        for key, value in [("name", "other-plugin"), ("version", "0.1.0"),
+                           ("description", "Core main"), ("hooks", "hooks/hooks.json")]:
+            with self.subTest(key=key):
+                metadata = json.loads(original)
+                metadata[key] = value
+                (self.root / package.PLUGIN).write_text(json.dumps(metadata))
+                self.rehash(package.PLUGIN)
+                with self.assertRaises(package.core.SnapshotError):
+                    package.verify(self.root)
+
+    def test_exact_bundle_rejects_extra_custom_and_active_components(self):
+        package.stage(self.root, self.destination)
+        for name in ["custom.txt", ".mcp.json", "hooks/hooks.json", "plugin.json.backup"]:
+            with self.subTest(name=name):
+                extra = self.destination / name
+                extra.parent.mkdir(parents=True, exist_ok=True)
+                extra.write_text("keep custom input")
+                with self.assertRaises(package.core.SnapshotError):
+                    package.verify(self.destination, "staging")
+                self.assertEqual(extra.read_text(), "keep custom input")
+                extra.unlink()
+                if name.startswith("hooks/"):
+                    extra.parent.rmdir()
+
+    def test_offline_synthetic_version_mix_and_fresh_reassembly(self):
+        # Synthetic reviewed-source selection, not a real released version,
+        # installed plugin, native downgrade, or rollback transaction.
+        old_version = "0.1.0-candidate.0"
+        metadata = json.loads((self.root / package.PLUGIN).read_bytes())
+        metadata["version"] = old_version
+        (self.root / package.PLUGIN).write_text(json.dumps(metadata))
+        self.rehash(package.PLUGIN)
+        old_digest = hashlib.sha256((self.root / package.MANIFEST).read_bytes()).hexdigest()
+        with patch.object(package, "PACKAGE_VERSION", old_version):
+            old_result = package.stage(self.root, self.destination,
+                                       expected_manifest_sha256=old_digest)
+        self.assertEqual(old_result["product_version"], old_version)
+        prior = {name: (self.destination / name).read_bytes() for name in package.PATHS | {package.MANIFEST}}
+        # The current trusted verifier refuses a mixed/older identity.
+        with self.assertRaises(package.core.SnapshotError):
+            package.verify(self.destination, "staging")
+        for name, raw in prior.items():
+            self.assertEqual((self.destination / name).read_bytes(), raw)
+        with patch.object(package, "PACKAGE_VERSION", old_version):
+            recovered = self.case / "fresh-old-source"
+            package.stage(self.root, recovered, expected_manifest_sha256=old_digest)
+        for name, raw in prior.items():
+            self.assertEqual((recovered / name).read_bytes(), raw)
 
     def test_tamper_before_any_write(self):
         (self.root / "references/grok-capabilities.md").write_text("changed")

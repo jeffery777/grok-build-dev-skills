@@ -12,7 +12,7 @@
 
 本專案適合維護 AI 開發流程的工程人員。例如，團隊想讓 Grok 在修改程式前讀取共同規範、在合併前保留審查證據，可先用這份設計確認所需能力與限制。
 
-**目前支援 P3-G2 的離線技能原稿、能力證據格式與全新臨時組裝。** 技能尚未安裝／啟用；[Issue #2](https://github.com/jeffery777/grok-build-dev-skills/issues/2) 的 Grok runtime 資格仍未完成。請閱讀 [技能組裝](docs/design/p3-g-skill-assembly.md)、[委派證據與缺口](docs/verification/grok-delegation-capabilities.md) 及 [固定 Core 消費](docs/design/p3-g-core-consumption.md)。
+**目前提供官方 plugin 格式的離線候選 `0.1.0-candidate.1`，尚未發布。** 沿用兩個技能、能力證據格式與全新臨時組裝；技能尚未安裝／啟用，[Issue #2](https://github.com/jeffery777/grok-build-dev-skills/issues/2) 的 Grok runtime 資格仍未完成。先讀 [安裝準備與回復限制](docs/installation.md)，再看 [技能組裝](docs/design/p3-g-skill-assembly.md)、[委派證據與缺口](docs/verification/grok-delegation-capabilities.md) 及 [固定 Core 消費](docs/design/p3-g-core-consumption.md)。
 
 ## 如何開始
 
@@ -24,7 +24,9 @@ PYTHONDONTWRITEBYTECODE=1 python3 scripts/grok_package.py verify
 PYTHONDONTWRITEBYTECODE=1 python3 scripts/grok_package.py capabilities
 ```
 
-Core 命令驗固定十一檔；package 命令驗二十檔 bundle。成功只證明離線內容與引用，不代表技能載入、原生委派或 runtime 合格。Packet 是 consumer 證據封裝，不是 Grok API schema；所有 readiness 保持 false。本階段不提供安裝或 live transport。原始 [P2-G 設計](docs/design/p2-g-preparation.md) 與 [來源對照](docs/provenance/source-map.md) 保留歷史與對齊資訊。
+Core 命令驗固定十一檔；package 命令驗二十一檔 bundle，輸出產品版本、固定 Core revision／digest 及能力目錄的 Grok 文件版本。產品候選版本不等於 Grok CLI 版本；目錄仍記錄 `1.0.52 (0920c8169e27)`，本次非模型 help 觀察到的執行檔為 `1.0.60 (01a8e1c591c0)`。Core 固定 `64b19bb5658432c42cd6a26aa357fd6b1d0fd857`，使用者不必另外安裝 Core。
+
+成功只證明離線內容與引用，不代表原生 plugin 安裝、技能載入、委派或 runtime 合格。Packet 是 consumer 證據封裝，不是 Grok API schema；所有 readiness 保持 false。官方 plugin 的自訂內容保護、更新失敗回復及避免混裝仍缺實證；既有安裝的更新／重裝路線須先另行決定。本包沿用驗證器，不新增 installer 或 live transport。原始 [P2-G 設計](docs/design/p2-g-preparation.md) 與 [來源對照](docs/provenance/source-map.md) 保留歷史與對齊資訊。
 
 [engineering-workflow-core](https://github.com/jeffery777/engineering-workflow-core) 承載純 Markdown 共用義務；[codex-dev-skills](https://github.com/jeffery777/codex-dev-skills) 與本專案各自實作接口。共用文字不表示工具、sandbox、permission 或 session 行為相同。
 
@@ -56,7 +58,7 @@ This project prepares Grok Build to use a fixed set of shared engineering rules.
 
 This project is for engineers who maintain AI development workflows. For example, a team can use this design to check what Grok needs to read shared rules before changing code and retain review evidence before a merge.
 
-**P3-G2 provides offline skill sources, consumer capability evidence and fresh temporary assembly.** Skills are not installed or activated. Grok runtime qualification under [Issue #2](https://github.com/jeffery777/grok-build-dev-skills/issues/2) is incomplete. Read [skill assembly](docs/design/p3-g-skill-assembly.md), [delegation evidence and gaps](docs/verification/grok-delegation-capabilities.md), and [fixed Core consumption](docs/design/p3-g-core-consumption.md).
+**The current official-plugin-format offline candidate is `0.1.0-candidate.1`, unreleased.** It retains two skill sources, consumer capability evidence and fresh temporary assembly. Skills are not installed or activated. Grok runtime qualification under [Issue #2](https://github.com/jeffery777/grok-build-dev-skills/issues/2) is incomplete. Start with [installation preparation and recovery limits](docs/installation.md), then read [skill assembly](docs/design/p3-g-skill-assembly.md), [delegation evidence and gaps](docs/verification/grok-delegation-capabilities.md), and [fixed Core consumption](docs/design/p3-g-core-consumption.md).
 
 ## Getting started
 
@@ -68,7 +70,9 @@ PYTHONDONTWRITEBYTECODE=1 python3 scripts/grok_package.py verify
 PYTHONDONTWRITEBYTECODE=1 python3 scripts/grok_package.py capabilities
 ```
 
-The Core command verifies eleven fixed files; the package command verifies a twenty-file bundle. Success proves offline bytes/references, not skill loading, native delegation or runtime qualification. The packet is a consumer evidence envelope, not a Grok API schema. All readiness flags stay false. There is no installer or live transport. The [P2-G design](docs/design/p2-g-preparation.md) and [source map](docs/provenance/source-map.md) retain history and alignment information.
+The Core command verifies eleven fixed files; the package command verifies a twenty-one-file bundle. Its output identifies the product version, fixed Core revision/digest and documented Grok catalog version. The product candidate is separate from Grok CLI: the catalog retains `1.0.52 (0920c8169e27)`, while this non-model help check observed executable `1.0.60 (01a8e1c591c0)`. Core stays pinned to `64b19bb5658432c42cd6a26aa357fd6b1d0fd857`; users need no separate Core installation.
+
+Success proves offline bytes/references, not native plugin installation, skill loading, delegation or runtime qualification. The packet is a consumer evidence envelope, not a Grok API schema. All readiness flags stay false. Native custom-content preservation, failed-update recovery and prevention of mixed installs lack evidence; updating or reinstalling an existing installation needs a separate decision. This package reuses the verifier without an installer or live transport. The [P2-G design](docs/design/p2-g-preparation.md) and [source map](docs/provenance/source-map.md) retain history and alignment information.
 
 [engineering-workflow-core](https://github.com/jeffery777/engineering-workflow-core) owns shared Markdown obligations. [codex-dev-skills](https://github.com/jeffery777/codex-dev-skills) and this project each own their adapter. Shared text does not prove equal tools, sandbox, permission, or session behavior.
 
