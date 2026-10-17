@@ -1,6 +1,6 @@
 {
   "format": "grok-offline-package/v1",
-  "core_revision": "64b19bb5658432c42cd6a26aa357fd6b1d0fd857",
+  "core_revision": "174df2af8dedf813b9bd4e3c184a627ee87d3cd8",
   "files": [
     {
       "path": "LICENSE",
@@ -12,11 +12,11 @@
     },
     {
       "path": "core.lock.json",
-      "sha256": "72671360436a356436013f862b001cf85ee683b1342cee29c6d5a29831d5d991"
+      "sha256": "2c6943132d8346ef26b771ef541c6173f8860d526cee582a479ce5e68cfe0a48"
     },
     {
       "path": "plugin.json",
-      "sha256": "d5485c5fb33b371d32e0301a4df7eba52ecf2ec1c752dc1bcd332238014e8af5"
+      "sha256": "13c5bff42bcc72cbb6bdeee190cc7dc6f3fbca6167fb094084105fa097cf554e"
     },
     {
       "path": "references/grok-capabilities.md",
@@ -24,11 +24,11 @@
     },
     {
       "path": "scripts/core_snapshot.py",
-      "sha256": "53bd1f53bb0ea9260c06967b36f615b294df4da6423d7429516c2d9ad3cf19b7"
+      "sha256": "297c430bc51763fae5650733e73d29605227d5b29de99c09ae5e6a36443a5aaf"
     },
     {
       "path": "scripts/grok_package.py",
-      "sha256": "8bc6f8a6b23fe0cd21bf0bd501a69c8286a63c2fc7d0fba5ae300719cce37da3"
+      "sha256": "73a8375da7ed5740afe00df371ea3dc421cea6dff47088efcf8b19424612cef9"
     },
     {
       "path": "skills/grok-engineering-workflow/SKILL.md",
@@ -39,12 +39,16 @@
       "sha256": "b7b9181e883e403abb9a2e4015752364689b9b722500e540fc399b42a857a778"
     },
     {
+      "path": "vendor/engineering-workflow-core/CHANGELOG.md",
+      "sha256": "bc13f952509c18529030fcbb6ed33c25c6cf1ed978d526d142e26bb2fd96c511"
+    },
+    {
       "path": "vendor/engineering-workflow-core/LICENSE",
       "sha256": "49d64e81e9fd3b12470c1da48367b120b28d404ca08edfdd950278e28e4da34f"
     },
     {
       "path": "vendor/engineering-workflow-core/README.md",
-      "sha256": "fcc2980d7d2bb4938020f009b6fc4544b2bb0a557261369a5dc79ce79869df46"
+      "sha256": "93085438d3ab960797a3521629edf4a480e9e1941d659e2f82357f1c79f0d729"
     },
     {
       "path": "vendor/engineering-workflow-core/contracts/authorization-and-stops.md",
@@ -76,11 +80,15 @@
     },
     {
       "path": "vendor/engineering-workflow-core/docs/provenance/source-map.md",
-      "sha256": "0f3599242a9d1dc7bfdae3042ed9738b93765bc12b9c7000a9a3a5cf5ed514e1"
+      "sha256": "19d529a51f41d2ded4bad2cf809ad3c161c59a89bda72bf07d33c2b8ece26ea0"
     },
     {
       "path": "vendor/engineering-workflow-core/docs/provenance/upstream-notices.md",
       "sha256": "a33e7445a6eea9df9f12dd5b32cb6f08353d00b7d873496d48389dbe36ceb888"
+    },
+    {
+      "path": "vendor/engineering-workflow-core/docs/releases/v0.1.0.md",
+      "sha256": "f8e6c3e1e6b4ac8b433656ae3991274f657097f40eae7de2431348e13bb2b058"
     }
   ]
 }

@@ -19,11 +19,12 @@ from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 CORE_REPOSITORY = "https://github.com/jeffery777/engineering-workflow-core"
-CORE_REVISION = "64b19bb5658432c42cd6a26aa357fd6b1d0fd857"
+CORE_REVISION = "174df2af8dedf813b9bd4e3c184a627ee87d3cd8"
 ALGORITHM = "sha256-path-tab-sha256-lf-v1"
-COLLECTION_SHA256 = "37ef5cbdfc9461b43dc76dcd1448943405daf8b6d2a77ee0c1857e7ba9088e15"
+COLLECTION_SHA256 = "484923e7dc1407dde1702cf88e93afb5a279b25f79a2c6ff9631d58d7589ab13"
 LICENSE_SHA256 = "49d64e81e9fd3b12470c1da48367b120b28d404ca08edfdd950278e28e4da34f"
 MARKDOWN_PATHS = frozenset({
+    "CHANGELOG.md",
     "README.md",
     "contracts/authorization-and-stops.md",
     "contracts/exact-head-and-evidence.md",
@@ -34,6 +35,7 @@ MARKDOWN_PATHS = frozenset({
     "docs/architecture/project-split.md",
     "docs/provenance/source-map.md",
     "docs/provenance/upstream-notices.md",
+    "docs/releases/v0.1.0.md",
 })
 FILES = MARKDOWN_PATHS | {"LICENSE"}
 DIRECTORIES = frozenset(
