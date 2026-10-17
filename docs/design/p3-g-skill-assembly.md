@@ -12,7 +12,9 @@
 
 [GG1 / Issue #18](https://github.com/jeffery777/grok-build-dev-skills/issues/18) 當時固定 Core `784ed24f4a09ec35ac7209e0fd2287b214aea260`，保留寫作採用，將風險起始／變動重評、早期設計／code／安全工作及證據替代／保護接入既有執行、委派 brief、review 與 closeout。有效 [專案政策](../../README.md#採用的工作流與專案政策) 在 mandatory obligations 內專化，不新增控制器、gate 或清理框架；snapshot／lock／程式 anchors／manifest／受影響測試同包對齊。
 
-[G-SA1 / Issue #20](https://github.com/jeffery777/grok-build-dev-skills/issues/20) 現固定 Core `3a3fd41e5fb994b4429a67d76d1b0655d972d150`。兩技能與 mapping 引用 Core 的安全適用性及證據／續行條款，保留 Grok 方法、工具、模型、資料與 session 邊界。Lock、兩份變更的 Core 原 bytes、程式常數、manifest 與受影響驗證同步；完整來源見 [provenance](../provenance/source-map.md)。不改組裝介面、演算法或 false readiness。
+[G-SA1 / Issue #20](https://github.com/jeffery777/grok-build-dev-skills/issues/20) 當時固定 Core `3a3fd41e5fb994b4429a67d76d1b0655d972d150`。兩技能與 mapping 引用 Core 的安全適用性及證據／續行條款，保留 Grok 方法、工具、模型、資料與 session 邊界。Lock、兩份變更的 Core 原 bytes、程式常數、manifest 與受影響驗證同步；完整來源見 [provenance](../provenance/source-map.md)。不改組裝介面、演算法或 false readiness。
+
+[G-RF1 / Issue #22](https://github.com/jeffery777/grok-build-dev-skills/issues/22) 現固定 Core `64b19bb5658432c42cd6a26aa357fd6b1d0fd857`。兩技能在適用的規劃、續行與審查處導讀 [共用前提及方案條款](../../vendor/engineering-workflow-core/contracts/workflow.md#wf-assumptions-and-options)，將相關評估寫入既有 plan／report，不新增表單、schema 或 gate。四份 generated changes、lock、兩個程式常數與 manifest 同步；十九個 payload、完整 notices、組裝介面與 false readiness 保留。
 
 ### 來源與組裝
 
@@ -52,7 +54,9 @@ Issue #6 above identifies the original assembly package. [G-W1 / Issue #16](http
 
 [GG1 / Issue #18](https://github.com/jeffery777/grok-build-dev-skills/issues/18) pinned Core `784ed24f4a09ec35ac7209e0fd2287b214aea260` and preserves writing adoption. Existing execution, delegation briefs, review and closeout now apply risk reassessment, early design/code/security work, evidence replacement coverage and retention protection. Valid [project policy](../../README.md#adopted-workflow-and-project-policy) specializes within mandatory obligations; no controller, gate or cleanup framework is added. Snapshot, lock, code anchors, manifest and affected tests change together.
 
-[G-SA1 / Issue #20](https://github.com/jeffery777/grok-build-dev-skills/issues/20) now pins Core `3a3fd41e5fb994b4429a67d76d1b0655d972d150`. Both skills and the mapping reference shared security applicability and evidence/continuation rules while retaining Grok method, tool, model, data and session boundaries. The lock, two changed Core raw files, code constants, manifest and affected verification change together; see [provenance](../provenance/source-map.md). Assembly interfaces, algorithms and false readiness remain unchanged.
+[G-SA1 / Issue #20](https://github.com/jeffery777/grok-build-dev-skills/issues/20) pinned Core at that time to `3a3fd41e5fb994b4429a67d76d1b0655d972d150`. Both skills and the mapping reference shared security applicability and evidence/continuation rules while retaining Grok method, tool, model, data and session boundaries. The lock, two changed Core raw files, code constants, manifest and affected verification change together; see [provenance](../provenance/source-map.md). Assembly interfaces, algorithms and false readiness remain unchanged.
+
+[G-RF1 / Issue #22](https://github.com/jeffery777/grok-build-dev-skills/issues/22) now pins Core `64b19bb5658432c42cd6a26aa357fd6b1d0fd857`. Both skills conditionally refer planning, continuation and review to the [shared assumptions and options clause](../../vendor/engineering-workflow-core/contracts/workflow.md#wf-assumptions-and-options). Relevant assessments stay in the existing plan/report, without a new form, schema or gate. Four generated changes, the lock, two code constants and manifest change together. The nineteen payload files, full notices, assembly interfaces and false readiness remain.
 
 ### Sources and assembly
 

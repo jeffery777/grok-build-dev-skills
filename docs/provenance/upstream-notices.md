@@ -16,9 +16,13 @@ G-W1 當時將 snapshot 更新至上述 Core revision，保留十一份原 bytes
 
 GG1 當時將 snapshot 更新至上述最終 revision，保留十一份原 bytes、新義務的使用者來源與完整 MIT notices；既有寫作及符合性限制保留，不引入 Core 程式或完整 ASD 標準。
 
-[G-SA1 / Issue #20](https://github.com/jeffery777/grok-build-dev-skills/issues/20) now consumes the eleven raw Core files at `3a3fd41e5fb994b4429a67d76d1b0655d972d150` from merged [PR #14](https://github.com/jeffery777/engineering-workflow-core/pull/14). Only review-and-security and Core source-map differ from GG1. The LICENSE and complete notices retain their bytes. Shared policy changes retain their user-origin provenance in the [Core source map](../../vendor/engineering-workflow-core/docs/provenance/source-map.md). No third-party skill or executable is imported.
+[G-SA1 / Issue #20](https://github.com/jeffery777/grok-build-dev-skills/issues/20) consumed at that time the eleven raw Core files at `3a3fd41e5fb994b4429a67d76d1b0655d972d150` from merged [PR #14](https://github.com/jeffery777/engineering-workflow-core/pull/14). Only review-and-security and Core source-map differ from GG1. The LICENSE and complete notices retain their bytes. Shared policy changes retain their user-origin provenance in the [Core source map](../../vendor/engineering-workflow-core/docs/provenance/source-map.md). No third-party skill or executable is imported.
 
-G-SA1 現採上述十一份 Core 原 bytes，只有 review-and-security 與 Core source-map 改變；LICENSE、完整 notices 及新共同義務的使用者來源保留。未匯入第三方技能或程式。
+G-SA1 當時採上述十一份 Core 原 bytes，只有 review-and-security 與 Core source-map 改變；LICENSE、完整 notices 及新共同義務的使用者來源保留。未匯入第三方技能或程式。
+
+[G-RF1 / Issue #22](https://github.com/jeffery777/grok-build-dev-skills/issues/22) now consumes eleven raw Core files at `64b19bb5658432c42cd6a26aa357fd6b1d0fd857` from merged [PR #16](https://github.com/jeffery777/engineering-workflow-core/pull/16). README, workflow, review-and-security and Core source-map differ from G-SA1. The remaining files, LICENSE and full notices retain their bytes. New common rules retain accepted user provenance in the [Core source map](../../vendor/engineering-workflow-core/docs/provenance/source-map.md#assumptions-options-update). No Core executable or third-party skill is imported.
+
+G-RF1 現採上述十一份 Core 原 bytes，只有所列四檔改變；其餘檔案、LICENSE 與完整 notices 保留。新義務的使用者來源另見固定 Core source-map，不倒寫為原 Codex P1 抽取內容；未匯入 Core 程式或第三方技能。
 
 ## engineering-workflow-core
 

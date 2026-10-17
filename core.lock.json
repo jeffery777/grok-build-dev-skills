@@ -1,16 +1,16 @@
 {
   "schema_version": 1,
   "core_repository": "https://github.com/jeffery777/engineering-workflow-core",
-  "core_revision": "3a3fd41e5fb994b4429a67d76d1b0655d972d150",
+  "core_revision": "64b19bb5658432c42cd6a26aa357fd6b1d0fd857",
   "contract_language": "zh-TW",
   "collection": {
     "algorithm": "sha256-path-tab-sha256-lf-v1",
-    "sha256": "cf5a027c818967a5c1bc46fabb36aba88b8264bde0c3ee81e2c4aff813d2a428"
+    "sha256": "37ef5cbdfc9461b43dc76dcd1448943405daf8b6d2a77ee0c1857e7ba9088e15"
   },
   "files": [
     {
       "path": "README.md",
-      "sha256": "fc8864d6e21d2f808b2d9d139abf50136335a290ce46d8d47eed5906fd6e8f2c"
+      "sha256": "fcc2980d7d2bb4938020f009b6fc4544b2bb0a557261369a5dc79ce79869df46"
     },
     {
       "path": "contracts/authorization-and-stops.md",
@@ -22,11 +22,11 @@
     },
     {
       "path": "contracts/review-and-security.md",
-      "sha256": "117893b7c04116b9d424ff8178b1e999786329f3301c8927f84bbab85a32b6d0"
+      "sha256": "a29ae05f7df55f8469235baff7c59c00a99a0fb9e697e47eb46a9be7c4b90b03"
     },
     {
       "path": "contracts/workflow.md",
-      "sha256": "e9688c8e3c48655a4e385a42cfaef6f60e8b6edec42d2c2a83871ba67b484701"
+      "sha256": "fd2af36d395a634a89f0de0a486efba19a4ec0d9e88cdda760bc87aa4e15b4d6"
     },
     {
       "path": "docs/architecture/dependency-inventory.md",
@@ -42,7 +42,7 @@
     },
     {
       "path": "docs/provenance/source-map.md",
-      "sha256": "94b82b69968fcc208a9cdfe7e11716de4688b2d8a2816d4de3ed7c708705cdf7"
+      "sha256": "0f3599242a9d1dc7bfdae3042ed9738b93765bc12b9c7000a9a3a5cf5ed514e1"
     },
     {
       "path": "docs/provenance/upstream-notices.md",
