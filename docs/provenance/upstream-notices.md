@@ -12,9 +12,13 @@ The original P3-G1 package additionally vendored the eleven fixed Core files at 
 
 G-W1 當時將 snapshot 更新至上述 Core revision，保留十一份原 bytes。新寫作條款另記使用者需求來源，完整 Core 與歷史 notices 保留；未重製完整 ASD-STE100 標準。
 
-[GG1 / Issue #18](https://github.com/jeffery777/grok-build-dev-skills/issues/18) updates the active snapshot to Core `784ed24f4a09ec35ac7209e0fd2287b214aea260`. All eleven files are raw copies of that revision. New evidence-lifecycle and risk-first-review clauses retain their user-origin provenance in the [Core source map](../../vendor/engineering-workflow-core/docs/provenance/source-map.md#evidence-lifecycle-update). Full Core and historical MIT notices remain unchanged; no Core executable or complete ASD standard is imported.
+[GG1 / Issue #18](https://github.com/jeffery777/grok-build-dev-skills/issues/18) updated the snapshot at that time to Core `784ed24f4a09ec35ac7209e0fd2287b214aea260`. All eleven files are raw copies of that revision. New evidence-lifecycle and risk-first-review clauses retain their user-origin provenance in the [Core source map](../../vendor/engineering-workflow-core/docs/provenance/source-map.md#evidence-lifecycle-update). Full Core and historical MIT notices remain unchanged; no Core executable or complete ASD standard is imported.
 
-GG1 將現行 snapshot 更新至上述最終 revision，保留十一份原 bytes、新義務的使用者來源與完整 MIT notices；既有寫作及符合性限制保留，不引入 Core 程式或完整 ASD 標準。
+GG1 當時將 snapshot 更新至上述最終 revision，保留十一份原 bytes、新義務的使用者來源與完整 MIT notices；既有寫作及符合性限制保留，不引入 Core 程式或完整 ASD 標準。
+
+[G-SA1 / Issue #20](https://github.com/jeffery777/grok-build-dev-skills/issues/20) now consumes the eleven raw Core files at `3a3fd41e5fb994b4429a67d76d1b0655d972d150` from merged [PR #14](https://github.com/jeffery777/engineering-workflow-core/pull/14). Only review-and-security and Core source-map differ from GG1. The LICENSE and complete notices retain their bytes. Shared policy changes retain their user-origin provenance in the [Core source map](../../vendor/engineering-workflow-core/docs/provenance/source-map.md). No third-party skill or executable is imported.
+
+G-SA1 現採上述十一份 Core 原 bytes，只有 review-and-security 與 Core source-map 改變；LICENSE、完整 notices 及新共同義務的使用者來源保留。未匯入第三方技能或程式。
 
 ## engineering-workflow-core
 

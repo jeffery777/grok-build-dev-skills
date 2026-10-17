@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "core_repository": "https://github.com/jeffery777/engineering-workflow-core",
-  "core_revision": "784ed24f4a09ec35ac7209e0fd2287b214aea260",
+  "core_revision": "3a3fd41e5fb994b4429a67d76d1b0655d972d150",
   "contract_language": "zh-TW",
   "collection": {
     "algorithm": "sha256-path-tab-sha256-lf-v1",
-    "sha256": "f308093e1dbb6ba2796a3b286406a5f02adde692d05a200b2894e88527bed3c4"
+    "sha256": "cf5a027c818967a5c1bc46fabb36aba88b8264bde0c3ee81e2c4aff813d2a428"
   },
   "files": [
     {
@@ -22,7 +22,7 @@
     },
     {
       "path": "contracts/review-and-security.md",
-      "sha256": "08f3b8be2ba2a8386077120141f925f5e0a33433e1ffe757535c16834fe81bbd"
+      "sha256": "117893b7c04116b9d424ff8178b1e999786329f3301c8927f84bbab85a32b6d0"
     },
     {
       "path": "contracts/workflow.md",
@@ -42,7 +42,7 @@
     },
     {
       "path": "docs/provenance/source-map.md",
-      "sha256": "f878088816780e97b22cae6d142b5feb81f36951476594070994995526345032"
+      "sha256": "94b82b69968fcc208a9cdfe7e11716de4688b2d8a2816d4de3ed7c708705cdf7"
     },
     {
       "path": "docs/provenance/upstream-notices.md",
