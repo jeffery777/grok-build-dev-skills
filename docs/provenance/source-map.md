@@ -48,9 +48,9 @@ See the [qualification record](../verification/grok-control-qualification.md) fo
 
 ## 現行固定消費 / Current pinned consumption
 
-Active Core revision: `64b19bb5658432c42cd6a26aa357fd6b1d0fd857`，來自已合併的 [Core PR #16](https://github.com/jeffery777/engineering-workflow-core/pull/16)，由 [G-RF1 / Issue #22](https://github.com/jeffery777/grok-build-dev-skills/issues/22) 接入。G-SA1 原固定 `3a3fd41e5fb994b4429a67d76d1b0655d972d150`；[GG1 / Issue #18](https://github.com/jeffery777/grok-build-dev-skills/issues/18) 原固定 `784ed24f4a09ec35ac7209e0fd2287b214aea260`；G-W1 原固定 `345cd601bffbacc777f87fb24f22b5caefa30a3b`；P3-G1 原固定 P1 revision `b4c37798b6d3a9efd91c8c6d518093f2dd847a98`。上方 P0 與這些舊 pin 均為歷史來源。Core PR #16 is the current source; P0, P1, G-W1, GG1 and G-SA1 pins remain historical.
+Active Core v0.1.0 revision: `174df2af8dedf813b9bd4e3c184a627ee87d3cd8`，tree `819f481169f051c872459ee5b419886ba94274b7`，annotated tag object `e984c880a05065c8bcd0d78e83d78220b05bfc32` 解析至此 commit；正式 [Core Release](https://github.com/jeffery777/engineering-workflow-core/releases/tag/v0.1.0) 與 [PR #18](https://github.com/jeffery777/engineering-workflow-core/pull/18) 已讀回。G-RF1 的 `64b19bb5658432c42cd6a26aa357fd6b1d0fd857` 及 G-SA1／GG1／G-W1／P1／P0 均為下列歷史來源。The tag object is not the pinned commit; prior pins remain history.
 
-[core.lock.json](../../core.lock.json) 固定全部十份 Markdown digest 與另驗的 LICENSE；[snapshot](../../vendor/engineering-workflow-core/README.md) 是原 bytes 的 generated copy，唯一來源為該 Core revision，不手改副本。The lock pins all ten Markdown digests and a separate license digest. Generated copies retain exact upstream bytes and must not be hand-edited.
+[core.lock.json](../../core.lock.json) 固定十二份 Markdown digest 與另驗的 LICENSE；[snapshot](../../vendor/engineering-workflow-core/README.md) 的十三份 generated copies 保留正式來源原 bytes，不手改副本。The lock pins twelve Markdown files and a separate license. All thirteen generated files retain exact upstream bytes; full relative-reference closure includes the two new release documents.
 
 | Core 契約 / Contract | SHA-256 |
 | --- | --- |
@@ -59,7 +59,7 @@ Active Core revision: `64b19bb5658432c42cd6a26aa357fd6b1d0fd857`，來自已合�
 | [review-and-security](../../vendor/engineering-workflow-core/contracts/review-and-security.md) | `a29ae05f7df55f8469235baff7c59c00a99a0fb9e697e47eb46a9be7c4b90b03` |
 | [exact-head-and-evidence](../../vendor/engineering-workflow-core/contracts/exact-head-and-evidence.md) | `ba3419d7090fecce3e84f4ea35cd7695135fb7bbf8c1451502941163d8e873a4` |
 
-集合算法為 `sha256-path-tab-sha256-lf-v1`，集合 SHA-256 為 `37ef5cbdfc9461b43dc76dcd1448943405daf8b6d2a77ee0c1857e7ba9088e15`，LICENSE 不在集合內。The collection algorithm uses TAB, not the historical NUL proposal; LICENSE is separate. [消費與限制 / Consumption and limits](../design/p3-g-core-consumption.md) 將原契約義務與本包的離線驗證分開，不宣稱 runtime 合格 / separates obligations from offline checks and makes no runtime qualification claim.
+集合算法為 `sha256-path-tab-sha256-lf-v1`，十二份 Markdown collection 為 `484923e7dc1407dde1702cf88e93afb5a279b25f79a2c6ff9631d58d7589ab13`；十三檔來源 aggregate 為 `3c985420e8017bde6b59f2625d451686202e2f6a03d807a361df166634a88de9`，LICENSE 另驗。These identities differ; the collection uses TAB, not the historical NUL proposal. [消費與限制 / Consumption and limits](../design/p3-g-core-consumption.md) 區分契約義務與離線檢查，不宣稱 runtime 資格。
 
 ## P3-G2 能力映射 / Capability mapping
 
@@ -117,7 +117,7 @@ Core 交付的十一檔 aggregate `269b1d5a05cc5c8ff9624b9988a0568073fd68ad6e953
 
 [Issue #22](https://github.com/jeffery777/grok-build-dev-skills/issues/22) 採已合併的 [Core PR #16](https://github.com/jeffery777/engineering-workflow-core/pull/16)：merge revision `64b19bb5658432c42cd6a26aa357fd6b1d0fd857`、reviewed source `8b546d8c27a3db416ef7021a01fdae3ffa572ec6`、共同 tree `28e39d4385090bb321aa80337ea74aad196e2042`。十一份原檔的 Git blob、size、SHA-256 與 100644 mode 已與 immutable tree 及持久 handoff 核對。相對 G-SA1 四檔改變：README、workflow、review-and-security、Core source-map；其餘七檔與完整 notices／LICENSE 保留原 bytes。The official merged source and eleven raw files match the persistent handoff. Only those four generated files differ from G-SA1.
 
-十一檔來源 aggregate 為 `66f8aa3ef0ca4c02a5143bddf6f3e25b3c68493601c59ebd05950864f0f48986`；現行十份 Markdown collection 為 `37ef5cbdfc9461b43dc76dcd1448943405daf8b6d2a77ee0c1857e7ba9088e15`；LICENSE 仍分驗。Lock、兩個程式常數、manifest、文件及受影響測試同包同步，驗證算法不變。The source aggregate and consumer collection remain separate checks; verifier algorithms are unchanged.
+十一檔來源 aggregate 為 `66f8aa3ef0ca4c02a5143bddf6f3e25b3c68493601c59ebd05950864f0f48986`；G-RF1 當時的十份 Markdown collection 為 `37ef5cbdfc9461b43dc76dcd1448943405daf8b6d2a77ee0c1857e7ba9088e15`；LICENSE 仍分驗。Lock、兩個程式常數、manifest、文件及受影響測試同包同步，驗證算法不變。The source aggregate and consumer collection remain separate checks; verifier algorithms are unchanged.
 
 新義務源於已接受的使用者要求，見 Core [前提與方案來源](../../vendor/engineering-workflow-core/docs/provenance/source-map.md#assumptions-options-update)。兩技能只於觸發時導讀 Core，相關前提／反證、採納／未採方案、獨特保障／成本／剩餘風險、改善判斷及停止／重評依據留在既有 plan／report。共用規則由 Core 持有；簡單低風險可簡短處理，改善分類不取代 findings disposition 或必要 gate。The accepted user requirement owns the new common obligation. Consumer entry points reference it proportionately without a second rule set or report framework.
 
@@ -139,3 +139,23 @@ Core 交付的十一檔 aggregate `269b1d5a05cc5c8ff9624b9988a0568073fd68ad6e953
 Guide 支持 root `plugin.json`、`skills/`、resources／helpers 隨包複製、版本顯示、完整 commit 來源及 fetch 後 SHA 核對。實際 install help 支持 Git／GitHub／local source、`@ref` 與 `#subdir`；`--trust` 跳過確認，未執行。原生 `validate` 只代表 manifest schema。Guide 的全域 session-start auto-update 設定不是已證逐 plugin 控制，且本包不改設定。These are documented/help-level facts, not installed-tree, model, entitlement or runtime qualification.
 
 本包只新增最小官方 metadata，並延伸既有 verifier：產品／Core 身分讀回、exact 二十一檔及從可信固定來源另取得的 raw manifest digest 檢查。Manifest／packet 仍是 consumer 自有格式；可信來源 verifier 必須獨立於可疑副本。Source mode 允許開發檔，不驗 installed ownership。原生整樹／跨目錄引用、自訂檔保護、atomic update／rollback 與真正舊版重裝均未證。離線合成 fixture 僅驗拒絕／保留及全新重組；不把退出成功、help 或 schema validation 升格為實裝資格。See [installation preparation](../installation.md) for gaps, failure preservation and the stop before existing-plugin mutations. All readiness remains false; no installer/wrapper, native install/update/uninstall, settings or live Grok run is included.
+
+## G-REL1 初步準備歷史 / Preliminary preparation history
+
+[Issue #26](https://github.com/jeffery777/grok-build-dev-skills/issues/26) 依既有使用者發行／實裝授權及協調者本輪停點，從已合併 PR25 的 Grok main `e21a18bcd8ca833a590fcec1ba589d3529ab485a` 準備 `0.1.0`；尚未發布，等待正式 Core tag／完整 commit。原 `0.1.0-candidate.1` 是未發布歷史。保留 `64b19bb5658432c42cd6a26aa357fd6b1d0fd857`、十一份 Core raw bytes、lock、Core verifier、兩技能與 notices，未將其冒稱為 Core v0.1.0 發行 pin。Current metadata marks unreleased preparation with a provisional Core. No final source/tag/artifact identity is invented; this round stops before publication and native installation.
+
+2026-10-17 再讀現有執行檔 version 與 plugin install／update／uninstall／details／validate help，仍為 `1.0.60 (01a8e1c591c0)`；僅讀 help，不執行其 action。既有 guide 指紋同上，未重分發全文。Install help 無 destination／scope／dry-run；uninstall `--keep-data` 只記 persistent data；guide 的 discovery roots 不是實際安裝 leaf，user auto-trust／project trust 與 leader／source registration 尚須實際讀回。[最小整合計畫](../installation.md#native-integration-zh) 依此記待驗寫入集合及保全限制，不臆造隔離、權限或 rollback。Help is evidence of documented options only. There is no native install receipt, model run or expanded qualification.
+
+[中英文 changelog](../../CHANGELOG.md) 與 [draft release notes](../releases/v0.1.0.md) 由本 consumer 新寫，沿用上述產品／授權來源；只同步產品版本、描述、受影響負例與 package digests，不改驗證算法、inventory 或 runtime flags。新 bytes 的離線驗證與獨立 review 另留證；舊 PR25 或 Core scan 不代替本次 coverage。正式 pin 接入後仍須完整候選審查、必要安全證據及 exact-head gates。Issue #2 保留歷史 OPEN、設計完成且非阻擋，不重開其官方 QA。New documentation separates publishable offline scope from pending native integration. The main coordinator owns later GitHub-aligned Space/Page updates; this round makes no external document POST.
+
+## G-REL1 正式 Core v0.1.0 接入 / Formal Core adoption
+
+[Issue #26](https://github.com/jeffery777/grok-build-dev-skills/issues/26) 後續取得協調者提供的正式 Core Release、PR18 merge、annotated tag 與十三檔收據，取代上節等待 pin 狀態。逐檔 Git blob／size／100644 mode／SHA-256、commit `174df2af8dedf813b9bd4e3c184a627ee87d3cd8`／tree 及 tag 解析結果均與固定來源核對。README＋四契約的相對引用閉合需要全部十三檔，包含新增 Core CHANGELOG 與 release notes；不是 runtime 每次必讀全部檔案的宣稱。
+
+相對 G-RF1，README 與 Core source-map 改變，新增上述兩檔；其餘九檔、四份正式契約、LICENSE 與完整 notices 保留原 bytes／mode。十二份 Markdown collection、獨立 LICENSE、code-owned revision／allowlist、lock、package manifest 與受影響正負例同包同步。封閉 bundle 改為二十二個 payload＋manifest 共二十三檔；parser、filesystem／fresh-stage 算法、技能、catalog／mapping 與 false readiness 不改。不加入 Reason、模型投入、路由、hooks／服務或 installer。
+
+發行／後續實裝權限來自已接受的使用者要求及本次協調者續行範圍，不倒寫成前包授權。舊十檔準備 SDS 與 Core SDS 不是這個完整 consumer diff 的掃描證據；新驗證、獨立 review、安全掃描、exact-head／平台 gates 與正式 tag／Release 讀回另留當次證據。原始碼不內嵌自身未來 commit；正式 [Grok Release](https://github.com/jeffery777/grok-build-dev-skills/releases/tag/v0.1.0) 及本地 publication receipt 綁定真實最終來源與 digests。Core CI 未配置不記為 PASS；Grok 平台狀態須自己讀回。
+
+The coordinator's formal release handoff supersedes the preliminary waiting state. All thirteen immutable files match Git blobs, sizes, modes and raw SHA-256; tag object resolves to the fixed commit above. Nine existing files remain unchanged. Core collection of twelve Markdown files, separate LICENSE, allowlist/code anchors, lock, package inventory of twenty-three files and affected positive/negative controls change together without new parsing/staging/runtime behavior. New consumer evidence must cover this complete diff; old preparation/Core scans do not automatically apply. Final GitHub publication/local receipts bind the actual merge commit and digests without source self-reference. Core and consumer versions are independent; users need no separate Core installation.
+
+[CHANGELOG](../../CHANGELOG.md)、[發行說明](../releases/v0.1.0.md) 與 [安裝／更新／回復](../installation.md) 兩語說明發布來源及離線套件範圍、版本相依、原生精確寫入／ownership／信任／payload closure／失敗保全的待驗項目。正式發布不等於已安裝或模型採用；本包不修改用戶安裝／設定、不啟動模型，保留 Issue2 歷史與所有未驗證事項。Space／Page 由主協調者依最終 GitHub 狀態對齊，本 executor 不另行 POST。Bilingual publication and installation guidance retains native unknowns as later integration, not defects or PASS. Publication adds no model/native qualification and performs no user installation or external document POST.

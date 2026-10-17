@@ -48,10 +48,10 @@ class SnapshotTests(unittest.TestCase):
 
     def test_pinned_bytes_and_false_authority(self):
         result, files = core.verify(self.lock, self.snapshot)
-        self.assertEqual(result["core_revision"], "64b19bb5658432c42cd6a26aa357fd6b1d0fd857")
-        self.assertEqual(result["collection_sha256"], "37ef5cbdfc9461b43dc76dcd1448943405daf8b6d2a77ee0c1857e7ba9088e15")
-        self.assertEqual(result["verified_files"], 11)
-        self.assertEqual(result["local_references"], 313)
+        self.assertEqual(result["core_revision"], "174df2af8dedf813b9bd4e3c184a627ee87d3cd8")
+        self.assertEqual(result["collection_sha256"], "484923e7dc1407dde1702cf88e93afb5a279b25f79a2c6ff9631d58d7589ab13")
+        self.assertEqual(result["verified_files"], 13)
+        self.assertEqual(result["local_references"], 342)
         self.assertFalse(result["runtime_qualified"])
         self.assertFalse(result["delivery_ready"])
         self.assertEqual(set(files), core.FILES)
@@ -166,7 +166,7 @@ class SnapshotTests(unittest.TestCase):
 
     def test_sorted_collection_is_order_independent(self):
         self.edit_lock(lambda data: data["files"].reverse())
-        self.assertEqual(core.verify(self.lock, self.snapshot)[0]["verified_files"], 11)
+        self.assertEqual(core.verify(self.lock, self.snapshot)[0]["verified_files"], 13)
 
     def test_json_and_utf8_errors(self):
         for bad in [b"{", b"\xff", b"[]"]:
@@ -192,9 +192,20 @@ class SnapshotTests(unittest.TestCase):
                 self.assertFalse(self.destination.exists())
 
     def test_missing_snapshot_file(self):
-        (self.snapshot / "README.md").unlink()
-        with self.assertRaises(core.SnapshotError):
-            core.verify(self.lock, self.snapshot)
+        for name in ("README.md", "CHANGELOG.md", "docs/releases/v0.1.0.md"):
+            with self.subTest(path=name):
+                path = self.snapshot / name
+                raw = path.read_bytes()
+                path.unlink()
+                try:
+                    with self.assertRaises(core.SnapshotError):
+                        core.verify(self.lock, self.snapshot)
+                    result = self.cli("stage", "--destination", str(self.destination))
+                    self.assertEqual(result.returncode, 1)
+                    self.assertFalse(self.destination.exists())
+                finally:
+                    path.write_bytes(raw)
+                    path.chmod(0o644)
 
     def test_extra_file_and_empty_directory(self):
         extra = self.snapshot / "unexpected"
@@ -290,7 +301,7 @@ class SnapshotTests(unittest.TestCase):
         result = self.cli("stage", "--destination", str(self.destination))
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual(json.loads(result.stdout)["status"], "staged")
-        self.assertEqual(core.verify(self.lock, self.destination)[0]["verified_files"], 11)
+        self.assertEqual(core.verify(self.lock, self.destination)[0]["verified_files"], 13)
 
 
 class ReferenceTests(unittest.TestCase):
