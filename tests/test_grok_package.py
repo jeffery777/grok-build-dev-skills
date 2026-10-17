@@ -70,7 +70,7 @@ class PackageTests(unittest.TestCase):
     def test_source_and_staging_layouts(self):
         result, files, _ = package.verify(self.root)
         self.assertEqual(result["verified_files"], 20)
-        self.assertEqual(result["local_references"], 319)
+        self.assertEqual(result["local_references"], 333)
         self.assert_unqualified(result)
         self.assertEqual(set(files), package.PATHS | {package.MANIFEST})
         extra = self.root / "development-only.txt"

@@ -10,13 +10,15 @@
 
 P3-G1 為 [Issue #4](https://github.com/jeffery777/grok-build-dev-skills/issues/4) 提供固定 Core snapshot、離線完整性驗證及新的臨時 staging。它不載入技能、不安裝、不下載、不啟動 Grok／模型／session，也不提供 permission 或 resume adapter。驗證成功只證明已列出的檔案與引用；runtime 與 delivery readiness 固定為 false。
 
-[core.lock.json](../../core.lock.json) 鎖定 Core repository、完整 revision `784ed24f4a09ec35ac7209e0fd2287b214aea260`、繁中權威語言、十份 Markdown 的 path/digest 與 LICENSE。程式另持有固定 revision、集合與 LICENSE digest，不能只改 lock 就切換信任來源。這些信任錨的更新必須有新的來源審查與受影響驗證。
+[core.lock.json](../../core.lock.json) 鎖定 Core repository、完整 revision `3a3fd41e5fb994b4429a67d76d1b0655d972d150`、繁中權威語言、十份 Markdown 的 path/digest 與 LICENSE。程式另持有固定 revision、集合與 LICENSE digest，不能只改 lock 就切換信任來源。這些信任錨的更新必須有新的來源審查與受影響驗證。
 
 [固定副本](../../vendor/engineering-workflow-core/README.md) 保留十一份 upstream 原 bytes，都是 generated copies。唯一來源是固定 Core revision；不可手改副本或插入翻譯／generated header。衍生標記、改寫說明及來源放在 lock 和 [provenance](../provenance/source-map.md)。保留 [Core LICENSE](../../vendor/engineering-workflow-core/LICENSE) 與 [完整來源 notices](../../vendor/engineering-workflow-core/docs/provenance/upstream-notices.md)。
 
 [G-W1 / Issue #16](https://github.com/jeffery777/grok-build-dev-skills/issues/16) 將固定來源更新至 [Core PR #8](https://github.com/jeffery777/engineering-workflow-core/pull/8) 的 merge revision，讓 skills 引用 [共用寫作條款](../../vendor/engineering-workflow-core/contracts/workflow.md#wf-writing)。這次更新保留既有驗證算法、介面與 readiness 限制；詳細來源與 digest 見 [provenance](../provenance/source-map.md)。
 
-[GG1 / Issue #18](https://github.com/jeffery777/grok-build-dev-skills/issues/18) 現接入 [Core PR #12](https://github.com/jeffery777/engineering-workflow-core/pull/12) 的最終 revision，同包採用證據生命週期與風險優先審查；前述 G-W1 是先前寫作接入記錄。入口操作見 [專案政策](../../README.md#採用的工作流與專案政策)，現行 lock／程式 anchors／snapshot／manifest 一致更新，驗證算法與 false readiness 不變。
+[GG1 / Issue #18](https://github.com/jeffery777/grok-build-dev-skills/issues/18) 當時接入 [Core PR #12](https://github.com/jeffery777/engineering-workflow-core/pull/12) 的最終 revision，同包採用證據生命週期與風險優先審查；前述 G-W1 是先前寫作接入記錄。入口操作見 [專案政策](../../README.md#採用的工作流與專案政策)，現行 lock／程式 anchors／snapshot／manifest 一致更新，驗證算法與 false readiness 不變。
+
+[G-SA1 / Issue #20](https://github.com/jeffery777/grok-build-dev-skills/issues/20) 現採 [Core PR #14](https://github.com/jeffery777/engineering-workflow-core/pull/14) 的正式 merge revision，將共用安全適用性、能力缺口、外部補查與正式例外改為固定契約引用。Grok 方法及控制仍由接口適配；完整來源、兩檔差異與 digest 見 provenance。本更新不改驗證算法或 runtime readiness。
 
 ### 集合與引用
 
@@ -24,7 +26,7 @@ P3-G1 為 [Issue #4](https://github.com/jeffery777/grok-build-dev-skills/issues/
 
 1. 僅對 lock 的十份 Markdown，按 UTF-8 path bytes 排序。
 2. 每筆編碼為 `path + TAB + lowercase_sha256 + LF`，不含 JSON 引號或空格。
-3. 對十筆串接的 968 bytes 做 SHA-256，結果必須為 `f308093e1dbb6ba2796a3b286406a5f02adde692d05a200b2894e88527bed3c4`。
+3. 對十筆串接的 968 bytes 做 SHA-256，結果必須為 `cf5a027c818967a5c1bc46fabb36aba88b8264bde0c3ee81e2c4aff813d2a428`。
 4. LICENSE 不計入此集合，另驗 SHA-256 `49d64e81e9fd3b12470c1da48367b120b28d404ca08edfdd950278e28e4da34f`。
 
 P2 曾提出 NUL 分隔，沒有實作為正式 lock；P3-G1 明確採 TAB，不能混用 digest。Manifest path 限已核可的 ASCII POSIX 相對路徑，拒絕重複、空／點／父目錄片段、絕對／越界／未知路徑、反斜線及 TAB/LF/CR/NUL。每檔 digest 使用原 bytes，不做換行或 Unicode 正規化。
@@ -77,13 +79,15 @@ Staging 限系統 `/tmp` 或 `/var/tmp` 的 canonical 實體目錄下；不信�
 
 [Issue #4](https://github.com/jeffery777/grok-build-dev-skills/issues/4) adds a pinned Core snapshot, offline verification, and fresh temporary staging. It does not load skills, install, download, start Grok/models/sessions, or implement permission/resume adapters. Success proves only the listed files and references. Runtime qualification and delivery readiness remain false.
 
-The [lock](../../core.lock.json) pins the Core repository, revision `784ed24f4a09ec35ac7209e0fd2287b214aea260`, Chinese contract authority, ten Markdown digests, and LICENSE. The verifier also fixes the revision and collection/license digests in code. Editing the lock alone cannot select another source. Anchor updates require source review and affected verification.
+The [lock](../../core.lock.json) pins the Core repository, revision `3a3fd41e5fb994b4429a67d76d1b0655d972d150`, Chinese contract authority, ten Markdown digests, and LICENSE. The verifier also fixes the revision and collection/license digests in code. Editing the lock alone cannot select another source. Anchor updates require source review and affected verification.
 
 The eleven [generated copies](../../vendor/engineering-workflow-core/README.md) retain raw upstream bytes. The fixed Core revision is the only source. Do not hand-edit copies or insert translations/generated headers. Keep modification and source records in the lock and [provenance](../provenance/source-map.md). Retain the [Core license](../../vendor/engineering-workflow-core/LICENSE) and [full upstream notices](../../vendor/engineering-workflow-core/docs/provenance/upstream-notices.md).
 
 [G-W1 / Issue #16](https://github.com/jeffery777/grok-build-dev-skills/issues/16) updates the source to the [Core PR #8](https://github.com/jeffery777/engineering-workflow-core/pull/8) merge revision. The skills refer to the shared [plain-writing requirements](../../vendor/engineering-workflow-core/contracts/workflow.md#wf-writing). The verification algorithm, interfaces and readiness limits remain unchanged. See [provenance](../provenance/source-map.md) for source and digest details.
 
-[GG1 / Issue #18](https://github.com/jeffery777/grok-build-dev-skills/issues/18) now adopts evidence lifecycle and risk-first review from the final [Core PR #12](https://github.com/jeffery777/engineering-workflow-core/pull/12) revision. G-W1 above records the earlier writing update. See [project policy](../../README.md#adopted-workflow-and-project-policy) for entry-point behavior. The lock, code anchors, snapshot and manifest change together; verification algorithms and false readiness remain.
+[GG1 / Issue #18](https://github.com/jeffery777/grok-build-dev-skills/issues/18) adopted evidence lifecycle and risk-first review from the final [Core PR #12](https://github.com/jeffery777/engineering-workflow-core/pull/12) revision. G-W1 above records the earlier writing update. See [project policy](../../README.md#adopted-workflow-and-project-policy) for entry-point behavior. The lock, code anchors, snapshot and manifest change together; verification algorithms and false readiness remain.
+
+[G-SA1 / Issue #20](https://github.com/jeffery777/grok-build-dev-skills/issues/20) now adopts the formal [Core PR #14](https://github.com/jeffery777/engineering-workflow-core/pull/14) merge revision. Entry points reference shared security applicability, capability-gap, external-check and formal-exception rules. Grok methods and controls remain adapter-owned. See provenance for the verified source, two-file change and digests. Verification algorithms and runtime readiness remain unchanged.
 
 ### Collection and references
 
@@ -91,7 +95,7 @@ Algorithm ID: `sha256-path-tab-sha256-lf-v1`.
 
 1. Sort the ten Markdown entries by UTF-8 path bytes.
 2. Encode each as `path + TAB + lowercase_sha256 + LF`, without JSON quotes or spaces.
-3. Hash the concatenated 968 bytes. Required SHA-256: `f308093e1dbb6ba2796a3b286406a5f02adde692d05a200b2894e88527bed3c4`.
+3. Hash the concatenated 968 bytes. Required SHA-256: `cf5a027c818967a5c1bc46fabb36aba88b8264bde0c3ee81e2c4aff813d2a428`.
 4. Exclude LICENSE from that collection. Verify its separate SHA-256: `49d64e81e9fd3b12470c1da48367b120b28d404ca08edfdd950278e28e4da34f`.
 
 P2 proposed NUL separation but did not implement a lock. P3-G1 selects TAB explicitly. The two digests are not interchangeable. Manifest paths are approved ASCII POSIX relative paths only. Reject duplicates, empty/dot/parent segments, absolute/escaping/unknown paths, backslashes, and TAB/LF/CR/NUL. Hash original bytes without newline or Unicode normalization.

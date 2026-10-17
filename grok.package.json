@@ -1,6 +1,6 @@
 {
   "format": "grok-offline-package/v1",
-  "core_revision": "784ed24f4a09ec35ac7209e0fd2287b214aea260",
+  "core_revision": "3a3fd41e5fb994b4429a67d76d1b0655d972d150",
   "files": [
     {
       "path": "LICENSE",
@@ -12,15 +12,15 @@
     },
     {
       "path": "core.lock.json",
-      "sha256": "5ea9befc1922266ca2e32eea4bd2fce1e21890150bf5f52558fb0d8a25615307"
+      "sha256": "a388ea11f30850c36526000749cda968674d9ca757c137a1f1e763ff5d5120ff"
     },
     {
       "path": "references/grok-capabilities.md",
-      "sha256": "a1cb5374b4c9e137d3b4bc2750c9ccd7f77af038c40096e5e02f90d4d75bbd7a"
+      "sha256": "8717a2f2af9b224042b95cd695be6182d739c2eeb4966132426982fdebf63bfc"
     },
     {
       "path": "scripts/core_snapshot.py",
-      "sha256": "26a2034e7feacad893e6f04ac81162b872f0a2170150d27d525b3a361ff728b0"
+      "sha256": "3c27b5baf7cce37b1966f6140df67c77c9479b09a4f8483f4d1b5306b98aadae"
     },
     {
       "path": "scripts/grok_package.py",
@@ -28,11 +28,11 @@
     },
     {
       "path": "skills/grok-engineering-workflow/SKILL.md",
-      "sha256": "a291a9004be4b4d751cbd14e43e345ef802f837e3665b58a90178d2bdb28e38e"
+      "sha256": "e4da29584b49cc50538cda166195a507915bd4fee85b3982391569fec027bccb"
     },
     {
       "path": "skills/grok-review-change/SKILL.md",
-      "sha256": "dc5c0a4cbb8dc2e0f93df04408e290c1f30ca7b23d46c0babd5781c788148f10"
+      "sha256": "0f3c76540171eebd4c9cc0d76065566aeaf3b13015562ca2b5e629369cd3b6d1"
     },
     {
       "path": "vendor/engineering-workflow-core/LICENSE",
@@ -52,7 +52,7 @@
     },
     {
       "path": "vendor/engineering-workflow-core/contracts/review-and-security.md",
-      "sha256": "08f3b8be2ba2a8386077120141f925f5e0a33433e1ffe757535c16834fe81bbd"
+      "sha256": "117893b7c04116b9d424ff8178b1e999786329f3301c8927f84bbab85a32b6d0"
     },
     {
       "path": "vendor/engineering-workflow-core/contracts/workflow.md",
@@ -72,7 +72,7 @@
     },
     {
       "path": "vendor/engineering-workflow-core/docs/provenance/source-map.md",
-      "sha256": "f878088816780e97b22cae6d142b5feb81f36951476594070994995526345032"
+      "sha256": "94b82b69968fcc208a9cdfe7e11716de4688b2d8a2816d4de3ed7c708705cdf7"
     },
     {
       "path": "vendor/engineering-workflow-core/docs/provenance/upstream-notices.md",

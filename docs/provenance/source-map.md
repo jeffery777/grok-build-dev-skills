@@ -48,7 +48,7 @@ See the [qualification record](../verification/grok-control-qualification.md) fo
 
 ## 現行固定消費 / Current pinned consumption
 
-Active Core revision: `784ed24f4a09ec35ac7209e0fd2287b214aea260`，來自已合併的 [Core PR #12](https://github.com/jeffery777/engineering-workflow-core/pull/12)，由 [GG1 / Issue #18](https://github.com/jeffery777/grok-build-dev-skills/issues/18) 接入。G-W1 原固定 `345cd601bffbacc777f87fb24f22b5caefa30a3b`；P3-G1 原固定 P1 revision `b4c37798b6d3a9efd91c8c6d518093f2dd847a98`；上方 P0 與原 P1 身分是歷史來源，不是現行 lock。Core PR #12 is the current source; P0, P1 and G-W1 pins remain historical.
+Active Core revision: `3a3fd41e5fb994b4429a67d76d1b0655d972d150`，來自已合併的 [Core PR #14](https://github.com/jeffery777/engineering-workflow-core/pull/14)，由 [G-SA1 / Issue #20](https://github.com/jeffery777/grok-build-dev-skills/issues/20) 接入。[GG1 / Issue #18](https://github.com/jeffery777/grok-build-dev-skills/issues/18) 原固定 `784ed24f4a09ec35ac7209e0fd2287b214aea260`；G-W1 原固定 `345cd601bffbacc777f87fb24f22b5caefa30a3b`；P3-G1 原固定 P1 revision `b4c37798b6d3a9efd91c8c6d518093f2dd847a98`。上方 P0 與這些舊 pin 均為歷史來源。Core PR #14 is the current source; P0, P1, G-W1 and GG1 pins remain historical.
 
 [core.lock.json](../../core.lock.json) 固定全部十份 Markdown digest 與另驗的 LICENSE；[snapshot](../../vendor/engineering-workflow-core/README.md) 是原 bytes 的 generated copy，唯一來源為該 Core revision，不手改副本。The lock pins all ten Markdown digests and a separate license digest. Generated copies retain exact upstream bytes and must not be hand-edited.
 
@@ -56,10 +56,10 @@ Active Core revision: `784ed24f4a09ec35ac7209e0fd2287b214aea260`，來自已合�
 | --- | --- |
 | [workflow](../../vendor/engineering-workflow-core/contracts/workflow.md) | `e9688c8e3c48655a4e385a42cfaef6f60e8b6edec42d2c2a83871ba67b484701` |
 | [authorization-and-stops](../../vendor/engineering-workflow-core/contracts/authorization-and-stops.md) | `27f02076fdd034c090e341610d7e04f8e79143ec17c1d37a4b57629a04c5e699` |
-| [review-and-security](../../vendor/engineering-workflow-core/contracts/review-and-security.md) | `08f3b8be2ba2a8386077120141f925f5e0a33433e1ffe757535c16834fe81bbd` |
+| [review-and-security](../../vendor/engineering-workflow-core/contracts/review-and-security.md) | `117893b7c04116b9d424ff8178b1e999786329f3301c8927f84bbab85a32b6d0` |
 | [exact-head-and-evidence](../../vendor/engineering-workflow-core/contracts/exact-head-and-evidence.md) | `ba3419d7090fecce3e84f4ea35cd7695135fb7bbf8c1451502941163d8e873a4` |
 
-集合算法為 `sha256-path-tab-sha256-lf-v1`，集合 SHA-256 為 `f308093e1dbb6ba2796a3b286406a5f02adde692d05a200b2894e88527bed3c4`，LICENSE 不在集合內。The collection algorithm uses TAB, not the historical NUL proposal; LICENSE is separate. [消費與限制 / Consumption and limits](../design/p3-g-core-consumption.md) 將原契約義務與本包的離線驗證分開，不宣稱 runtime 合格 / separates obligations from offline checks and makes no runtime qualification claim.
+集合算法為 `sha256-path-tab-sha256-lf-v1`，集合 SHA-256 為 `cf5a027c818967a5c1bc46fabb36aba88b8264bde0c3ee81e2c4aff813d2a428`，LICENSE 不在集合內。The collection algorithm uses TAB, not the historical NUL proposal; LICENSE is separate. [消費與限制 / Consumption and limits](../design/p3-g-core-consumption.md) 將原契約義務與本包的離線驗證分開，不宣稱 runtime 合格 / separates obligations from offline checks and makes no runtime qualification claim.
 
 ## P3-G2 能力映射 / Capability mapping
 
@@ -88,3 +88,27 @@ Core 交付的十一檔 aggregate `269b1d5a05cc5c8ff9624b9988a0568073fd68ad6e953
 現有 skills／README 接入 [風險與檢查時機](../../vendor/engineering-workflow-core/contracts/review-and-security.md#review-risk-timing) 及 [證據生命週期](../../vendor/engineering-workflow-core/contracts/workflow.md#wf-evidence-lifecycle)，不新增執行框架或改 schema。新共同義務來自使用者接受的要求，見 Core [lifecycle 來源](../../vendor/engineering-workflow-core/docs/provenance/source-map.md#evidence-lifecycle-update) 與 [risk 來源](../../vendor/engineering-workflow-core/docs/provenance/source-map.md#risk-review-update)；不倒寫成 P1 Codex 抽取義務，也不升級既有寫作符合性證據。Existing entry points consume both user-origin contracts without a new executor or schema. Prior provenance and writing/conformity limits remain.
 
 本包先檢查敏感治理／信任邊界，依實質 diff 做比例安全檢查，再以最終候選核對必要證據。沒有全庫 deep scan 的通用要求或成本改善承諾；變更後須有受影響驗證及可證未變證據的重用理由。未執行 Grok／runtime、歷史 cleanup／搬移／歸檔／刪除、安裝或 global rollout；舊 trusted fixture 保持原 pin。This package performs no runtime, historical evidence cleanup or installed/global rollout.
+
+## G-SA1 安全方法適配 / Security method adaptation
+
+[Issue #20](https://github.com/jeffery777/grok-build-dev-skills/issues/20) 依使用者持續推進及區分 Grok／Codex 安全審查的要求，在兩個既有 skills 與 Grok mapping 補方法選取、政策／風險／coverage 充分性、findings 證據及缺失／拒絕狀態。R1／R2 當時沿用 GG1 的固定 Core，未改 vendor、lock、程式、測試或原生控制；manifest 只同步三份封裝指引的 digest。R1/R2 added method and evidence guidance while retaining the GG1 pin. The integration below supersedes that candidate state.
+
+材料為使用者上傳的 `grok-build-security-review-2026-10-16(1).md`。協調父端完整閱讀 16,447 bytes 後提供核對摘要；本 executor 的支援 Library materialization 下載失敗，確認未產生目標檔，故依父端摘要形成 consumer 指引，不宣稱本人直接讀過全文或編造原檔 digest。The coordinator read the complete uploaded material and supplied the checked summary. This executor's Library download failed without a local target, so the adaptation uses that summary and makes no direct full-text or source-digest claim.
+
+採納安全分析／scanner／品牌產品分流、source-to-sink 與信任邊界、severity／confidence／適用 CWE／前提／影響／驗證／補償控制、已做／未做與 coverage、共同盲點及資料傳輸／留存的區分。未採用新增共用 skill／.agents 路徑、Orca、每次 PR 一律 scanner、高風險只做輕量 review 或未核對命令。第三方技能僅供參考，沒有安裝授權；未複製第三方技能或程式。Adopted concepts cover method boundaries, security evidence, shared blind spots and transmission versus retention. Conflicting workflow, installation and command suggestions are not adopted; no third-party skill or program is copied.
+
+2026-10-16 已查證 [Skills](https://docs.x.ai/build/features/skills-plugins-marketplaces)、[Subagents](https://docs.x.ai/build/features/subagents)、[Settings](https://docs.x.ai/build/settings/reference) 與 [Permissions](https://docs.x.ai/build/features/permissions)：技能 metadata 不建立工具／模型控制；原生子代理與有效設定由 runtime 提供。這些是可變官方文件，不證明專用 scanner 存在或本機新路線已實測。The official sources support documented native capabilities, not a dedicated scanner or a runtime qualification claim. No live Grok case, scanner installation, global change or cross-platform automatic fallback is included; offline readiness remains false. Earlier qualification and acceptance history is retained, not reset by this update.
+
+使用者於 2026-10-16 09:25 UTC 補充：先按風險／變更及有效公司政策判斷必要方法，再查工具／插件；缺第三方能力須記錄並交接部門補查，不能令無相依開發停擺。兩語 mapping 與兩個入口因此補 NOT_RUN／UNAVAILABLE、原因／coverage／影響、受控交接內容與回收證據核對。真正強制 gate 等待外部證據或政策允許且有權者核准的例外，原缺件仍不算 Passed，低風險亦不自行免除公司強制項。This user clarification adds availability checks and a bounded handoff, preserving independent work while only dependent actions wait. A handoff or approved exception is not a completed scanner run or a self-authorized risk acceptance.
+
+同次授權允許沿用原支援的 `/private/tmp` 全新隔離 tests／assembly，不放寬 guard、不改測試或安裝缺少的 yaml；先前 `~/projects/test` 目標遭 guard 拒絕的證據保留。這是本包驗證範圍的修正，不是可重用技能的固定測試目錄要求。The same authorization permits existing offline tests and assembly in fresh system-temp isolation. It does not authorize live Grok/model cases, installation, global changes or bypasses; the earlier guard refusal remains historical evidence.
+
+後續澄清將有效政策判不需要的 scanner 記為 NOT_REQUIRED／NOT_APPLICABLE，與工具缺失／待補證據分開；可繼續開發不代表可發行，公司不可豁免規範仍有效。本包的共用政策／外部補查文字待 Core 原 owner 的最小 vendor-neutral 增量交付後改為引用，避免兩端永久複製。R2 當時尚未取得新 immutable pin，整合狀態為 pending，使用 `784ed24f4a09ec35ac7209e0fd2287b214aea260` 並保留本候選離線驗證，不手改 vendor 或宣稱已採新契約。Policy-supported nonrequirements are not missing-tool debt. Common policy/handoff guidance awaits the Core owner's increment and will become a reference to that fixed contract; R2 validation did not claim that integration was complete. The following adoption supersedes the pending state.
+
+## G-SA1 Core Issue13 接入 / Core Issue13 adoption
+
+2026-10-17 核對正式 PR #14 的 merged 狀態、merge revision `3a3fd41e5fb994b4429a67d76d1b0655d972d150`、reviewed source `139ef2ff29af70c7592910c2ec598a9943cc934f` 與共同 tree `83c9457a805a0aad204138543dc2f7ee77752735`。十一份 immutable raw blobs 的 Git blob 身分、size、SHA-256 與 100644 mode 均與持久 handoff 一致。相對 GG1 只有 review-and-security 與 Core source-map 變更，其他九檔及 LICENSE bytes 不變。Official PR, commit/tree identities and eleven raw files match the persistent Core handoff. Only the review/security contract and Core source map change from GG1.
+
+十一檔來源 aggregate 為 `3ba2c2115bb582009c925148e0fda8708b4aed3d99f4eed6ed0e3b35b5246e2c`；十份 Markdown collection 為上節 `cf5a027c818967a5c1bc46fabb36aba88b8264bde0c3ee81e2c4aff813d2a428`，LICENSE 分驗。Lock、程式常數、generated bytes、manifest、文件及受影響測試同包更新，驗證算法不變。The eleven-file source aggregate, ten-Markdown collection and separate LICENSE digest serve different checks; verifier algorithms are unchanged.
+
+兩技能及 mapping 改引固定 Core 的 [安全適用性](../../vendor/engineering-workflow-core/contracts/review-and-security.md#review-security) 與 [證據及續行](../../vendor/engineering-workflow-core/contracts/review-and-security.md#review-evidence)，共用政策、能力缺口、外部補查與正式例外由 Core 持有；Grok 仍持有方法、實際工具／模型、資料與 session 控制適配。不把 Core 的安全掃描移作本候選的掃描證據；本候選審查與必要安全 gate 另綁完整 diff。Consumer entry points reference shared policy while retaining Grok-specific methods and controls. Core's scan is not this adapter candidate's scan. Runtime qualification and offline false readiness remain unchanged; no installed skill or global rollout is included.

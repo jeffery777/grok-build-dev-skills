@@ -1,6 +1,6 @@
 ---
 name: grok-review-change
-description: Review an exact repository change read-only in Grok Build with independent findings and fixed Core gates. Use for code and document review or complete base-to-head Merge Review.
+description: Review an exact repository change or perform bounded security analysis read-only in Grok Build with independent findings and fixed Core gates. Use for code, document and security review or complete base-to-head Merge Review.
 ---
 
 # Independent change review in Grok Build
@@ -14,6 +14,8 @@ Assess goal/design risk at review start and when scope or impact changes; unknow
 Check actual loaded tools, effective permissions and required qualification before acting. Do not use a parent plan mode, persona, skill frontmatter or an agent type name as proof of technical read-only enforcement. Shell and MCP capabilities need explicit inspection; official and bundled explore/plan descriptions differ. When required enforcement or reliable authorization forwarding is unavailable, mark the dependent review blocked and preserve the question rather than running it anyway.
 
 Review correctness, regressions, trust boundaries, negative cases, notices and code/docs/configuration/package/version coherence. Within the existing review, sample applicable writing requirements and record the scope, results and unverified limits, including bilingual consistency and the basis for any conformity claim. Assess scan applicability from task risk, current scope/diff, affected boundaries and unresolved concerns; ordinary review or cheap checks cannot substitute for a required scan. At final acceptance, check sufficient current coverage rather than automatically repeating a whole-repository deep scan. Verify evidence rather than treating summaries, help, exit 0 or packet flags as qualification.
+
+For a security request or required scan, use Core's [security applicability rules](../../vendor/engineering-workflow-core/contracts/review-and-security.md#review-security) and [evidence and continuation rules](../../vendor/engineering-workflow-core/contracts/review-and-security.md#review-evidence). Apply the mapping's Security method selection section to Grok methods, actual tool/plugin availability, effective native reviewer/model settings and data boundaries. Distinguish dedicated model static analysis, actual scanners and named products. Record the selected method's sufficiency, findings and coverage in the existing report. Core governs policy-supported nonrequirements, unrun/unknown/unavailable states, external evidence and authorized exceptions; the Grok mapping creates no installation, transmission or cross-platform fallback authority.
 
 For replacement evidence, check original-failure and affected-boundary coverage, cause/fix, revisions, scope/outcomes and readable replacement references. Retain unresolved/intermittent, security/data-loss, shared, cited and review/merge/acceptance evidence under valid policy; a summary or newer PASS does not release protection. Context slimming is not deletion. Missing retention policy or duration means keep sources and pending decisions; actual source operations still require scope, authority and previews, with action-time confirmation for irreversible deletion.
 
