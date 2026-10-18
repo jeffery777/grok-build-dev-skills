@@ -20,15 +20,49 @@ CATALOG = "capabilities/grok-build-1.0.52.json"
 MANIFEST = "grok.package.json"
 PLUGIN = "plugin.json"
 PACKAGE_NAME = "grok-build-dev-skills"
-PACKAGE_VERSION = "0.1.0"
+PACKAGE_VERSION = "0.2.0"
 PLUGIN_DESCRIPTION = (
-    f"Offline engineering workflow skills; fixed Core {core.CORE_REVISION}. "
-    "Native installation and runtime qualification are not verified."
+    f"Engineering skills and explicit GitNexus 1.6.12 index controller; fixed Core {core.CORE_REVISION}. "
+    "Native agent-use qualification is separate."
 )
+GN_DIRECTORY = "vendor/gitnexus-index-controller"
+GN_LOCK = "gitnexus.lock.json"
+GN_SOURCE_S = "e23e18ed0512ece04ca6b6dceba3a6a1cf59b9fd"
+GN_SOURCE_T = "5b7cc2486df65366ae0f7bdaa78a23b7c2adf258"
+GN_FILE_HASHES = {'vendor/gitnexus-index-controller/gitnexus_adapter.py': '26b28a156e0700e2e45198e083db0d2f3f2dbfe0da17f90565babd63ed2bcb49',
+ 'vendor/gitnexus-index-controller/git_source.py': 'f188ddefa1bb3c13940d800204f645ba02059bc916d5aa0df0ccd544d05d51e5',
+ 'vendor/gitnexus-index-controller/memory_contract.py': 'a32ff87dedead5361ad947e9d2ace06aa4612308e54c04d7ce2c6d738a06c018',
+ 'vendor/gitnexus-index-controller/LICENSE': 'a58ebea45ac922c21500dad64c6e5f54423f831d2dfdfd2b4c882aab29822d4e'}
+GN_LOCK_DATA = {'format': 'grok-gitnexus-controller-source/v1',
+ 'repository': 'https://github.com/jeffery777/codex-dev-skills',
+ 'source_S': 'e23e18ed0512ece04ca6b6dceba3a6a1cf59b9fd',
+ 'source_T': '5b7cc2486df65366ae0f7bdaa78a23b7c2adf258',
+ 'source_status': 'local-unreleased-candidate',
+ 'source_package_version': '0.35.0',
+ 'gitnexus_version': '1.6.12',
+ 'license': 'MIT',
+ 'files': [{'path': 'vendor/gitnexus-index-controller/gitnexus_adapter.py',
+            'source_path': 'skills/loop-engineering/scripts/gitnexus_adapter.py',
+            'sha256': '26b28a156e0700e2e45198e083db0d2f3f2dbfe0da17f90565babd63ed2bcb49',
+            'git_mode': '100644'},
+           {'path': 'vendor/gitnexus-index-controller/git_source.py',
+            'source_path': 'skills/loop-engineering/scripts/git_source.py',
+            'sha256': 'f188ddefa1bb3c13940d800204f645ba02059bc916d5aa0df0ccd544d05d51e5',
+            'git_mode': '100644'},
+           {'path': 'vendor/gitnexus-index-controller/memory_contract.py',
+            'source_path': 'skills/loop-engineering/scripts/memory_contract.py',
+            'sha256': 'a32ff87dedead5361ad947e9d2ace06aa4612308e54c04d7ce2c6d738a06c018',
+            'git_mode': '100644'},
+           {'path': 'vendor/gitnexus-index-controller/LICENSE',
+            'source_path': 'LICENSE',
+            'sha256': 'a58ebea45ac922c21500dad64c6e5f54423f831d2dfdfd2b4c882aab29822d4e',
+            'git_mode': '100644'}]}
+
 SKILLS = ("grok-engineering-workflow", "grok-review-change")
 PATHS = frozenset({
     "LICENSE", "core.lock.json", PLUGIN, CATALOG, "references/grok-capabilities.md",
-    "scripts/core_snapshot.py", "scripts/grok_package.py",
+    "scripts/core_snapshot.py", "scripts/grok_package.py", "scripts/gitnexus_index.py",
+    GN_LOCK, "references/gitnexus-operations.md", *GN_FILE_HASHES,
     *(f"skills/{name}/SKILL.md" for name in SKILLS),
     *(f"vendor/engineering-workflow-core/{name}" for name in core.FILES),
 })
@@ -168,7 +202,7 @@ def verify(
         # Development docs/tests are outside the package. Owned skill/reference/catalog
         # roots must be exact, so extra assets or duplicate skill directories fail.
         files = {name: read_file(root, name) for name in PATHS}
-        for folder in ("skills", "references", "capabilities"):
+        for folder in ("skills", "references", "capabilities", GN_DIRECTORY):
             names = {name[len(folder) + 1:] for name in PATHS if name.startswith(folder + "/")}
             captured = core.capture_inventory(root / folder, names)
             if any(captured[name] != files[folder + "/" + name] for name in names):
@@ -179,6 +213,11 @@ def verify(
     for name, expected_digest in expected.items():
         if core.sha256(files[name]) != expected_digest:
             raise core.SnapshotError("package digest mismatch")
+    if json_data(files[GN_LOCK]) != GN_LOCK_DATA:
+        raise core.SnapshotError("unsupported GitNexus controller source lock")
+    for name, expected_digest in GN_FILE_HASHES.items():
+        if core.sha256(files[name]) != expected_digest:
+            raise core.SnapshotError("GitNexus controller differs from fixed source")
     core_result, core_files = core.verify(root / "core.lock.json", root / "vendor/engineering-workflow-core")
     if any(files["vendor/engineering-workflow-core/" + name] != raw for name, raw in core_files.items()):
         raise core.SnapshotError("Core changed during package capture")

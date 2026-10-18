@@ -8,13 +8,15 @@
 
 ## 用途與目前狀態
 
+**目前工作候選為 0.2.0，尚未發行或更新現行安裝。** 新增兩個既有技能的 [GitNexus 操作入口](references/gitnexus-operations.md)，配對 Codex 0.35.0 候選、Core 0.1.0、GitNexus 精確 1.6.12。編排方指定時機及 Codex/Grok 任一端為唯一 index writer。2026-10-18 在隔離 fixture 的 Grok 1.0.62 原生觀察已完整讀取兩技能及必要 Core，並精確執行一次唯讀 plan；這不代表原生 refresh 或整體 runtime 合格。證據分層與支援矩陣見 [候選設計](docs/design/gitnexus-operation-parity.md) 與 [驗收範圍](docs/verification/gitnexus-operation-acceptance.md)。另見 [0.2.0 候選說明](docs/releases/v0.2.0.md)。下列 0.1.0 發行資訊保留歷史。
+
 本專案準備讓 Grok Build 使用固定版本的共用工程規範，並在 Grok 端管理技能、工具適配、驗證及組裝安裝。
 
 本專案適合維護 AI 開發流程的工程人員。例如，團隊想讓 Grok 在修改程式前讀取共同規範、在合併前保留審查證據，可先用這份設計確認所需能力與限制。
 
 **版本 `0.1.0` 提供官方 plugin 格式的兩個技能與二十三檔離線套件，內含正式 Core v0.1.0。** 固定 Core commit `174df2af8dedf813b9bd4e3c184a627ee87d3cd8`；不必另外安裝 Core，兩專案各自管理版本。從 [正式 Release](https://github.com/jeffery777/grok-build-dev-skills/releases/tag/v0.1.0) 核對產品 tag 解析後的完整來源 commit 與 digest，再讀 [更新紀錄](CHANGELOG.md)、[發行說明](docs/releases/v0.1.0.md) 及 [安裝／更新／回復](docs/installation.md)。技能與離線介面見 [組裝設計](docs/design/p3-g-skill-assembly.md)、[委派證據與缺口](docs/verification/grok-delegation-capabilities.md) 及 [固定 Core 消費](docs/design/p3-g-core-consumption.md)。
 
-[Issue #2](https://github.com/jeffery777/grok-build-dev-skills/issues/2) 為設計完成、保留歷史且仍 OPEN 的非阻擋追蹤案。離線來源／套件發行不要求重跑官方 sandbox／deny／resume QA；runtime 資格與 false readiness 不升級。
+[Issue #2](https://github.com/jeffery777/grok-build-dev-skills/issues/2) 為設計完成、保留歷史且仍 OPEN 的非阻擋追蹤案。離線來源／套件發行不要求重跑官方 sandbox／deny／resume QA；此次有界 plan 觀察不升級整體 runtime 資格或離線 packet 的 false readiness。
 
 ## 如何開始
 
@@ -26,7 +28,7 @@ PYTHONDONTWRITEBYTECODE=1 python3 scripts/grok_package.py verify
 PYTHONDONTWRITEBYTECODE=1 python3 scripts/grok_package.py capabilities
 ```
 
-Core 命令驗十三檔，package 命令驗二十三檔 bundle，分別輸出產品版本、Core revision／digest 及 Grok 文件版本。能力目錄保留 `1.0.52 (0920c8169e27)`；2026-10-17 非模型 help 觀察為 `1.0.60 (01a8e1c591c0)`，兩者皆非相容版本範圍認證。正式 Core tag object `e984c880a05065c8bcd0d78e83d78220b05bfc32` 解析至上述 commit；lock 固定 commit 與十二份 Markdown collection，不追蹤 moving main 或動態 tag。十三檔形成完整相對引用閉合，不表示 runtime 每次載入全部文件。
+Core 命令驗十三檔，package 命令驗三十檔候選 bundle，分別輸出產品版本、Core revision／digest 及 Grok 文件版本。能力目錄保留 `1.0.52 (0920c8169e27)`；2026-10-17 非模型 help 觀察為 `1.0.60 (01a8e1c591c0)`，兩者皆非相容版本範圍認證。正式 Core tag object `e984c880a05065c8bcd0d78e83d78220b05bfc32` 解析至上述 commit；lock 固定 commit 與十二份 Markdown collection，不追蹤 moving main 或動態 tag。十三檔形成完整相對引用閉合，不表示 runtime 每次載入全部文件。
 
 成功只證明離線內容與引用，不代表原生 plugin 安裝、技能載入、委派或 runtime 合格。Packet 是 consumer 證據封裝，不是 Grok API schema；所有 readiness 保持 false。發行範圍是已核驗來源與離線套件。實裝前另核對原生寫入集合、ownership、信任、payload／Core 引用及失敗保全，詳見 [最小整合項目](docs/installation.md#native-integration-zh)。未實測不列為 PASS，也不冒稱缺陷；[P2-G 設計](docs/design/p2-g-preparation.md) 與 [來源對照](docs/provenance/source-map.md) 保留歷史。
 
@@ -46,7 +48,7 @@ Core 命令驗十三檔，package 命令驗二十三檔 bundle，分別輸出產
 
 ## 限制與授權
 
-本發行不自動安裝或修改用戶設定、共享技能路徑及既有內容。後續實裝由協調者安排精確寫入範圍與資料保護；發行／掃描不代替安裝證據。沒有新增模型投入、Reason 功能、Memory／Hooks／Schedulers、模型路由或服務。若日後另獲授權執行模型／resume，每次必須顯式指定已驗證 sandbox profile、初始 ask，並有可靠的授權轉交／停止通道；不可因本發行推定資格或新授權。
+本發行不自動安裝或修改用戶設定、共享技能路徑及既有內容。後續實裝由協調者安排精確寫入範圍與資料保護；發行／掃描不代替安裝證據。本產品不新增 Reason 功能、Memory／Hooks／Schedulers、模型路由或服務；上述一次有界原生觀察是驗收活動，不代表新增產品能力或追加模型授權。若日後另獲授權執行模型／resume，每次必須顯式指定已驗證 sandbox profile、初始 ask，並有可靠的授權轉交／停止通道；不可因本發行推定資格或新授權。
 
 本專案採 [MIT License](LICENSE)。衍生設計的來源 notices 見 [upstream notices](docs/provenance/upstream-notices.md)。
 
@@ -58,13 +60,15 @@ Core 命令驗十三檔，package 命令驗二十三檔 bundle，分別輸出產
 
 ## Purpose and current state
 
+**The current working candidate is 0.2.0, not released or installed.** It adds an explicit [GitNexus entry](references/gitnexus-operations.md) to the two existing skills, paired with Codex 0.35.0 candidate, Core 0.1.0 and GitNexus exactly 1.6.12. The orchestrator chooses timing and either Codex or Grok as the sole index writer. On 2026-10-18, Grok 1.0.62 read both skills and required Core files in an isolated fixture, then ran one exact read-only plan. This does not qualify native refresh or the whole runtime. See the [design](docs/design/gitnexus-operation-parity.md) and [acceptance scope](docs/verification/gitnexus-operation-acceptance.md). See also the [0.2.0 candidate notes](docs/releases/v0.2.0.md). The 0.1.0 publication information below is historical.
+
 This project prepares Grok Build to use a fixed set of shared engineering rules. The Grok adapter will own skills, tool integration, validation, assembly, and installation.
 
 This project is for engineers who maintain AI development workflows. For example, a team can use this design to check what Grok needs to read shared rules before changing code and retain review evidence before a merge.
 
 **Version `0.1.0` supplies two native-plugin-format skills and a twenty-three-file offline bundle containing formal Core v0.1.0.** Core is fixed at `174df2af8dedf813b9bd4e3c184a627ee87d3cd8` and needs no separate installation; product and Core versions are independent. Read back the full product commit behind the tag and its digests in the [formal Release](https://github.com/jeffery777/grok-build-dev-skills/releases/tag/v0.1.0), then see the [changelog](CHANGELOG.md), [release notes](docs/releases/v0.1.0.md) and [installation/update/recovery guide](docs/installation.md). See [assembly](docs/design/p3-g-skill-assembly.md), [delegation evidence/gaps](docs/verification/grok-delegation-capabilities.md) and [fixed Core consumption](docs/design/p3-g-core-consumption.md) for interfaces and limits.
 
-[Issue #2](https://github.com/jeffery777/grok-build-dev-skills/issues/2) remains OPEN historical tracking with its design complete. It does not block offline source/package publication or require new native sandbox/deny/resume QA. Runtime qualification and false readiness are not promoted.
+[Issue #2](https://github.com/jeffery777/grok-build-dev-skills/issues/2) remains OPEN historical tracking with its design complete. It does not block offline source/package publication or require new native sandbox/deny/resume QA. The bounded plan observation does not promote general runtime qualification or the offline packet's false readiness.
 
 ## Getting started
 
@@ -76,7 +80,7 @@ PYTHONDONTWRITEBYTECODE=1 python3 scripts/grok_package.py verify
 PYTHONDONTWRITEBYTECODE=1 python3 scripts/grok_package.py capabilities
 ```
 
-The Core command checks thirteen files; the package command checks twenty-three. Output separates product, Core revision/digest and documented Grok version. The catalog retains `1.0.52 (0920c8169e27)`; non-model help on 2026-10-17 observed `1.0.60 (01a8e1c591c0)`. Neither certifies a compatibility range. Formal Core tag object `e984c880a05065c8bcd0d78e83d78220b05bfc32` resolves to the fixed commit above. The lock binds that commit and twelve-Markdown collection, never moving main or a dynamic tag. Complete thirteen-file reference closure does not mean loading every document on each runtime use.
+The Core command checks thirteen files; the package command checks thirty candidate files instead of the historical twenty-three. Output separates product, Core revision/digest and documented Grok version. The catalog retains `1.0.52 (0920c8169e27)`; non-model help on 2026-10-17 observed `1.0.60 (01a8e1c591c0)`. Neither certifies a compatibility range. Formal Core tag object `e984c880a05065c8bcd0d78e83d78220b05bfc32` resolves to the fixed commit above. The lock binds that commit and twelve-Markdown collection, never moving main or a dynamic tag. Complete thirteen-file reference closure does not mean loading every document on each runtime use.
 
 Success proves offline bytes/references, not native installation, skill loading, delegation or runtime qualification. The packet is a consumer evidence envelope, not a Grok API schema. All readiness flags remain false. Publication covers verified source and offline artifacts. Actual installation separately needs write-set, ownership, trust, payload/Core and failure-preservation checks in the [minimum integration plan](docs/installation.md#native-integration-en). Untested behavior is neither PASS nor a confirmed defect. The [P2-G design](docs/design/p2-g-preparation.md) and [source map](docs/provenance/source-map.md) retain history.
 
@@ -96,7 +100,7 @@ This project sets no universal retention period or automatic cleanup. Without a 
 
 ## Limits and license
 
-This release does not automatically install, change user settings/shared skill paths or replace existing contents. The coordinator sequences later installation with exact writes and data protection. Publication/scanning cannot replace installation evidence. No new model work, Reason feature, Memory/Hooks/Schedulers, model routing or service is added. Any separately authorized future model run/resume needs an explicit verified sandbox profile, initial ask and reliable approval-forwarding/stop channel on every execution. This release grants no runtime qualification or new authorization.
+This release does not automatically install, change user settings/shared skill paths or replace existing contents. The coordinator sequences later installation with exact writes and data protection. Publication/scanning cannot replace installation evidence. The product adds no Reason feature, Memory/Hooks/Schedulers, model routing or service. The bounded native observation above is acceptance work, not a new product capability or authority for another model call. Any separately authorized future model run/resume needs an explicit verified sandbox profile, initial ask and reliable approval-forwarding/stop channel on every execution. This release grants no runtime qualification or new authorization.
 
 This project uses the [MIT License](LICENSE). See [upstream notices](docs/provenance/upstream-notices.md) for the sources of this design.
 

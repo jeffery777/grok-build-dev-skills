@@ -70,19 +70,35 @@ class PackageTests(unittest.TestCase):
 
     def test_source_and_staging_layouts(self):
         result, files, _ = package.verify(self.root)
-        self.assertEqual(result["verified_files"], 23)
-        self.assertEqual(result["local_references"], 375)
+        self.assertEqual(result["verified_files"], 30)
+        self.assertGreater(result["local_references"], 375)
         self.assertEqual(result["product_name"], "grok-build-dev-skills")
-        self.assertEqual(result["product_version"], "0.1.0")
+        self.assertEqual(result["product_version"], "0.2.0")
         self.assertEqual(result["documented_grok_version"], package.VERSION)
         self.assertEqual(result["core_revision"], package.core.CORE_REVISION)
         self.assert_unqualified(result)
         self.assertEqual(set(files), package.PATHS | {package.MANIFEST})
         extra = self.root / "development-only.txt"
         extra.write_text("not packaged")
-        self.assertEqual(package.verify(self.root)[0]["verified_files"], 23)
+        self.assertEqual(package.verify(self.root)[0]["verified_files"], 30)
         with self.assertRaises(package.core.SnapshotError):
             package.verify(self.root, "staging")
+
+    def test_controller_pin_survives_local_manifest_rehash(self):
+        relative = package.GN_DIRECTORY + "/gitnexus_adapter.py"
+        (self.root / relative).write_bytes((self.root / relative).read_bytes() + b"\n# drift\n")
+        self.rehash(relative)
+        with self.assertRaises(package.core.SnapshotError): package.verify(self.root)
+
+    def test_controller_extra_dependency_rejected(self):
+        (self.root / package.GN_DIRECTORY / "extra.py").write_text("raise Exception('untrusted')")
+        with self.assertRaises(package.core.SnapshotError): package.verify(self.root)
+
+    def test_controller_lock_cannot_select_another_source(self):
+        p = self.root / package.GN_LOCK
+        lock = json.loads(p.read_text()); lock["source_S"] = "f" * 40
+        p.write_text(json.dumps(lock)); self.rehash(package.GN_LOCK)
+        with self.assertRaises(package.core.SnapshotError): package.verify(self.root)
 
     def test_staging_readback_and_relocation(self):
         result = package.stage(self.root, self.destination)
@@ -115,7 +131,7 @@ class PackageTests(unittest.TestCase):
 
     def test_trusted_manifest_digest_before_payload_or_write(self):
         trusted = hashlib.sha256((self.root / package.MANIFEST).read_bytes()).hexdigest()
-        self.assertEqual(package.verify(self.root, expected_manifest_sha256=trusted)[0]["verified_files"], 23)
+        self.assertEqual(package.verify(self.root, expected_manifest_sha256=trusted)[0]["verified_files"], 30)
         # A changed skill and a matching rewritten local manifest still differ
         # from the digest obtained independently from the trusted fixed source.
         skill = "skills/grok-engineering-workflow/SKILL.md"

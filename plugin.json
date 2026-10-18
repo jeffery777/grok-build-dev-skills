@@ -1,5 +1,5 @@
 {
   "name": "grok-build-dev-skills",
-  "version": "0.1.0",
-  "description": "Offline engineering workflow skills; fixed Core 174df2af8dedf813b9bd4e3c184a627ee87d3cd8. Native installation and runtime qualification are not verified."
+  "version": "0.2.0",
+  "description": "Engineering skills and explicit GitNexus 1.6.12 index controller; fixed Core 174df2af8dedf813b9bd4e3c184a627ee87d3cd8. Native agent-use qualification is separate."
 }

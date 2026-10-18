@@ -1,0 +1,36 @@
+{
+  "format": "grok-gitnexus-controller-source/v1",
+  "repository": "https://github.com/jeffery777/codex-dev-skills",
+  "source_S": "e23e18ed0512ece04ca6b6dceba3a6a1cf59b9fd",
+  "source_T": "5b7cc2486df65366ae0f7bdaa78a23b7c2adf258",
+  "source_status": "local-unreleased-candidate",
+  "source_package_version": "0.35.0",
+  "gitnexus_version": "1.6.12",
+  "license": "MIT",
+  "files": [
+    {
+      "path": "vendor/gitnexus-index-controller/gitnexus_adapter.py",
+      "source_path": "skills/loop-engineering/scripts/gitnexus_adapter.py",
+      "sha256": "26b28a156e0700e2e45198e083db0d2f3f2dbfe0da17f90565babd63ed2bcb49",
+      "git_mode": "100644"
+    },
+    {
+      "path": "vendor/gitnexus-index-controller/git_source.py",
+      "source_path": "skills/loop-engineering/scripts/git_source.py",
+      "sha256": "f188ddefa1bb3c13940d800204f645ba02059bc916d5aa0df0ccd544d05d51e5",
+      "git_mode": "100644"
+    },
+    {
+      "path": "vendor/gitnexus-index-controller/memory_contract.py",
+      "source_path": "skills/loop-engineering/scripts/memory_contract.py",
+      "sha256": "a32ff87dedead5361ad947e9d2ace06aa4612308e54c04d7ce2c6d738a06c018",
+      "git_mode": "100644"
+    },
+    {
+      "path": "vendor/gitnexus-index-controller/LICENSE",
+      "source_path": "LICENSE",
+      "sha256": "a58ebea45ac922c21500dad64c6e5f54423f831d2dfdfd2b4c882aab29822d4e",
+      "git_mode": "100644"
+    }
+  ]
+}

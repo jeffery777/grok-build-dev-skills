@@ -15,28 +15,40 @@
       "sha256": "2c6943132d8346ef26b771ef541c6173f8860d526cee582a479ce5e68cfe0a48"
     },
     {
+      "path": "gitnexus.lock.json",
+      "sha256": "9c5f1f1265598d4a8fcb56b1b6784ba1507694276dbbed903f54000b7feaaf6b"
+    },
+    {
       "path": "plugin.json",
-      "sha256": "13c5bff42bcc72cbb6bdeee190cc7dc6f3fbca6167fb094084105fa097cf554e"
+      "sha256": "8591e36339e3c94178e60342fc8074c74f54f9220256118d05e6927935bdbd67"
+    },
+    {
+      "path": "references/gitnexus-operations.md",
+      "sha256": "423d6d1a767cba1b5540fde74be3dcc68994fc277268e3356de917eefb19400a"
     },
     {
       "path": "references/grok-capabilities.md",
-      "sha256": "8717a2f2af9b224042b95cd695be6182d739c2eeb4966132426982fdebf63bfc"
+      "sha256": "5050b97556248f2cca92e9e3676e9105e5727ea2ab8219df4a681bafe4f325e7"
     },
     {
       "path": "scripts/core_snapshot.py",
       "sha256": "297c430bc51763fae5650733e73d29605227d5b29de99c09ae5e6a36443a5aaf"
     },
     {
+      "path": "scripts/gitnexus_index.py",
+      "sha256": "db4c1629c41bd3ebdc384134c43e111f918b0b62a65314314c2a55aa560222a1"
+    },
+    {
       "path": "scripts/grok_package.py",
-      "sha256": "73a8375da7ed5740afe00df371ea3dc421cea6dff47088efcf8b19424612cef9"
+      "sha256": "f62909bba685d05b851678c71076f6a9db333adfcb273ddd853a6ba87c2d3d12"
     },
     {
       "path": "skills/grok-engineering-workflow/SKILL.md",
-      "sha256": "ad260b2b7e15dc50970fad89c46163eadeaab2749d771622ea147a7d846dc745"
+      "sha256": "892c7bbdccb5ff309cb7c10d299408a38f0ca26860beb307c6fb478b7f020607"
     },
     {
       "path": "skills/grok-review-change/SKILL.md",
-      "sha256": "b7b9181e883e403abb9a2e4015752364689b9b722500e540fc399b42a857a778"
+      "sha256": "5889a242d15501da12dacb33551e3eae41f1775922cd60acc0ad4aaa603ba524"
     },
     {
       "path": "vendor/engineering-workflow-core/CHANGELOG.md",
@@ -89,6 +101,22 @@
     {
       "path": "vendor/engineering-workflow-core/docs/releases/v0.1.0.md",
       "sha256": "f8e6c3e1e6b4ac8b433656ae3991274f657097f40eae7de2431348e13bb2b058"
+    },
+    {
+      "path": "vendor/gitnexus-index-controller/LICENSE",
+      "sha256": "a58ebea45ac922c21500dad64c6e5f54423f831d2dfdfd2b4c882aab29822d4e"
+    },
+    {
+      "path": "vendor/gitnexus-index-controller/git_source.py",
+      "sha256": "f188ddefa1bb3c13940d800204f645ba02059bc916d5aa0df0ccd544d05d51e5"
+    },
+    {
+      "path": "vendor/gitnexus-index-controller/gitnexus_adapter.py",
+      "sha256": "26b28a156e0700e2e45198e083db0d2f3f2dbfe0da17f90565babd63ed2bcb49"
+    },
+    {
+      "path": "vendor/gitnexus-index-controller/memory_contract.py",
+      "sha256": "a32ff87dedead5361ad947e9d2ace06aa4612308e54c04d7ce2c6d738a06c018"
     }
   ]
 }

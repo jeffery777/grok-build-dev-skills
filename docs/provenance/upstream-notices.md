@@ -83,3 +83,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
+
+## G-GN1 / 0.2.0 candidate
+
+G-GN1 重用 jeffery777/codex-dev-skills 固定 S/T 的三個 Python 模組，完整 MIT copyright／permission notice 原樣保留於 [LICENSE](../../vendor/gitnexus-index-controller/LICENSE)。不封裝 GitNexus/npm/Node 執行檔、私人 profile 或 Memory backend；原有 Core／上游 notices 保留。
+
+G-GN1 reuses three Python modules from fixed Codex S/T. The complete MIT copyright/permission notice is preserved unchanged in [LICENSE](../../vendor/gitnexus-index-controller/LICENSE). GitNexus/npm/Node executables, private profiles and Memory backends are not bundled. Existing Core/upstream notices remain.
