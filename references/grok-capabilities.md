@@ -6,7 +6,7 @@
 
 ## 繁體中文
 
-Core 的 [workflow](../vendor/engineering-workflow-core/contracts/workflow.md) 定義工程義務；各 consumer 自行核對及適配工具。`AGENTS.md`／Skill 只能引導，不能產生原生派工、授權或相容能力。本包沒有執行 Grok，也不將 Codex 工具名當作 Grok API。
+Core 的 [workflow](../vendor/engineering-workflow-core/contracts/workflow.md) 定義工程義務；各 consumer 自行核對及適配工具。`AGENTS.md`／Skill 只能引導，不能產生原生派工、授權或相容能力。本節的文件映射與離線 packet 不證明原生實效，也不將 Codex 工具名當作 Grok API。
 
 | 義務 | Grok 文件映射 | 本包界線 |
 | --- | --- | --- |
@@ -23,6 +23,10 @@ Core 的 [workflow](../vendor/engineering-workflow-core/contracts/workflow.md) �
 新授權需要保留完整問題與原請求、session／revision／action／canonical path、有效期限及限制，停止等待，交回協調者／使用者。拒絕、cancel、晚到／重複答覆、斷線、錯 ID／revision 與未知效果均不得觸發重播。沒有可靠接口先記 checkpoint；不得自造相容 schema、把新 session 當舊授權，或以 API 可用推定訂閱及付費授權。
 
 每次模型執行與 resume 都須顯式帶已驗證的 sandbox profile，優先 strict，初始 permission 為 default／Ask。實效不明即停止該路線；不得改用 sandbox off、yolo、always-approve、bypassPermissions、廣泛 shell allow 或永久授權。macOS strict 不代表所有網路都被阻斷。
+
+### 有界原生觀察（2026-10-18）
+
+另有 Grok 1.0.62 在 macOS arm64 隔離 fixture 的一次原生 session：顯式 `workspace`／`default`，完整讀取兩個候選技能、三份必要 Core 契約及兩份 reference，執行一次精確唯讀 plan。結果為 `plan_only`、metadata missing、authority／gate false；兩個停止案例只做假設情境推理。未執行原生 refresh、實際授權問答／拒絕、cancel／resume、子代理或 MCP。此觀察不改能力目錄版本、離線 packet 的 false readiness 或整體平台資格。來源庫的 `docs/verification/gitnexus-operation-acceptance.md` 分列實測、既有 controller 與合成鎖證據；該來源文件不屬於 plugin payload。
 
 ### 安全方法選取
 
@@ -64,6 +68,10 @@ Use full session IDs after qualification. Headless `-s` documentation conflicts;
 Forward new authorization questions intact with the original request and session/revision/action/path identity. Wait for the authorized decision; reject/cancel/late answers, disconnects and uncertain effects must not cause blind replay. Missing interfaces stay blocked. The official sources above are documentation evidence, not runtime receipts.
 
 Every model run and resume must explicitly select a verified sandbox profile, preferably strict, and start with default/Ask permissions. Stop when effective protection is unknown. Do not widen permissions, persist grants or assume macOS strict blocks every network path.
+
+### Bounded native observation (2026-10-18)
+
+One Grok 1.0.62 session in an isolated macOS arm64 fixture explicitly used `workspace`/`default`. It read both candidate skills, three required Core contracts and two references, then ran one exact read-only plan. The result was `plan_only`, metadata missing, authority/gate false. Two stop cases were hypothetical reasoning only. No native refresh, actual approval/refusal, cancel/resume, subagent or MCP case ran. This does not change the catalog version, offline packet false readiness or general platform qualification. The source-only `docs/verification/gitnexus-operation-acceptance.md` separates native, inherited controller and synthetic lock evidence; it is outside the plugin payload.
 
 ### Security method selection
 

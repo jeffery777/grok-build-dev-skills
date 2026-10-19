@@ -159,3 +159,9 @@ Guide 支持 root `plugin.json`、`skills/`、resources／helpers 隨包複製�
 The coordinator's formal release handoff supersedes the preliminary waiting state. All thirteen immutable files match Git blobs, sizes, modes and raw SHA-256; tag object resolves to the fixed commit above. Nine existing files remain unchanged. Core collection of twelve Markdown files, separate LICENSE, allowlist/code anchors, lock, package inventory of twenty-three files and affected positive/negative controls change together without new parsing/staging/runtime behavior. New consumer evidence must cover this complete diff; old preparation/Core scans do not automatically apply. Final GitHub publication/local receipts bind the actual merge commit and digests without source self-reference. Core and consumer versions are independent; users need no separate Core installation.
 
 [CHANGELOG](../../CHANGELOG.md)、[發行說明](../releases/v0.1.0.md) 與 [安裝／更新／回復](../installation.md) 兩語說明發布來源及離線套件範圍、版本相依、原生精確寫入／ownership／信任／payload closure／失敗保全的待驗項目。正式發布不等於已安裝或模型採用；本包不修改用戶安裝／設定、不啟動模型，保留 Issue2 歷史與所有未驗證事項。Space／Page 由主協調者依最終 GitHub 狀態對齊，本 executor 不另行 POST。Bilingual publication and installation guidance retains native unknowns as later integration, not defects or PASS. Publication adds no model/native qualification and performs no user installation or external document POST.
+
+## G-GN1 / 0.2.0 candidate
+
+G-GN1 固定本地 S/T 與四檔 raw digest 見 [controller lock](../../gitnexus.lock.json)。來源是 Codex 0.35.0 未發行候選，不追 moving branch；T 的 mapping 不改 S payload。本端只重用三 Python 模組與完整 MIT LICENSE；Core lock 不變。
+
+G-GN1 pins local unreleased Codex 0.35.0 S/T and four raw-file digests in the [controller lock](../../gitnexus.lock.json). No moving branch is consumed; mapping-only T preserves S payload. Grok reuses only three Python modules and the complete MIT LICENSE. Core lock is unchanged.
