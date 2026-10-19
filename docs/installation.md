@@ -6,29 +6,27 @@
 
 ## 繁體中文
 
-本來源的產品版本為 `0.2.0`，採官方 plugin 路線並隨包提供固定 Core v0.1.0。來源版本由 [plugin.json](../plugin.json) 與該來源的 verifier 輸出核對；正式發布身分以所選版本的 [GitHub Release](https://github.com/jeffery777/grok-build-dev-skills/releases)、annotated tag、解析後完整 commit 及 bundle digest 為準。來源版本、歷史候選說明與合併均不證明發布或安裝。發行提供來源與離線套件；實裝仍須下列最小整合，不新增 installer 或自動修改用戶安裝。
+本來源為產品 `grok-build-dev-skills` **0.2.1**，內含固定 Core v0.1.0。來源版本由 [plugin.json](../plugin.json) 與 verifier 核對；正式發布須核對 [GitHub Release](https://github.com/jeffery777/grok-build-dev-skills/releases)、annotated tag 及解析後完整 commit。來源版本、合併或本文件不等於已發布／已安裝。本包不新增 installer，不自動更動使用者安裝。
 
-歷史起點為 [PR #25](https://github.com/jeffery777/grok-build-dev-skills/pull/25) 與 [Issue #26](https://github.com/jeffery777/grok-build-dev-skills/issues/26) 的 [0.1.0 正式來源](https://github.com/jeffery777/grok-build-dev-skills/releases/tag/v0.1.0)：其 bundle 為 23 檔。取得該版本時使用其自身可信 verifier／manifest；下列 30 檔流程描述本來源 0.2.0，不混用版本。
-
-| 身分 | 本來源 |
+| 固定身分 | 值 |
 | --- | --- |
-| 產品 | `grok-build-dev-skills`，`0.2.0` |
-| 正式 Core v0.1.0 revision | `174df2af8dedf813b9bd4e3c184a627ee87d3cd8` |
+| 0.2.1 raw manifest SHA-256 | `b44a42dc01d221cdf88d2b27d7ca864d080816c59f593c117fd408862ce46864` |
+| 正式 Core v0.1.0 commit | `174df2af8dedf813b9bd4e3c184a627ee87d3cd8` |
 | Core Markdown collection SHA-256 | `484923e7dc1407dde1702cf88e93afb5a279b25f79a2c6ff9631d58d7589ab13`；LICENSE 分驗 |
-| 能力目錄的 Grok 文件版本 | `1.0.52 (0920c8169e27)`，保留原資格界線 |
-| 2026-10-17 非模型 help 觀察 | 執行檔 `1.0.60 (01a8e1c591c0)`，未做 runtime case |
+| Grok 版本證據 | 目錄1.0.52；歷史 help1.0.60；本次單產品 fixture1.0.62；不認證版本範圍 |
 
-Core 是隨包的共用文件，使用者不必另裝或另配版本。[plugin.json](../plugin.json) 顯示產品版本與固定 Core revision；離線 verifier 另輸出兩者及 collection digest。產品版本不表示 Grok CLI 版本或相容性認證。
+Core 是隨包文件，不必另裝或與產品同步版本。套件保留兩技能、GitNexus 薄入口／固定 controller／source lock、兩個 verifier、Core lock／十三份原件及完整 MIT notices，總計29個 payload加manifest，共30檔。0.1.0的23檔及其 [歷史說明](releases/v0.1.0.md) 使用該版本可信 verifier，不混用版本。
 
-### 準備可信的完整離線包
+### 準備固定離線包
 
-先從正式發布資料核對產品 tag 指向的**完整四十位來源 commit**，讀回 remote／commit／tree／ownership，確認 checkout 無非預期修改。不得猜 tag／commit、把 tag object 當 commit，或以浮動 main 代替正式 pin。從該可信固定來源執行既有 Python 3.10+ 標準函式庫命令：
+先核對正式 tag 的完整四十位來源 commit、remote／tree／ownership／checkout 修改。不得猜 commit、把 tag object 當 commit 或以 moving main 代替 pin。使用該固定來源的既有 Python 3.10+標準函式庫；不執行待驗副本內的程式建立信任：
 
 ```sh
+PYTHONDONTWRITEBYTECODE=1 python3 scripts/core_snapshot.py verify
 PYTHONDONTWRITEBYTECODE=1 python3 scripts/grok_package.py verify
 ```
 
-保存輸出中的 `manifest_sha256`、產品版本、Core revision／collection 與來源 commit。Raw manifest digest 必須來自可信來源，不能從待驗副本取值後自證。以下 `TRUSTED_MANIFEST_SHA256` 由操作者填入該已核對值；`BUNDLE` 是全新的完整包目錄，不能指向既有安裝或 discovery root：
+將 `TRUSTED_MANIFEST_SHA256` 填為由可信發行來源獨立核對的 raw manifest digest，保存產品／Core／collection／manifest及完整來源 commit。`BUNDLE` 必須是尚不存在的完整包目標，位於 source repo、既有安裝及所有 discovery roots之外：
 
 ```sh
 grel_parent="$(mktemp -d /private/tmp/grok-plugin.XXXXXX)"
@@ -39,146 +37,95 @@ PYTHONDONTWRITEBYTECODE=1 python3 scripts/grok_package.py verify \
   --root "$BUNDLE" --layout staging --expected-manifest-sha256 "$TRUSTED_MANIFEST_SHA256"
 ```
 
-組裝僅支援現有 guard 所允許的 canonical 系統暫存 roots，且必須在來源及執行程式 repo 之外。候選的隔離來源／報告 fixture 可放 `~/projects/test`；這不放寬 staging guard。命令不啟動 Grok、不覆寫已存在目標；任何失敗都保留 partial 狀態供查核，不盲目重播或刪除。
-
-完整 bundle 是二十九個 payload 加 `grok.package.json` 共三十檔，包含 `plugin.json`、`skills/`、`references/`、`capabilities/`、兩個 verifier、GitNexus 薄入口與 source lock、固定 controller 及完整 MIT LICENSE、Core lock、`vendor/engineering-workflow-core/` 及 LICENSE。保持相對佈局，不能只複製兩份 SKILL 或把 Core 扁平化。`--layout source` 容許開發文件；檢查準備好的包須用 `staging`。用可信來源的 verifier 查副本；不能執行可疑副本內的 verifier 建立信任。多餘、自訂、未知、metadata／Core／payload 不符或混合版本均拒絕；PASS 也不授予覆寫權。
-
-### 官方 plugin 路線與目前缺口
-
-2026-10-17 的 [官方 Skills／Plugins 文件](https://docs.x.ai/build/features/skills-plugins-marketplaces)、[CLI reference](https://docs.x.ai/build/cli/reference) 及有指紋的隨版 guide 支持 root metadata、`skills/` 與其他 resources／helpers 隨包分發、版本顯示及 `owner/repo@完整commit` 來源。實際 help 也列本地路徑、`@ref` 與 `#subdir`。這些是文件／help 證據；原生整包複製及跨目錄 Core 引用閉合仍未 live 驗證。
-
-`grok plugin validate <bundle>` 僅供原生 manifest schema 檢查，不能取代 Core／整樹驗證、安裝成功、技能載入或 runtime 資格。安裝與信任是另一次有副作用的操作；本包未執行 install／update／uninstall。`--trust` 會跳過原生確認，不可由本包代為授權；沒有該參數也不當作無副作用 preview。
-
-| 必要保障 | 現有證據與處置 |
-| --- | --- |
-| 指定版本並看見 Core | 離線 metadata／輸出可辨識；正式來源由 Release／tag 核對；原生顯示仍待實裝讀回 |
-| 保護自訂／未知內容 | 原生更新／移除無已證明保障；遇既有、額外、非套件或 ownership 不明內容即停止 |
-| 避免失敗混裝及回復 | 原生 atomic update／rollback 未證；現有 helper 僅全新組裝，失敗如實保留 |
-| 固定來源重建 | 可重建已審官方 bytes；無須強制永久整包備份；不等於已安裝 plugin 的降版成功 |
-| 自動更新控制 | 隨版 guide 只有全域 session-start 設定，未證明逐 plugin 關閉；本包不改設定 |
-
-因此，**任何既有 plugin 的更新、覆蓋、移除及重裝，先停下交回協調者決定保全自訂內容與原生 bookkeeping 的路線**。即使來源／digest 完整也不能跳過此點。Repo `@SHA` 分發可能包含開發檔；不能用 source PASS 代表原生安裝樹等於封閉三十檔。沿用既有 assembler，不新增 wrapper 或 installer。
+Stage guard強制 canonical系統暫存roots、排除傳入的source／執行repo並要求全新目標；不會辨識全部安裝或discovery roots。操作者另須核對並排除這些位置，不直接stage到既有安裝。保留相對目錄及30檔，不只複製SKILL或攤平Core。Source archive含開發檔，與封閉bundle不同。Extra／custom／混版／digest或Core不符都拒絕；PASS不是覆寫或信任授權。失敗保留partial，不盲目重播／刪除。
 
 <a id="native-integration-zh"></a>
 
-### 指定版本入口與實裝前最小整合項目（尚未執行）
+### 原生安裝與最小更新路線
 
-首選入口是「正式來源完整 commit → 可信 verifier／獨立 manifest digest → 全新三十檔 bundle → 官方本地 plugin install」。以下為**日後有副作用的安裝命令**，發布不執行此命令；只有核對正式來源與下列寫入／保全查核完成後，才由協調者依既有授權接續：
+[官方CLI](https://docs.x.ai/build/cli/reference)、[plugin文件](https://docs.x.ai/build/features/skills-plugins-marketplaces)與隨版guide列出 install／uninstall／update等管理命令。本次 [有界證據](verification/local-plugin-upgrade.md) 顯示：Grok 1.0.62的原生單產品Local copied安裝拒絕同來源直接重裝；先保全、卸載、零註冊讀回、再裝固定新版則成功。這不是所有版本／多產品／自訂內容的更新保證。
+
+操作前由協調者核對實際 Grok binary、有效home／cwd／leader、source、native key／產品數／目的地與ownership、現有session及全部相關discovery roots。僅暫設 `GROK_HOME` 不能證明隔離，default leader可能共用；不得拿廣泛home權限替代精確作用範圍。未知／自訂／非套件／partial內容、外部或不明data、額外來源與ownership疑慮先停止；不擴成供應商QA。
+
+安裝 `--trust` 是明確新增信任，可能啟用技能及該來源宣告的能力；0.1.0信任不自動涵蓋0.2.x的GitNexus寫索引入口。發行、verifier或fixture批准都不授權正式信任。先取得當次精確來源／能力／目的地的必要明確確認，不代答新授權。省略 `--trust` 也不是無副作用preview；原生拒絕案例仍寫log。套件本身沒有MCP／hooks／LSP／agent／額外command定義，不安裝runtime或新增API憑證。
+
+**已驗程序只適用於整個選定Grok home恰一個repository、其中恰一個產品的Local copied layout。若home有任何其他獨立repo或同repo含多產品，在任何SOURCE替換或卸載前停止。正式環境與其他外掛共存的路線尚待另行精確計畫與當次驗收；不得為達成全域空registry移除其他repo或產品。**
+
+以下命令沿用此單repo／單產品前提；`SOURCE`為原registry記載的完整絕對來源，`LEADER_SOCKET`為已核對操作環境的專用路徑，不能猜值。依序進行，每次原生操作限一次、20秒執行及131072-byte合併輸出判定額度、關閉stdin／無TTY；保留完整問題與作用身分，失敗／未知立即停止：
+
+1. 核對原產品與native key、registry／config、完整source／payload及其版本專屬digest。將舊source、舊payload與必要bookkeeping／data保全至所有探索root之外；保全不等於授權永久刪除。遇未知data或額外內容不繼續。
+2. 將已驗固定新版完整30檔準備於**同一SOURCE路徑**，先保全再用全新樹替換，不疊放／不改registry；另保全新版來源。核對原installed舊payload／registry／config未被source替換影響。既有assembler guard不放寬，也不直接stage到該既有路徑。
+3. 經精確移除範圍確認後，只卸載該產品。省略 `--confirm`，不跳過意外多產品確認：
 
 ```sh
-grok plugin install "$BUNDLE"
+grok --no-auto-update --leader-socket "$LEADER_SOCKET" \
+  plugin uninstall grok-build-dev-skills --keep-data
 ```
 
-`BUNDLE` 的產品 `0.2.0`、Core revision、raw manifest digest 必須與正式發布資料相符；不能僅憑目錄名稱辨識版本。官方也記載 `owner/repo@完整commit`，但本方案用已驗的封閉 bundle，避免把來源 archive 的開發檔誤當已安裝 payload。Release source archive 與三十檔 bundle 是不同內容；若日後附 bundle archive，須由同一個已驗 stage 產生並另記 artifact digest。
+4. 僅在上述單repo-home前提下，完整讀回有效空registry，或完整目錄遍歷成功後確認registry不存在且舊payload消失；讀取／解析錯誤不能算零筆。核對來源新30與舊／新保全全部完整，沒有其他有效舊版註冊／payload、未知路徑或非預期config／trust變動。本次fixture的config與enabled名稱未變；不能推論卸載撤銷所有信任。
+5. 只有上一步全部通過，且固定新版信任已明確獲准，才執行：
 
-| 寫入或信任項目 | 已知事實／實裝前待確認 |
-| --- | --- |
-| 官方 payload | 預期只含 manifest 列的三十檔；未證明 native install 實際複製或註冊哪些檔案 |
-| 原生位置 | Guide 列出使用者 `~/.grok/plugins/`、專案 `.grok/plugins/` 及可設定的 discovery roots；這不是 install 寫入 leaf 的證據 |
-| 設定／bookkeeping／cache／data | 精確路徑、copy 或 source registration、寫入順序與 atomicity 未驗；help 沒有 destination／scope／dry-run 選項，不能臆造 |
-| 信任／啟用 | Guide 說使用者 plugin 自動受信任、專案 plugin 需信任；實際持久化位置及有效狀態待讀回。省略 `--trust` 不保證沒有寫入 |
-| 權限／憑證 | Payload 不含 hooks／MCP／agent executable 或權限宣告，不新增 API 憑證需求；host／private Git 既有存取及 native 額外要求仍須逐項確認，不代創授權 |
+```sh
+grok --no-auto-update --leader-socket "$LEADER_SOCKET" \
+  plugin install "$SOURCE" --trust
+```
 
-1. 在實裝當下讀回來源／版本／digest、操作者、有效 Grok home、leader、原生路線、既有 plugin ID 與精確目標 ownership。僅設定暫存 `GROK_HOME` 不等於隔離，help 的 leader socket 預設仍可能共用。無法事先界定必要寫入範圍，或遇未知／自訂／partial 內容即停止，不用整個 home 的廣泛授權代替。
-2. 保存相關路徑最小 before 清單與必要內容，確認不影響其他技能。日後執行安裝後，讀回 native plugin ID／產品／啟用／信任／實際 payload root 及 before/after 差異。判明持久複製或仍依賴 staged source；未確認前保留 stage，避免註冊暫存路徑後失效。
-3. 從可信固定來源執行 verifier，將 `--root` 指向讀回的實際 payload root、使用 `--layout staging --expected-manifest-sha256`。核對 exact 三十檔、0644 modes、digest、兩個 skill 身分、metadata 及十三份 Core／lock／跨目錄引用。Native bookkeeping 若在 payload root 外須另記；若混在 root 內而 verifier 拒絕，不刪除或放寬 inventory 強求 PASS，回報佈局相容性缺口。
-4. `list`／`details` 只能佐證 discovery 與 inventory；不證明模型採用。這份最小整合不啟動模型、不重開 Issue #2 的 sandbox／deny／resume QA。若額外持久權限、新憑證、未知來源執行或新授權提示出現，保留完整問題與原請求、session／revision／action／path 身分，停止等待並交回協調者。
+6. 讀回恰一個正確Local source／產品0.2.1註冊，記實際native key而不預設值；確認enabled且無disabled衝突。用可信固定來源verifier檢查讀回的 `PAYLOAD_ROOT`，不刪額外檔案強求PASS：
 
-目前沒有 native install receipt；以上均為待執行計畫，不能把文件、help、schema 或 exit 0 記為實裝 PASS。
+```sh
+PYTHONDONTWRITEBYTECODE=1 python3 scripts/grok_package.py verify \
+  --root "$PAYLOAD_ROOT" --layout staging --expected-manifest-sha256 "$TRUSTED_MANIFEST_SHA256"
+```
 
-### 更新、降版與失敗處理
+核對精確30個regular files／0644／owner／單一連結、source與installed inode獨立、兩技能、固定Core／引用，另記root外bookkeeping。未證明source獨立前保留來源，不刪暫存來源導致註冊失效。新裝若無既有註冊可直接用已驗 `BUNDLE` 代替SOURCE安裝，但同樣先核對寫入、信任與before/after。
 
-離線準備新版本或恢復舊官方原件時，選各自已審固定 commit，使用**該版本可信 verifier 及 raw manifest digest**，向另一個全新暫存目標重組並讀回版本、Core、inventory、bytes／modes。不可把新舊檔案疊放；不能用目前版本的 verifier 放行另一版本。合成的兩版本 fixture 只測身份拒絕與全新重組，不是已發布舊版或原生降版／rollback 實測。
+Disk state／native inventory不代表session或模型已採用。Guide建議Plugins重新載入或新session；任何另授權模型／resume仍須每次顯式已驗sandbox profile、初始ask及可靠授權轉交通道。本發行沒有模型呼叫，readiness仍false。正式環境尚須自己的當次驗收，不能套用fixture成功。
 
-自訂檔案不屬於可重建的官方原件。必要保全／暫存備份僅依另行核准的精確範圍，放在所有技能／plugin discovery roots（含使用者配置的額外 roots）之外，不能在技能旁留 `.backup` 副本。此處不建立永久整包備份義務，也不授權刪除自訂內容或清理歷史證據。
+### 失敗、data與回復界線
 
-原生 `update [NAME]` 省略名稱會更新全部，本方案不使用 update-all。`uninstall --keep-data` 的 help 僅承諾保留 plugin persistent data，不證明保留自訂 payload 或提供 rollback，不能拿它當自動復原步驟。隨版 guide 的全域 auto-update 設定也不等於逐 plugin 固定版本保證，本發行不修改它。
+`--keep-data`的詳細help證據為1.0.60，1.0.62隨版guide列有此flag。本次無獨立持久data／custom內容；不推定它保留Local source、custom payload或所有trust，也不保證原子回復。若卸載成功但安裝失敗，可能暫時沒有有效外掛；保留partial、全部保全與錯誤，停止交回協調者。不自動重裝舊版、修registry、再卸載或重播。未知結果先調查是否已執行。
 
-失敗時先記錄來源／產品／Core／session（若有）／action／path、exit／錯誤及可確認的部分結果。確認是否已產生副作用，保留 partial 與未知狀態，停止依賴操作並交回協調者；不盲目重播、刪除或卸載。全新重組可還原官方 bytes，不能還原未知原生 bookkeeping。真正更新／舊版重裝須等保全路線與原生實證具備。所有 readiness 仍為 false；[Issue #2](https://github.com/jeffery777/grok-build-dev-skills/issues/2) 是設計完成且歷史保留 OPEN 的非阻擋追蹤，不因本輪離線發行而升級或重開。
+重組舊官方bytes使用各版本可信固定來源／verifier／manifest，向全新目標組裝；這不是已驗native降版／rollback，也不能重建custom資料或未知bookkeeping。本包沒有永久整包備份或歷史清理義務；保全留在探索roots之外，刪除另查授權／政策。
+
+`plugin update`省略名稱會更新全部，本路線不使用update-all或把exit0當升級成功。不更動全域自動更新／共享技能路徑。GitNexus 1.6.12能力僅限 [明確技能／薄入口路徑](../references/gitnexus-operations.md)；舊Codex operator CLI仍限定1.6.9。Controller／Core／locks不變，沒有原生refresh或vendor資格升級。[Issue #2](https://github.com/jeffery777/grok-build-dev-skills/issues/2) 保持歷史、設計完成且非本輪離線發行阻擋，不重開sandbox／deny／resume QA。
 
 <a id="en"></a>
 
 ## English
 
-This source has product version `0.2.0`, uses the native plugin route and includes fixed Core v0.1.0. Check the source version against [plugin.json](../plugin.json) and that source's verifier output. Publication identity comes from the selected version's [GitHub Release](https://github.com/jeffery777/grok-build-dev-skills/releases), annotated tag, full resolved commit and bundle digest. Source versions, historical candidate notes and merges prove neither publication nor installation. Publication supplies source and offline artifacts; actual installation still needs the minimum integration below. No installer or automatic user-installation change is added.
+This source is product **0.2.1**, with fixed Core v0.1.0. Read back [plugin.json](../plugin.json), trusted verifier output, the [formal Release](https://github.com/jeffery777/grok-build-dev-skills/releases), annotated tag and full resolved commit. Neither a version string, merge nor this guide establishes publication or installation. The identity table above applies to both languages; Core needs no separate installation.
 
-The historical starting point is the [formal 0.1.0 source](https://github.com/jeffery777/grok-build-dev-skills/releases/tag/v0.1.0) from [PR #25](https://github.com/jeffery777/grok-build-dev-skills/pull/25) and [Issue #26](https://github.com/jeffery777/grok-build-dev-skills/issues/26): its bundle has 23 files. Retrieve it with its own trusted verifier/manifest. The thirty-file procedure below describes this 0.2.0 source; do not mix versions.
+### Prepare fixed offline bytes
 
-| Identity | This source |
-| --- | --- |
-| Product | `grok-build-dev-skills`, `0.2.0` |
-| Formal Core v0.1.0 revision | `174df2af8dedf813b9bd4e3c184a627ee87d3cd8` |
-| Core Markdown collection SHA-256 | `484923e7dc1407dde1702cf88e93afb5a279b25f79a2c6ff9631d58d7589ab13`; LICENSE checked separately |
-| Documented Grok catalog version | `1.0.52 (0920c8169e27)`; prior qualification limits retained |
-| Non-model help observed on 2026-10-17 | Executable `1.0.60 (01a8e1c591c0)`; no runtime case |
-
-Core travels as shared documents; users need no separate Core installation or version matching. [plugin.json](../plugin.json) exposes the product version and fixed Core revision. Offline output also includes the collection digest. The product version does not identify Grok CLI or certify compatibility.
-
-### Prepare a trusted complete offline bundle
-
-Read the **full forty-character source commit** behind the product tag from the formal release records. Check remote/commit/tree/ownership and unexpected checkout changes. Never guess a tag/commit, mistake a tag object for its commit, or substitute moving main for the formal pin. Run the existing Python 3.10+ standard-library verifier from that trusted fixed source:
-
-```sh
-PYTHONDONTWRITEBYTECODE=1 python3 scripts/grok_package.py verify
-```
-
-Keep its `manifest_sha256`, product version, Core revision/collection and source commit. Obtain the raw manifest digest independently from the trusted source, never from a suspect copy as its own proof. Set `TRUSTED_MANIFEST_SHA256` to that checked value, then use the [shared preparation commands above](#zh). `BUNDLE` must be a fresh complete-package directory outside existing installations and discovery roots.
-
-The existing guard permits staging only below canonical system temporary roots, outside the source and executing repository. Isolated source/report fixtures under `~/projects/test` do not widen that guard. Commands never start Grok or overwrite an existing target. Keep failed partial state for inspection; do not blindly replay or delete it.
-
-The bundle has twenty-nine payload files plus `grok.package.json`, thirty total. It includes `plugin.json`, `skills/`, `references/`, `capabilities/`, both verifiers, the GitNexus thin entry/source lock/fixed controller and full MIT LICENSE, the Core lock, `vendor/engineering-workflow-core/` and LICENSE. Keep relative layout; do not copy just the two SKILL files or flatten Core. Source layout permits development files; check a prepared bundle with `--layout staging`. Use the trusted source's verifier with `--root` to inspect a copy. Never run a suspect copy's verifier to establish trust. Extra, custom, unknown, mismatched or mixed-version content fails. A PASS grants no replacement authority.
-
-### Official plugin route and current gaps
-
-The [official Skills/Plugins documentation](https://docs.x.ai/build/features/skills-plugins-marketplaces), [CLI reference](https://docs.x.ai/build/cli/reference) and fingerprinted bundled guide read on 2026-10-17 document root metadata, `skills/`, copied resources/helpers, displayed versions and `owner/repo@full-commit` sources. Actual help also lists local paths, `@ref` and `#subdir`. Documentation/help does not prove live whole-tree copying or cross-directory Core reference closure.
-
-`grok plugin validate <bundle>` checks native manifest schema only. It cannot replace Core/whole-tree checks or establish installation, skill loading or runtime qualification. Installation and trust are separate actions with side effects; this package runs no install/update/uninstall. `--trust` skips native confirmation and cannot be granted by this package. Omitting it is not a proven non-mutating preview.
-
-| Required protection | Evidence and action |
-| --- | --- |
-| Select version and identify Core | Offline metadata/output identifies both; Release/tag identifies the formal source; native display still needs installed readback |
-| Preserve custom/unknown content | No proven native update/uninstall guarantee; stop for any existing, extra, unowned or uncertain content |
-| Avoid failed mixed installs and recover | Native atomic update/rollback is unproved; the helper only assembles fresh targets and retains failure state |
-| Rebuild fixed official sources | Reviewed bytes can be reconstructed without mandatory permanent whole-package backups; this is not installed-plugin downgrade proof |
-| Control automatic updates | The bundled guide documents a global session-start setting, with no proven per-plugin switch; this package changes no settings |
-
-**Stop all updates, replacement, uninstall and reinstall of an existing plugin for the coordinator to select a route that preserves custom data and native bookkeeping.** Valid source/digests do not remove that requirement. Repo `@SHA` distribution may include development files; source PASS cannot prove an exact thirty-file installed tree. The release retains the existing assembler without a new wrapper or installer.
+Verify the formal full source commit, remote/tree/ownership and checkout changes. Use that version's trusted existing Python 3.10+ verifier, never code from a suspect copy to establish trust. The shared Core/package verification and stage commands above use an independently checked `TRUSTED_MANIFEST_SHA256` and a fresh `BUNDLE`. The stage guard enforces canonical system temporary roots, exclusion of supplied source/executing repos and a fresh target. It does not discover every installation or discovery root; the operator must separately check and exclude those locations. Do not widen it or stage into an existing source. Keep the full relative 30-file layout:29 payload files plus manifest, including both skills, fixed controller/source lock, verifiers, Core lock/thirteen originals and full MIT notices. Source archives include development files. Use `--layout staging` for the closed bundle; extras, custom files, mixed versions or wrong Core/digests stop. A PASS grants no replacement or trust authority. Preserve failed partial state.
 
 <a id="native-integration-en"></a>
 
-### Exact-version entry and minimum native integration (not executed)
+### Native installation and minimum upgrade route
 
-Prefer the formal full source commit, its trusted verifier and independently obtained manifest digest, then a fresh thirty-file bundle and the native local-path install. The shared `grok plugin install "$BUNDLE"` command above is a **future mutation**, not a preview. Run it only after verifying the formal source and the write/preservation checks below, in the coordinator's authorized sequence.
+The [official CLI](https://docs.x.ai/build/cli/reference), [plugin docs](https://docs.x.ai/build/features/skills-plugins-marketplaces) and bundled guide describe management commands. The [bounded fixture](verification/local-plugin-upgrade.md) shows that native Grok 1.0.62 rejects direct reinstallation of an existing same-source Local copy. Preservation, single-product uninstall, zero-registration readback and fixed-source installation succeeded. This does not qualify other versions, multi-product repositories or custom data.
 
-Match the bundle's product `0.2.0`, Core revision and raw manifest digest to the formal release records. A directory name does not identify a version. The guide also supports `owner/repo@full-commit`, but this route uses the verified closed bundle to avoid treating source-archive development files as installed payload. Source archives and the thirty-file bundle differ. Any later bundle archive must come from the same verified stage and have its own artifact digest.
+Before action, the coordinator checks the actual binary, home/cwd/leader, source, native key/product count/destination/ownership, existing sessions and every discovery root. A temporary Grok home alone does not isolate the default leader. Stop for unknown, custom, extra, unowned or partial contents and external/unknown data; do not request broad home access or expand into vendor QA.
 
-| Write or trust item | Known fact / check before installation |
-| --- | --- |
-| Official payload | Thirty expected files; actual native copying or registration remains unverified |
-| Native location | The guide lists user `~/.grok/plugins/`, project `.grok/plugins/` and configurable discovery roots; these do not prove the install destination leaf |
-| Config/bookkeeping/cache/data | Exact paths, copying versus source registration, write order and atomicity are unknown; help has no destination/scope/dry-run option |
-| Trust/enablement | The guide says user plugins are auto-trusted and project plugins require trust; effective state and persistent storage still need readback. Omitting `--trust` does not prove no writes |
-| Permissions/credentials | The payload adds no hooks/MCP/agent executable, permission declaration or API credential requirement. Check existing host/private-Git access and any native requirements separately; do not create authorization |
+`--trust` grants explicit trust in the source's capabilities. Existing 0.1.0 trust does not cover the 0.2.x GitNexus index-write entry. Publication, verification and fixture consent grant no production trust. Obtain the necessary specific source/capability/destination confirmation first. An install without trust is not a no-write preview: the observed refusal wrote a log. The package adds no MCP/hooks/LSP/agents/extra-command definitions, runtime installation or API credentials.
 
-1. At installation time, read back source/version/digests, operator, effective Grok home, leader, route, existing plugin ID and exact destination ownership. A temporary `GROK_HOME` alone does not prove isolation: the default leader socket may remain shared. Stop if the necessary write set is unclear or targets contain unknown, custom or partial state. Do not grant broad home access as a substitute.
-2. Retain a minimal before inventory and necessary contents for relevant paths. After the later install, read back native plugin ID, version, enablement, trust, actual payload root and before/after changes. Determine durable copying versus registration of the staged source; retain that source until its independence is proved.
-3. Use the trusted fixed-source verifier with `--root` pointing at the observed payload root and `--layout staging --expected-manifest-sha256`. Check exactly thirty files, 0644 modes, digests, both skill identities, metadata, thirteen Core files/lock and relative references. Record native bookkeeping outside that root separately. If native extras inside it cause rejection, report layout compatibility; never delete them or weaken inventory to force PASS.
-4. Native `list`/`details` show discovery/inventory, not model adoption. This minimum integration starts no model and does not reopen Issue #2 sandbox/deny/resume QA. For extra persistent permission, new credentials, unknown-source execution or a new authorization prompt, preserve the complete question/original request and session/revision/action/path identities, stop and return to the coordinator.
+**The observed procedure requires exactly one repository in the entire selected Grok home, containing exactly one product in a copied Local layout. Stop before any SOURCE replacement or uninstall if another independent repo or another product exists. Production coexistence with other plugins needs a separate exact plan and current acceptance; never remove other repos/products to reach an empty global registry.**
 
-No native install receipt exists. This is a pending plan. Documentation, help, schema checks and exit 0 are not installed-integration PASS.
+Use the numbered Chinese sequence and exact shared commands above under this single-repo/single-product precondition and the same controls: each native operation once, 20 seconds execution, 131072-byte combined-output acceptance budget, closed stdin/no TTY. `SOURCE` must be the original registered absolute path; `LEADER_SOCKET` is the checked environment's dedicated path. Never guess either.
 
-### Updates, downgrade preparation and failures
+1. Verify old version, native key, registry/config, complete old source/payload and the version's trusted digest. Preserve source, payload and necessary bookkeeping/data outside all discovery roots; no permanent deletion authority is implied.
+2. After preservation, put the verified new complete 30-file tree at the same source path without overlays or registry edits, and preserve the new source separately. Verify old installed payload/registry/config stayed unchanged. Do not bypass the assembler's staging guard.
+3. Only with exact removal authority, run the named single-product uninstall--keep-data above, omitting--confirm. Stop for any new question.
+4. Under that single-repo-home precondition only, require a valid empty registry, or complete successful traversal proving the registry absent and old payload gone. Unreadable/malformed data is not zero registrations. Verify new source, all recovery copies and unrelated state unchanged. In the observed fixture, config and its enabled name remained; do not infer all trust was revoked.
+5. Only after that readback and explicit fixed-version trust, run the shared install command. Require exactly one Local registration/product0.2.1, correct source, actual native key and enabled state without a disabled conflict. Use the trusted fixed-source verifier against observed `PAYLOAD_ROOT`, never delete native extras to force PASS.
+6. Check exact 30 regular 0644 files, owner/single hardlinks, separate source/installed inodes, both skills and Core/reference closure; record bookkeeping outside the payload. Keep source until independence is proved. Fresh installation can use verified `BUNDLE` instead of SOURCE only after equivalent scope/trust/before-state checks.
 
-For offline preparation of a new version or recovery of old official bytes, select each reviewed fixed source commit. Use **that version's trusted verifier and raw manifest digest** to assemble another fresh temporary target; read back product/Core identities, inventory, bytes and modes. Never overlay versions or ask the current verifier to accept another version. Synthetic two-version fixtures test identity rejection and fresh reassembly, not a released old product or native downgrade/rollback.
+Disk state or native inventory does not prove session/model adoption. The guide suggests plugin reload or a new session. Any separately authorized model/resume still needs an explicit verified sandbox profile, initial ask and reliable approval forwarding on every run. This release starts no model and leaves readiness false. Production needs its own current acceptance; the fixture is not that receipt.
 
-Custom files cannot be reconstructed from official sources. Any necessary preservation/temporary backup needs a separately approved exact scope and a location outside every skill/plugin discovery root, including configured extra roots. Do not leave `.backup` copies beside skills. This is no permanent whole-package backup mandate and no authority to delete custom content or historical evidence.
+### Failure and recovery limits
 
-Native `update [NAME]` updates all plugins when the name is omitted; this plan does not use update-all. Uninstall help says `--keep-data` preserves plugin persistent data only. It does not prove custom payload preservation or rollback and is not an automatic recovery step. The guide's global auto-update setting does not establish a per-plugin version lock; this release changes no setting.
+Detailed keep-data semantics come from saved 1.0.60 help; the 1.0.62 guide lists the flag. No separate persistent data/custom content existed in this fixture. Do not assume Local source/custom payload/all trust preservation or atomic recovery. Installation failure after successful uninstall can leave zero active plugins: preserve partial state, copies and errors, then stop for the coordinator. No automatic old-version reinstall, registry repair, further uninstall or replay. Investigate uncertain outcomes before acting.
 
-On failure, record source/product/Core/session (if any)/action/path identities, exit/error and confirmed partial results. Reconcile effects, preserve partial and uncertain state, stop dependent actions and return to the coordinator. Never blindly replay, delete or uninstall. Fresh reassembly recovers official bytes, not unknown native bookkeeping. Live updates and old-version reinstallation wait for preservation and native evidence. Readiness stays false. [Issue #2](https://github.com/jeffery777/grok-build-dev-skills/issues/2) is design-complete historical OPEN tracking, nonblocking for this offline release preparation; this work neither promotes nor reopens its runtime qualification.
+Reassemble old official bytes only from that version's trusted fixed source/verifier/manifest into a fresh target. That is not proved native downgrade/rollback and cannot reconstruct custom data or unknown bookkeeping. Backups remain outside discovery roots; no permanent whole-package retention or cleanup policy is added. Deletion requires its own applicable authority/policy.
 
-## 0.2.0 操作範圍 / Operation scope
-
-0.2.0 來源的發布狀態另以 tag／Release 核對；本文件不表示已更動目前安裝。新套件包含明確 GitNexus 1.6.12 操作入口，配對固定 Codex 0.35.0 來源及 Core 0.1.0。採用前核對完整候選來源、source lock／manifest、獨立 review 與必要安全檢查；現行 0.1.0 信任不自動涵蓋新增寫索引能力。GitNexus 1.6.12 僅限明確技能／薄入口整合路徑，使用已接受的安裝／profile；舊 Codex operator CLI 仍限定 1.6.9，不能套用本入口的支援聲明。套件只帶固定 Python controller，不分發或安裝 Node／GitNexus runtime，也不新增憑證。2026-10-18 的原生驗收只在隔離 fixture 使用 project-local 候選技能及一次唯讀 plan；沒有執行 plugin install/update，也不證明正式安裝、更新或回復。測試期間僅暫時信任該 fixture、停用其 MCP、按明確授權暫停單一全域 hook；hook 與 trust 已驗證還原，不作一般安裝步驟。參見 [操作界線](../references/gitnexus-operations.md)、[支援矩陣](verification/gitnexus-operation-acceptance.md) 及 [候選說明](releases/v0.2.0.md)。
-
-Check publication of the 0.2.0 source through its tag/Release; this guide does not establish any current-installation change. It adds an explicit GitNexus 1.6.12 entry, paired with fixed Codex 0.35.0 sources and Core 0.1.0. Before adoption, bind candidate source/lock/manifest, independent review and required security checks. Existing 0.1.0 trust does not automatically cover new index-write capability. GitNexus 1.6.12 support is limited to the explicit skill/thin-entry integration route with an accepted installation/profile. The older Codex operator CLI remains limited to 1.6.9 and cannot use this route's support claim. The package contains fixed Python controller code; it neither ships nor installs Node/GitNexus runtimes or new credentials. The native acceptance on 2026-10-18 used project-local candidate skills and one read-only plan in an isolated fixture. It ran no plugin install/update and proves no formal installation, update or recovery. Only the fixture was temporarily trusted, its MCPs disabled, and one global hook paused under explicit authority. Hook and trust were verified restored; these are not general installation steps. See [operation boundaries](../references/gitnexus-operations.md), the [support matrix](verification/gitnexus-operation-acceptance.md) and [candidate notes](releases/v0.2.0.md).
+Do not use update-all or treat exit0 as upgrade success. This release changes no global updater or shared skill path. GitNexus 1.6.12 support remains limited to the [explicit skill/thin-entry route](../references/gitnexus-operations.md); the older Codex operator CLI remains limited to 1.6.9. Controller/Core/locks stay unchanged. Native refresh and vendor qualification are not promoted. [Issue #2](https://github.com/jeffery777/grok-build-dev-skills/issues/2) remains historical, design-complete and nonblocking for this offline publication; full sandbox/deny/resume QA is not reopened.
