@@ -48,18 +48,18 @@ See the [qualification record](../verification/grok-control-qualification.md) fo
 
 ## 現行固定消費 / Current pinned consumption
 
-Active Core v0.1.0 revision: `174df2af8dedf813b9bd4e3c184a627ee87d3cd8`，tree `819f481169f051c872459ee5b419886ba94274b7`，annotated tag object `e984c880a05065c8bcd0d78e83d78220b05bfc32` 解析至此 commit；正式 [Core Release](https://github.com/jeffery777/engineering-workflow-core/releases/tag/v0.1.0) 與 [PR #18](https://github.com/jeffery777/engineering-workflow-core/pull/18) 已讀回。G-RF1 的 `64b19bb5658432c42cd6a26aa357fd6b1d0fd857` 及 G-SA1／GG1／G-W1／P1／P0 均為下列歷史來源。The tag object is not the pinned commit; prior pins remain history.
+Active Core v0.1.1 revision: `7b66978a76597d09be1b55ad199a969b4ee59c0f`；tree `0dbced3d9b24a2bf6c0f8b7aa3bcc9d7e66d6df7`；annotated tag object `7ce698fa853106c8ef44c4240c9334762da5ffb0` 解析至此 commit。正式 [Core Release](https://github.com/jeffery777/engineering-workflow-core/releases/tag/v0.1.1) 與 [PR #20](https://github.com/jeffery777/engineering-workflow-core/pull/20) 已讀回。先前 Core v0.1.0 與其他 pins 保留為下列歷史來源。The tag object and pinned commit are distinct identities; prior pins remain history.
 
-[core.lock.json](../../core.lock.json) 固定十二份 Markdown digest 與另驗的 LICENSE；[snapshot](../../vendor/engineering-workflow-core/README.md) 的十三份 generated copies 保留正式來源原 bytes，不手改副本。The lock pins twelve Markdown files and a separate license. All thirteen generated files retain exact upstream bytes; full relative-reference closure includes the two new release documents.
+[core.lock.json](../../core.lock.json) 固定十三份 Markdown digest 與另驗的 LICENSE；十四份 [generated copies](../../vendor/engineering-workflow-core/README.md) 保留 Git blob 原 bytes／100644 mode，不手改。The lock pins thirteen Markdown files plus a separate license. All fourteen generated files retain exact immutable upstream bytes and full reference closure.
 
 | Core 契約 / Contract | SHA-256 |
 | --- | --- |
-| [workflow](../../vendor/engineering-workflow-core/contracts/workflow.md) | `fd2af36d395a634a89f0de0a486efba19a4ec0d9e88cdda760bc87aa4e15b4d6` |
+| [workflow](../../vendor/engineering-workflow-core/contracts/workflow.md) | `abd418b0679675029eabf70a2e1bc77db1e3f898fbf2e2e4e66907df1fb52b51` |
 | [authorization-and-stops](../../vendor/engineering-workflow-core/contracts/authorization-and-stops.md) | `27f02076fdd034c090e341610d7e04f8e79143ec17c1d37a4b57629a04c5e699` |
 | [review-and-security](../../vendor/engineering-workflow-core/contracts/review-and-security.md) | `a29ae05f7df55f8469235baff7c59c00a99a0fb9e697e47eb46a9be7c4b90b03` |
 | [exact-head-and-evidence](../../vendor/engineering-workflow-core/contracts/exact-head-and-evidence.md) | `ba3419d7090fecce3e84f4ea35cd7695135fb7bbf8c1451502941163d8e873a4` |
 
-集合算法為 `sha256-path-tab-sha256-lf-v1`，十二份 Markdown collection 為 `484923e7dc1407dde1702cf88e93afb5a279b25f79a2c6ff9631d58d7589ab13`；十三檔來源 aggregate 為 `3c985420e8017bde6b59f2625d451686202e2f6a03d807a361df166634a88de9`，LICENSE 另驗。These identities differ; the collection uses TAB, not the historical NUL proposal. [消費與限制 / Consumption and limits](../design/p3-g-core-consumption.md) 區分契約義務與離線檢查，不宣稱 runtime 資格。
+算法為 `sha256-path-tab-sha256-lf-v1`。十三份 Markdown collection：`ef0ed075dfbddd7504f65126deabe135632e4737f3148efaf19551224a577ea5`；十四檔 raw aggregate：`beb93e8a0886390f65d33bc6e9c71200353ecbe8d05f8d82d17b903f94c15755`；LICENSE 分驗。Consumer lock raw SHA-256：`6cc33215c090678266f0fd7c2d2402bd8f51b7c85f39b26762382f24b87381ae`。These are separate identities; collection records use TAB, not NUL. [消費與限制 / Consumption and limits](../design/p3-g-core-consumption.md) separates offline integrity from runtime qualification.
 
 ## P3-G2 能力映射 / Capability mapping
 
@@ -165,3 +165,11 @@ The coordinator's formal release handoff supersedes the preliminary waiting stat
 G-GN1 固定本地 S/T 與四檔 raw digest 見 [controller lock](../../gitnexus.lock.json)。來源是 Codex 0.35.0 未發行候選，不追 moving branch；T 的 mapping 不改 S payload。本端只重用三 Python 模組與完整 MIT LICENSE；Core lock 不變。
 
 G-GN1 pins local unreleased Codex 0.35.0 S/T and four raw-file digests in the [controller lock](../../gitnexus.lock.json). No moving branch is consumed; mapping-only T preserves S payload. Grok reuses only three Python modules and the complete MIT LICENSE. Core lock is unchanged.
+
+## G-CONT1 Core 0.1.1／Grok 0.2.2 配套 / Alignment
+
+[Issue #34](https://github.com/jeffery777/grok-build-dev-skills/issues/34) 以 Grok main `7ed2b3b6cc50149e032de1f29f0746d70db72abd` 建立新 ownership。Core v0.1.1 的十四份 immutable blobs、mode、size／SHA-256 與發布收據相符；相對 v0.1.0，README、CHANGELOG、workflow、Core source-map 改變，新增 v0.1.1 notes，其餘九檔不變。Continue 只補原 Session 優先及未知操作／委派先核對，沒有自動恢復或重播控制。
+
+Lock、code-owned revision／collection／新增 release allowlist、plugin0.2.2、完整三十一檔 manifest、受影響測試及雙語現行文件同包同步。兩技能正文、GitNexus controller／S/T來源／lock／薄入口、依賴、LICENSE 與完整 notices 保持原 bytes；1.6.12 僅限明確技能／薄入口路徑，舊 operator CLI 仍1.6.9。新候選依自身 diff 做驗證、獨立審查與安全影響分類，不借用 Core 或 Issue32 的 scan 當本包 PASS。本輪僅 commit／push／draftPR／發行準備，不 merge、Tag／Release 或安裝，不因 Core 已發布推定本機或 session 載入。Space 同步由主協調者負責。
+
+Issue #34 uses a fresh ownership packet from the Grok base above. All fourteen immutable Core blobs match publication sizes, modes and hashes. Four existing documents change and v0.1.1 notes are added; nine files stay identical. The Continue clarification adds original-session preference and checks unknown operations/delegations, without a recovery API or replay mechanism. Pin/allowlist/version/lock/manifest/affected tests and active bilingual documents change together. Both skill bodies and GitNexus implementation/source locks remain byte-identical, preserving the 1.6.12 thin-entry and 1.6.9 legacy-operator limits. This consumer diff needs its own verification/review/security classification; no earlier scan is relabeled PASS. This packet stops at commit/push/draftPR and release preparation, without merge, publication or installation. Core publication does not prove local/session adoption; the coordinator owns Space synchronization.

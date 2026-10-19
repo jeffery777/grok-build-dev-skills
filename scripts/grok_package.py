@@ -20,7 +20,7 @@ CATALOG = "capabilities/grok-build-1.0.52.json"
 MANIFEST = "grok.package.json"
 PLUGIN = "plugin.json"
 PACKAGE_NAME = "grok-build-dev-skills"
-PACKAGE_VERSION = "0.2.1"
+PACKAGE_VERSION = "0.2.2"
 PLUGIN_DESCRIPTION = (
     f"Engineering skills and explicit GitNexus 1.6.12 index controller; fixed Core {core.CORE_REVISION}. "
     "Native agent-use qualification is separate."

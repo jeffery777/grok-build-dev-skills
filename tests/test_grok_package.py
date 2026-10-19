@@ -70,17 +70,17 @@ class PackageTests(unittest.TestCase):
 
     def test_source_and_staging_layouts(self):
         result, files, _ = package.verify(self.root)
-        self.assertEqual(result["verified_files"], 30)
+        self.assertEqual(result["verified_files"], 31)
         self.assertGreater(result["local_references"], 375)
         self.assertEqual(result["product_name"], "grok-build-dev-skills")
-        self.assertEqual(result["product_version"], "0.2.1")
+        self.assertEqual(result["product_version"], "0.2.2")
         self.assertEqual(result["documented_grok_version"], package.VERSION)
         self.assertEqual(result["core_revision"], package.core.CORE_REVISION)
         self.assert_unqualified(result)
         self.assertEqual(set(files), package.PATHS | {package.MANIFEST})
         extra = self.root / "development-only.txt"
         extra.write_text("not packaged")
-        self.assertEqual(package.verify(self.root)[0]["verified_files"], 30)
+        self.assertEqual(package.verify(self.root)[0]["verified_files"], 31)
         with self.assertRaises(package.core.SnapshotError):
             package.verify(self.root, "staging")
 
@@ -131,7 +131,7 @@ class PackageTests(unittest.TestCase):
 
     def test_trusted_manifest_digest_before_payload_or_write(self):
         trusted = hashlib.sha256((self.root / package.MANIFEST).read_bytes()).hexdigest()
-        self.assertEqual(package.verify(self.root, expected_manifest_sha256=trusted)[0]["verified_files"], 30)
+        self.assertEqual(package.verify(self.root, expected_manifest_sha256=trusted)[0]["verified_files"], 31)
         # A changed skill and a matching rewritten local manifest still differ
         # from the digest obtained independently from the trusted fixed source.
         skill = "skills/grok-engineering-workflow/SKILL.md"
@@ -290,7 +290,7 @@ class PackageTests(unittest.TestCase):
             package.verify(self.root)
 
     def test_core_identity_cannot_be_rewritten_by_package_manifest(self):
-        for relative in ("contracts/workflow.md", "CHANGELOG.md", "docs/releases/v0.1.0.md"):
+        for relative in ("contracts/workflow.md", "CHANGELOG.md", "docs/releases/v0.1.0.md", "docs/releases/v0.1.1.md"):
             with self.subTest(path=relative):
                 name = "vendor/engineering-workflow-core/" + relative
                 path = self.root / name
