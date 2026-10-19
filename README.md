@@ -8,7 +8,7 @@
 
 ## 用途與目前狀態
 
-**目前工作候選為 0.2.0，尚未發行或更新現行安裝。** 新增兩個既有技能的 [GitNexus 操作入口](references/gitnexus-operations.md)，配對 Codex 0.35.0 候選、Core 0.1.0、GitNexus 精確 1.6.12。編排方指定時機及 Codex/Grok 任一端為唯一 index writer。2026-10-18 在隔離 fixture 的 Grok 1.0.62 原生觀察已完整讀取兩技能及必要 Core，並精確執行一次唯讀 plan；這不代表原生 refresh 或整體 runtime 合格。證據分層與支援矩陣見 [候選設計](docs/design/gitnexus-operation-parity.md) 與 [驗收範圍](docs/verification/gitnexus-operation-acceptance.md)。另見 [0.2.0 候選說明](docs/releases/v0.2.0.md)。下列 0.1.0 發行資訊保留歷史。
+來源版本 `0.2.0` 提供兩個既有技能的 [GitNexus 操作入口](references/gitnexus-operations.md)，配對 Core 0.1.0 與固定 Codex 0.35.0 來源的 controller。產品來源版本以 [plugin.json](plugin.json) 及離線 verifier 輸出為準；正式發布須另核對對應 annotated tag 與 [GitHub Release](https://github.com/jeffery777/grok-build-dev-skills/releases)，不能由來源版本或候選說明推定已發布或已安裝。GitNexus 精確 1.6.12 的支援限明確指派的技能／薄入口整合路徑；舊 Codex operator CLI 仍限定 1.6.9，不代表所有入口支援 1.6.12。編排方指定時機及 Codex/Grok 任一端為唯一 index writer。2026-10-18 的 Grok 1.0.62 隔離 fixture 觀察已完整讀取兩技能及必要 Core，並精確執行一次唯讀 plan；這不代表原生 refresh 或整體 runtime 合格。見 [設計](docs/design/gitnexus-operation-parity.md)、[驗收範圍](docs/verification/gitnexus-operation-acceptance.md) 及 [0.2.0 準備紀錄](docs/releases/v0.2.0.md)。下列 0.1.0 發行資訊保留歷史。
 
 本專案準備讓 Grok Build 使用固定版本的共用工程規範，並在 Grok 端管理技能、工具適配、驗證及組裝安裝。
 
@@ -28,7 +28,7 @@ PYTHONDONTWRITEBYTECODE=1 python3 scripts/grok_package.py verify
 PYTHONDONTWRITEBYTECODE=1 python3 scripts/grok_package.py capabilities
 ```
 
-Core 命令驗十三檔，package 命令驗三十檔候選 bundle，分別輸出產品版本、Core revision／digest 及 Grok 文件版本。能力目錄保留 `1.0.52 (0920c8169e27)`；2026-10-17 非模型 help 觀察為 `1.0.60 (01a8e1c591c0)`，兩者皆非相容版本範圍認證。正式 Core tag object `e984c880a05065c8bcd0d78e83d78220b05bfc32` 解析至上述 commit；lock 固定 commit 與十二份 Markdown collection，不追蹤 moving main 或動態 tag。十三檔形成完整相對引用閉合，不表示 runtime 每次載入全部文件。
+Core 命令驗十三檔，package 命令驗三十檔 bundle，分別輸出產品版本、Core revision／digest 及 Grok 文件版本。能力目錄保留 `1.0.52 (0920c8169e27)`；2026-10-17 非模型 help 觀察為 `1.0.60 (01a8e1c591c0)`，兩者皆非相容版本範圍認證。正式 Core tag object `e984c880a05065c8bcd0d78e83d78220b05bfc32` 解析至上述 commit；lock 固定 commit 與十二份 Markdown collection，不追蹤 moving main 或動態 tag。十三檔形成完整相對引用閉合，不表示 runtime 每次載入全部文件。
 
 成功只證明離線內容與引用，不代表原生 plugin 安裝、技能載入、委派或 runtime 合格。Packet 是 consumer 證據封裝，不是 Grok API schema；所有 readiness 保持 false。發行範圍是已核驗來源與離線套件。實裝前另核對原生寫入集合、ownership、信任、payload／Core 引用及失敗保全，詳見 [最小整合項目](docs/installation.md#native-integration-zh)。未實測不列為 PASS，也不冒稱缺陷；[P2-G 設計](docs/design/p2-g-preparation.md) 與 [來源對照](docs/provenance/source-map.md) 保留歷史。
 
@@ -60,7 +60,7 @@ Core 命令驗十三檔，package 命令驗三十檔候選 bundle，分別輸出
 
 ## Purpose and current state
 
-**The current working candidate is 0.2.0, not released or installed.** It adds an explicit [GitNexus entry](references/gitnexus-operations.md) to the two existing skills, paired with Codex 0.35.0 candidate, Core 0.1.0 and GitNexus exactly 1.6.12. The orchestrator chooses timing and either Codex or Grok as the sole index writer. On 2026-10-18, Grok 1.0.62 read both skills and required Core files in an isolated fixture, then ran one exact read-only plan. This does not qualify native refresh or the whole runtime. See the [design](docs/design/gitnexus-operation-parity.md) and [acceptance scope](docs/verification/gitnexus-operation-acceptance.md). See also the [0.2.0 candidate notes](docs/releases/v0.2.0.md). The 0.1.0 publication information below is historical.
+Source version `0.2.0` adds an explicit [GitNexus entry](references/gitnexus-operations.md) to the two existing skills, paired with Core 0.1.0 and the controller from fixed Codex 0.35.0 sources. [plugin.json](plugin.json) and offline verifier output define the source/package version. Publication separately requires the corresponding annotated tag and [GitHub Release](https://github.com/jeffery777/grok-build-dev-skills/releases); version strings and candidate notes prove neither publication nor installation. GitNexus exactly 1.6.12 is supported only through the explicitly assigned skill/thin-entry integration route. The older Codex operator CLI remains limited to 1.6.9; not every entry supports 1.6.12. The orchestrator chooses timing and either Codex or Grok as the sole index writer. The isolated Grok 1.0.62 fixture observation on 2026-10-18 read both skills and required Core files, then ran one exact read-only plan. It does not qualify native refresh or the whole runtime. See the [design](docs/design/gitnexus-operation-parity.md), [acceptance scope](docs/verification/gitnexus-operation-acceptance.md) and [0.2.0 preparation record](docs/releases/v0.2.0.md). The 0.1.0 publication information below is historical.
 
 This project prepares Grok Build to use a fixed set of shared engineering rules. The Grok adapter will own skills, tool integration, validation, assembly, and installation.
 
@@ -80,7 +80,7 @@ PYTHONDONTWRITEBYTECODE=1 python3 scripts/grok_package.py verify
 PYTHONDONTWRITEBYTECODE=1 python3 scripts/grok_package.py capabilities
 ```
 
-The Core command checks thirteen files; the package command checks thirty candidate files instead of the historical twenty-three. Output separates product, Core revision/digest and documented Grok version. The catalog retains `1.0.52 (0920c8169e27)`; non-model help on 2026-10-17 observed `1.0.60 (01a8e1c591c0)`. Neither certifies a compatibility range. Formal Core tag object `e984c880a05065c8bcd0d78e83d78220b05bfc32` resolves to the fixed commit above. The lock binds that commit and twelve-Markdown collection, never moving main or a dynamic tag. Complete thirteen-file reference closure does not mean loading every document on each runtime use.
+The Core command checks thirteen files; the package command checks thirty package files instead of the historical twenty-three. Output separates product, Core revision/digest and documented Grok version. The catalog retains `1.0.52 (0920c8169e27)`; non-model help on 2026-10-17 observed `1.0.60 (01a8e1c591c0)`. Neither certifies a compatibility range. Formal Core tag object `e984c880a05065c8bcd0d78e83d78220b05bfc32` resolves to the fixed commit above. The lock binds that commit and twelve-Markdown collection, never moving main or a dynamic tag. Complete thirteen-file reference closure does not mean loading every document on each runtime use.
 
 Success proves offline bytes/references, not native installation, skill loading, delegation or runtime qualification. The packet is a consumer evidence envelope, not a Grok API schema. All readiness flags remain false. Publication covers verified source and offline artifacts. Actual installation separately needs write-set, ownership, trust, payload/Core and failure-preservation checks in the [minimum integration plan](docs/installation.md#native-integration-en). Untested behavior is neither PASS nor a confirmed defect. The [P2-G design](docs/design/p2-g-preparation.md) and [source map](docs/provenance/source-map.md) retain history.
 
