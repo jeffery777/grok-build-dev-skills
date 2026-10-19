@@ -6,6 +6,12 @@
 
 ## 繁體中文
 
+### 0.2.2 — 未發布／Unreleased
+
+- 配對正式 Core v0.1.1，固定完整 revision、十三份 Markdown collection、十四檔原始來源及完整引用閉合。Continue 優先原 Session，未知操作／委派先確認現況；沒有新增自動恢復或重播能力。
+- 同步 lock／verifier 固定常數與 allowlist、plugin 版本、31檔 manifest、受影響負例及雙語現行文件；兩技能、GitNexus controller／S/T來源／lock／薄入口、依賴與 MIT notices 原 bytes 不變。見 [0.2.2 說明](docs/releases/v0.2.2.md)。
+- 本輪僅 draft PR／發行準備，不 merge、發布或安裝。Core 已發布及舊0.2.1安裝不代表本機已載入新 Core；readiness 不升級，歷史 Release 記錄保留。
+
 ### 0.2.1 — 2026-10-19
 
 - 修正複製式 Local plugin 的升級交付：原生同來源重裝被拒絕後，經明確授權保全、單產品卸載、零註冊讀回與固定新版安裝，在隔離 fixture 成功讀回唯一 0.2.1 與精確三十檔。見 [證據與限制](docs/verification/local-plugin-upgrade.md)。
@@ -33,6 +39,12 @@
 <a id="en"></a>
 
 ## English
+
+### 0.2.2 — Unreleased
+
+- Pair with formal Core v0.1.1, pinning its full revision, thirteen-Markdown collection, fourteen raw files and complete reference closure. Continue prefers the original session and checks unknown operations/delegated tasks first; no automatic recovery or replay is added.
+- Align lock/verifier constants/allowlist, plugin version, 31-file manifest, affected negative cases and active bilingual documents. Both skills, GitNexus controller/S/T sources/lock/thin entry, dependencies and MIT notices retain their bytes. See [0.2.2 notes](docs/releases/v0.2.2.md).
+- This packet stops at draft PR/release preparation, without merge, publication or installation. Core publication and the previous 0.2.1 installation do not imply local adoption of new Core. Readiness is unchanged and historical Release records remain.
 
 ### 0.2.1 — 2026-10-19
 

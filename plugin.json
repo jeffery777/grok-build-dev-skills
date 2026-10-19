@@ -1,5 +1,5 @@
 {
   "name": "grok-build-dev-skills",
-  "version": "0.2.1",
-  "description": "Engineering skills and explicit GitNexus 1.6.12 index controller; fixed Core 174df2af8dedf813b9bd4e3c184a627ee87d3cd8. Native agent-use qualification is separate."
+  "version": "0.2.2",
+  "description": "Engineering skills and explicit GitNexus 1.6.12 index controller; fixed Core 7b66978a76597d09be1b55ad199a969b4ee59c0f. Native agent-use qualification is separate."
 }
