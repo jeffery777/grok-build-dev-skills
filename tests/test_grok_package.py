@@ -73,7 +73,7 @@ class PackageTests(unittest.TestCase):
         self.assertEqual(result["verified_files"], 30)
         self.assertGreater(result["local_references"], 375)
         self.assertEqual(result["product_name"], "grok-build-dev-skills")
-        self.assertEqual(result["product_version"], "0.2.0")
+        self.assertEqual(result["product_version"], "0.2.1")
         self.assertEqual(result["documented_grok_version"], package.VERSION)
         self.assertEqual(result["core_revision"], package.core.CORE_REVISION)
         self.assert_unqualified(result)

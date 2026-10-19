@@ -20,7 +20,7 @@
     },
     {
       "path": "plugin.json",
-      "sha256": "8591e36339e3c94178e60342fc8074c74f54f9220256118d05e6927935bdbd67"
+      "sha256": "e50fadf931276bbc19fb26ea57cdd91d0697c1061f79140fe90d5546bba326a7"
     },
     {
       "path": "references/gitnexus-operations.md",
@@ -40,7 +40,7 @@
     },
     {
       "path": "scripts/grok_package.py",
-      "sha256": "f62909bba685d05b851678c71076f6a9db333adfcb273ddd853a6ba87c2d3d12"
+      "sha256": "3126b52b4560d1cc8f60e26f991257181b7f087d4c35f6a3eb75983598ac307f"
     },
     {
       "path": "skills/grok-engineering-workflow/SKILL.md",

@@ -6,6 +6,12 @@
 
 ## 繁體中文
 
+### 0.2.1 — 2026-10-19
+
+- 修正複製式 Local plugin 的升級交付：原生同來源重裝被拒絕後，經明確授權保全、單產品卸載、零註冊讀回與固定新版安裝，在隔離 fixture 成功讀回唯一 0.2.1 與精確三十檔。見 [證據與限制](docs/verification/local-plugin-upgrade.md)。
+- 更新 [安裝／失敗處理](docs/installation.md)、README 與 [0.2.1 說明](docs/releases/v0.2.1.md)。程式只改產品版本 literal、對應測試及衍生 manifest；技能、controller、Core、source locks、依賴與 MIT notices 不變。
+- 發行不自動更新用戶安裝；正式新增信任另行確認。自訂資料、多產品、模型載入及原子 rollback 未資格化，離線 readiness 仍 false。保留歷史 0.2.0 說明與 tag／Release。
+
 ### 0.1.0 — 2026-10-17
 
 首版產品提供官方 plugin 格式的離線工程技能套件。正式發布身分以 [GitHub Release](https://github.com/jeffery777/grok-build-dev-skills/releases/tag/v0.1.0)、annotated tag 及解析後的完整 commit 為準；來源版本字串本身不證明已發布或已安裝。
@@ -27,6 +33,12 @@
 <a id="en"></a>
 
 ## English
+
+### 0.2.1 — 2026-10-19
+
+- Correct copied Local plugin upgrade delivery. After native same-source reinstallation was rejected, explicitly authorized preservation, single-product uninstall, zero-registration readback and fixed-version installation produced exactly one 0.2.1 registration and all thirty files in an isolated fixture. See [evidence and limits](docs/verification/local-plugin-upgrade.md).
+- Update [installation/failure handling](docs/installation.md), README and [0.2.1 notes](docs/releases/v0.2.1.md). Executable changes are the product-version literal only, its test expectation and derived manifest hashes. Skills, controller, Core, source locks, dependencies and MIT notices are unchanged.
+- Publication does not update user installations or grant production trust. Custom data, multi-product behavior, model loading and atomic rollback remain unqualified; offline readiness stays false. Historical 0.2.0 notes and tag/Release are retained.
 
 ### 0.1.0 — 2026-10-17
 
