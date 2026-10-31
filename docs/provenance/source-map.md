@@ -1,5 +1,11 @@
 # 來源對照 / Source map
 
+## 2026-10-31 開發用 Core 回饋候選／Developer feedback candidate
+
+[Issue #36](https://github.com/jeffery777/grok-build-dev-skills/issues/36) 接續 Codex 候選包，固定 Core `87db5867fbed58c81e64f0c316168d537452425e` 完整十五檔於 tests fixture；正式 v0.1.1 pin／產品 payload 不變。[驗證記錄](../verification/core-feedback-candidate.md) 列來源、digest、離線結果與未執行的原生 eval。新 helper／案例改編固定 Codex `a48a30d7769a5d0f53fa4fa269151114ed624cff` 開發工具，重用 Grok offline primitives，不匯入 Codex runtime API。完整來源 notices、所有既有文字與 modes 保留。
+
+Issue #36 pins the complete fifteen-file Core candidate under test paths after the Codex packet. Formal source/product payload remain unchanged. The evidence record binds immutable source/digests and separates offline results from unrun native evaluation. Helper/cases adapt the fixed Codex developer sources using Grok primitives, without a runtime dependency. Existing text/modes and full notices remain.
+
 ## 範圍 / Scope
 
 本包重用 P0，不重新盤點全部 Codex 程式。固定來源只讀；下列 digest 是來源證據，**不是 P1 final Core lock 或 runtime 資格**。新寫的設計依 P0 與使用者授權整理，未搬移程式或現有技能。完整 MIT notices 見 [upstream notices](upstream-notices.md)。

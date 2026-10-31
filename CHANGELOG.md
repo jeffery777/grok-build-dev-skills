@@ -1,5 +1,11 @@
 # Changelog / 更新紀錄
 
+## 未發行 — Core 回饋候選測試／Unreleased — Core feedback candidate tests
+
+新增 Issue #36 的開發用固定 Core #24／#26 候選、九案 prompt／scorer、完整性與逐字保留正反測試。正式 v0.1.1 pin、0.2.2 產品 payload 與既有安裝保留；實際 Grok 文字 eval 因原生登入／必要來源控制缺口未執行，雙 consumer gate 未滿足。詳見 [候選驗證與限制](docs/verification/core-feedback-candidate.md)。
+
+Add a development-only fixed Core feedback candidate and nine-case prompt/scorer with integrity and preservation tests. Formal Core v0.1.1, the 0.2.2 product payload and installations remain unchanged. Actual Grok model evaluation is not run because necessary native sign-in/source controls are not established together; the dual-consumer gate remains unsatisfied. The linked evidence separates offline success from the live gap.
+
 [繁體中文](#zh) · [English](#en)
 
 <a id="zh"></a>

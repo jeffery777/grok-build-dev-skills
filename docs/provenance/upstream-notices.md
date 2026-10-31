@@ -1,5 +1,9 @@
 # Upstream notices / 上游授權聲明
 
+Issue #36 的開發 helper 與九案改編自 codex-dev-skills `a48a30d7769a5d0f53fa4fa269151114ed624cff` 的 scripts/eval-core-feedback-candidate.py 及 tests/fixtures/core-feedback-cases.json。下方完整 Codex MIT notice 同樣涵蓋此改編，原 notice 不改。Core 完整 LICENSE／notices 另隨十五檔 fixture 保留，這不是正式 runtime 採用。
+
+The Issue #36 developer helper and nine cases adapt the fixed Codex sources above. The complete Codex MIT notice below also covers this adaptation with original text retained. The fifteen-file candidate separately keeps Core's full license/notices; it is not formal runtime adoption.
+
 本包的設計整理自 [source map](source-map.md) 所列的固定 Core P0 與 Codex 來源；改寫內容為 Grok P2 準備設計，沒有搬移可執行程式。保留以下完整 MIT notices。根目錄 [LICENSE](../../LICENSE) 不取代來源 notices。未 vendor xAI 程式或完整文件；後續若引入第三方 substantial portions，必須另查授權與 notices，不能假設一律 MIT。
 
 This design adapts the fixed Core P0 and Codex sources in the [source map](source-map.md) for Grok P2. It moves no executable code. The full source MIT notices follow. The root [LICENSE](../../LICENSE) does not replace them. No xAI source code or complete documentation is vendored. Future third-party substantial portions require their own license and notice review.
