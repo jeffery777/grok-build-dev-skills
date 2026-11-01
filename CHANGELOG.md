@@ -1,5 +1,24 @@
 # Changelog / 更新紀錄
 
+## 0.3.0 — 2026-11-01 source candidate
+
+採正式Core v0.2.0 `6887bfe6183465e9a9e6ccb4ccd7305a58b37302`，同步二十檔vendor／十九份Markdown lock、獨立anchors、0.3.0 plugin與37檔離線bundle；需求關係／REQ-GAP及新機制需求追溯經原必讀Core入口採用。原規則逐字保留，舊候選／baseline／準備資料不改，歷史eval以真formal validator驗目前來源。下列未發行項保留各階段歷史；產品發布須由Tag／Release讀回，安裝未更新。詳見 [0.3.0](docs/releases/v0.3.0.md)。
+
+Adopt published Core0.2.0 with exact20-file source closure,19-document lock, independent trust anchors and product0.3.0/37-file packaging. Retain original rules and fixed historical candidate/baseline/preparation data; current historical reproduction uses the real formal validator. Earlier unreleased entries are point-in-time history. Tag/Release readback proves publication separately; existing installations and runtime qualification remain unchanged.
+
+
+## 未發行 — Core v0.2.0 採用準備 / Unreleased — Adoption preparation
+
+新增固定二十檔準備來源、獨立migration pin、唯讀驗證與v0.1.1歷史baseline，修正ADOPT-01的移動vendor比較。兩端候選文字eval後續各9/9、各一次；下方未執行說明保留為歷史。出版身分仍null，普通Core／0.2.2／31檔產品不變，建議後續minor0.3.0。詳見 [採用準備與真實發行後待驗](docs/verification/core-release-adoption-preparation.md)。
+
+Add fixed twenty-file preparation, a separate migration pin/read-only verifier and historical v0.1.1 baseline. ADOPT-01 no longer follows moving formal vendor bytes. Each consumer later scored9/9 once; earlier unrun statements below remain historical. Publication identities remain null; ordinary Core/product0.2.2/31files remain unchanged. Proposed next minor is0.3.0; formal adoption/publication remain pending.
+
+## 未發行 — Core 回饋候選測試／Unreleased — Core feedback candidate tests
+
+新增 Issue #36 的開發用固定 Core #24／#26 候選、九案 prompt／scorer、完整性與逐字保留正反測試。正式 v0.1.1 pin、0.2.2 產品 payload 與既有安裝保留；實際 Grok 文字 eval 因原生登入／必要來源控制缺口未執行，雙 consumer gate 未滿足。詳見 [候選驗證與限制](docs/verification/core-feedback-candidate.md)。
+
+Add a development-only fixed Core feedback candidate and nine-case prompt/scorer with integrity and preservation tests. Formal Core v0.1.1, the 0.2.2 product payload and installations remain unchanged. Actual Grok model evaluation is not run because necessary native sign-in/source controls are not established together; the dual-consumer gate remains unsatisfied. The linked evidence separates offline success from the live gap.
+
 [繁體中文](#zh) · [English](#en)
 
 <a id="zh"></a>

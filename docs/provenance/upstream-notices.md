@@ -1,5 +1,18 @@
 # Upstream notices / 上游授權聲明
 
+本來源現採正式 Core v0.2.0 `6887bfe6183465e9a9e6ccb4ccd7305a58b37302`，版本0.3.0，完整二十檔／十九份Markdown，封閉套件為36個payload加manifest共37檔；詳見 [0.3.0紀錄](../releases/v0.3.0.md)。下文舊版身分、數量、未發布及測試stub敘述保留各準備階段歷史，共同驗證與安全規則仍適用；現行身分與布局以本段及0.3.0紀錄為準。準備fixture的null出版欄位與false flags不改，不能判定後續發布狀態。兩端各一次9/9文字結果僅涵蓋相同四契約，不代表完整runtime資格；既有安裝未更新，四項readiness仍false。產品正式發布須另核對對應annotated tag及Release。
+
+This source adopts published Core v0.2.0 `6887bfe6183465e9a9e6ccb4ccd7305a58b37302` and product version 0.3.0: twenty Core files, nineteen Markdown files and a 37-file closed bundle (36 payloads plus its manifest). See the [0.3.0 record](../releases/v0.3.0.md). Earlier identities, counts, unpublished-state claims and acceptance-stub descriptions below retain their preparation-stage meaning. Shared verification and safety rules still apply; this paragraph and the 0.3.0 record define the current identity and layout. Historical preparation null publication fields and false flags remain fixed and cannot determine later publication. Each consumer's single nine-case text result (9/9) covers only identical four-contract bytes, not full runtime qualification. Existing installations and all four false readiness flags remain unchanged. Product publication separately requires its annotated tag and Release.
+
+
+2026-11-01採用準備helper與測試改編自codex-dev-skills `e83553f2bf907fe4afbbe6725a036d6cc569efd4` 的 scripts/verify-core-release-preparation.py 與 tests/test_core_release_preparation.py。下方完整Codex MIT notice涵蓋此改編；原notice每字保留。新增二十檔Core準備與十四檔歷史baseline各保留完整來源LICENSE／notices，不是正式runtime採用。
+
+The adoption-preparation helper/tests adapt the fixed Codex sources above. Its complete MIT notice below covers this work unchanged. Both new Core snapshots retain source LICENSE/notices; neither preparation nor historical data is formal runtime adoption.
+
+Issue #36 的開發 helper 與九案改編自 codex-dev-skills `a48a30d7769a5d0f53fa4fa269151114ed624cff` 的 scripts/eval-core-feedback-candidate.py 及 tests/fixtures/core-feedback-cases.json。下方完整 Codex MIT notice 同樣涵蓋此改編，原 notice 不改。Core 完整 LICENSE／notices 另隨十五檔 fixture 保留，這不是正式 runtime 採用。
+
+The Issue #36 developer helper and nine cases adapt the fixed Codex sources above. The complete Codex MIT notice below also covers this adaptation with original text retained. The fifteen-file candidate separately keeps Core's full license/notices; it is not formal runtime adoption.
+
 本包的設計整理自 [source map](source-map.md) 所列的固定 Core P0 與 Codex 來源；改寫內容為 Grok P2 準備設計，沒有搬移可執行程式。保留以下完整 MIT notices。根目錄 [LICENSE](../../LICENSE) 不取代來源 notices。未 vendor xAI 程式或完整文件；後續若引入第三方 substantial portions，必須另查授權與 notices，不能假設一律 MIT。
 
 This design adapts the fixed Core P0 and Codex sources in the [source map](source-map.md) for Grok P2. It moves no executable code. The full source MIT notices follow. The root [LICENSE](../../LICENSE) does not replace them. No xAI source code or complete documentation is vendored. Future third-party substantial portions require their own license and notice review.

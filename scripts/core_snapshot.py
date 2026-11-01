@@ -39,6 +39,11 @@ MARKDOWN_PATHS = frozenset({
     "docs/releases/v0.1.1.md",
 })
 FILES = MARKDOWN_PATHS | {"LICENSE"}
+# Formal Core v0.2.0 adoption; preceding literals retain the v0.1.1 history.
+CORE_REVISION = '6887bfe6183465e9a9e6ccb4ccd7305a58b37302'
+COLLECTION_SHA256 = '731b7bc86dade62fba5e59d75829fcf7f9dd746c66077f733e2e8e90016ee287'
+MARKDOWN_PATHS = MARKDOWN_PATHS | frozenset(('docs/companion/core-reading-guide.md', 'docs/companion/decision-cards.md', 'docs/companion/review-decisions.md', 'docs/maintenance/2026-10-31-consumer-feedback.md', 'docs/maintenance/issue-24-26-candidate.md', 'docs/releases/v0.2.0.md'))
+FILES = MARKDOWN_PATHS | {"LICENSE"}
 DIRECTORIES = frozenset(
     str(parent) for name in FILES for parent in PurePosixPath(name).parents
     if str(parent) != "."

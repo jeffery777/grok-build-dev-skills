@@ -1,5 +1,22 @@
 # 來源對照 / Source map
 
+本來源現採正式 Core v0.2.0 `6887bfe6183465e9a9e6ccb4ccd7305a58b37302`，版本0.3.0，完整二十檔／十九份Markdown，封閉套件為36個payload加manifest共37檔；詳見 [0.3.0紀錄](../releases/v0.3.0.md)。下文舊版身分、數量、未發布及測試stub敘述保留各準備階段歷史，共同驗證與安全規則仍適用；現行身分與布局以本段及0.3.0紀錄為準。準備fixture的null出版欄位與false flags不改，不能判定後續發布狀態。兩端各一次9/9文字結果僅涵蓋相同四契約，不代表完整runtime資格；既有安裝未更新，四項readiness仍false。產品正式發布須另核對對應annotated tag及Release。
+
+This source adopts published Core v0.2.0 `6887bfe6183465e9a9e6ccb4ccd7305a58b37302` and product version 0.3.0: twenty Core files, nineteen Markdown files and a 37-file closed bundle (36 payloads plus its manifest). See the [0.3.0 record](../releases/v0.3.0.md). Earlier identities, counts, unpublished-state claims and acceptance-stub descriptions below retain their preparation-stage meaning. Shared verification and safety rules still apply; this paragraph and the 0.3.0 record define the current identity and layout. Historical preparation null publication fields and false flags remain fixed and cannot determine later publication. Each consumer's single nine-case text result (9/9) covers only identical four-contract bytes, not full runtime qualification. Existing installations and all four false readiness flags remain unchanged. Product publication separately requires its annotated tag and Release.
+
+
+## 2026-11-01 Core minor 採用準備 / Adoption preparation
+
+[Issue #36](https://github.com/jeffery777/grok-build-dev-skills/issues/36) 接續固定Core PR29 `cbe3efa1ecc1d2ec04d2edc7078eb22c9dbec038` 二十檔與v0.1.1十四檔歷史baseline，raw bytes／modes含完整LICENSE／notices不改。新 [驗證器](../../scripts/verify_core_release_preparation.py) 與 [測試](../../tests/test_core_release_preparation.py) 改編Codex固定 `e83553f2bf907fe4afbbe6725a036d6cc569efd4` 的 scripts/verify-core-release-preparation.py、tests/test_core_release_preparation.py，重用Grok既有core_snapshot controls，不搬Code reader／runtime。細節見 [採用準備](../verification/core-release-adoption-preparation.md)。
+
+The preparation pins the complete Core reviewed source and historical baseline above. Helper/tests adapt fixed Codex developer sources with complete MIT attribution, using Grok's existing controls. Historical candidate comparison is independent of the current formal vendor. Ordinary Core/product/31-file manifest remain exact; publication identities stay null. Proposed next minor0.3.0 is preparation, not adoption or publication. Both consumers' n=1 text results cover only unchanged contract bytes, with new source reviewed separately.
+
+## 2026-10-31 開發用 Core 回饋候選／Developer feedback candidate
+
+[Issue #36](https://github.com/jeffery777/grok-build-dev-skills/issues/36) 接續 Codex 候選包，固定 Core `87db5867fbed58c81e64f0c316168d537452425e` 完整十五檔於 tests fixture；正式 v0.1.1 pin／產品 payload 不變。[驗證記錄](../verification/core-feedback-candidate.md) 列來源、digest、離線結果與未執行的原生 eval。新 helper／案例改編固定 Codex `a48a30d7769a5d0f53fa4fa269151114ed624cff` 開發工具，重用 Grok offline primitives，不匯入 Codex runtime API。完整來源 notices、所有既有文字與 modes 保留。
+
+Issue #36 pins the complete fifteen-file Core candidate under test paths after the Codex packet. Formal source/product payload remain unchanged. The evidence record binds immutable source/digests and separates offline results from unrun native evaluation. Helper/cases adapt the fixed Codex developer sources using Grok primitives, without a runtime dependency. Existing text/modes and full notices remain.
+
 ## 範圍 / Scope
 
 本包重用 P0，不重新盤點全部 Codex 程式。固定來源只讀；下列 digest 是來源證據，**不是 P1 final Core lock 或 runtime 資格**。新寫的設計依 P0 與使用者授權整理，未搬移程式或現有技能。完整 MIT notices 見 [upstream notices](upstream-notices.md)。
@@ -173,3 +190,9 @@ G-GN1 pins local unreleased Codex 0.35.0 S/T and four raw-file digests in the [c
 Lock、code-owned revision／collection／新增 release allowlist、plugin0.2.2、完整三十一檔 manifest、受影響測試及雙語現行文件同包同步。兩技能正文、GitNexus controller／S/T來源／lock／薄入口、依賴、LICENSE 與完整 notices 保持原 bytes；1.6.12 僅限明確技能／薄入口路徑，舊 operator CLI 仍1.6.9。新候選依自身 diff 做驗證、獨立審查與安全影響分類，不借用 Core 或 Issue32 的 scan 當本包 PASS。本輪僅 commit／push／draftPR／發行準備，不 merge、Tag／Release 或安裝，不因 Core 已發布推定本機或 session 載入。Space 同步由主協調者負責。
 
 Issue #34 uses a fresh ownership packet from the Grok base above. All fourteen immutable Core blobs match publication sizes, modes and hashes. Four existing documents change and v0.1.1 notes are added; nine files stay identical. The Continue clarification adds original-session preference and checks unknown operations/delegations, without a recovery API or replay mechanism. Pin/allowlist/version/lock/manifest/affected tests and active bilingual documents change together. Both skill bodies and GitNexus implementation/source locks remain byte-identical, preserving the 1.6.12 thin-entry and 1.6.9 legacy-operator limits. This consumer diff needs its own verification/review/security classification; no earlier scan is relabeled PASS. This packet stops at commit/push/draftPR and release preparation, without merge, publication or installation. Core publication does not prove local/session adoption; the coordinator owns Space synchronization.
+
+## 0.3.0 正式來源 / Formal source
+
+Core [v0.2.0](https://github.com/jeffery777/engineering-workflow-core/releases/tag/v0.2.0) 的tag object `0ba0fd98e2343f72e555d9bf0e8b1bc5650cd93d` 解析至M `6887bfe6183465e9a9e6ccb4ccd7305a58b37302`；reviewed head為 `7feb6d3c044b1bcc2f675dbc93a469e66d608511`，tree為 `3acff4c9241800f47c9df0d642aa21258bab6f92`，Release430290593已讀回非draft／非prerelease。二十檔raw集合 `ff3b48febea205d5f6de33adbe387b420d96f8105b67eeb689bfc55c3e07cae4`／363639bytes，十九份Markdown集合 `731b7bc86dade62fba5e59d75829fcf7f9dd746c66077f733e2e8e90016ee287`（1834bytes輸入）與LICENSE分驗。普通lock只採本端既有revision／collection.sha256／LICENSE schema，tag／Release身分屬外部來源驗證，不加入runtime查詢。
+
+The twenty vendor files retain exact published Git blobs/modes and complete MIT notices. The four contracts match evaluated87db5867 byte for byte; optional companions and source/release inventory have separate review. Codex v0.36.0 was published before this Grok adoption. Both skill bodies, GitNexus S/T/controller/lock/thin entry and the documented capability catalog retain their bytes. No new runtime, provider integration, model call or installation is introduced.

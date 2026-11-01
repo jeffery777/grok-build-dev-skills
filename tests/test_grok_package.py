@@ -70,19 +70,42 @@ class PackageTests(unittest.TestCase):
 
     def test_source_and_staging_layouts(self):
         result, files, _ = package.verify(self.root)
-        self.assertEqual(result["verified_files"], 31)
+        self.assertEqual(result["verified_files"], 37)
         self.assertGreater(result["local_references"], 375)
         self.assertEqual(result["product_name"], "grok-build-dev-skills")
-        self.assertEqual(result["product_version"], "0.2.2")
+        self.assertEqual(result["product_version"], "0.3.0")
         self.assertEqual(result["documented_grok_version"], package.VERSION)
         self.assertEqual(result["core_revision"], package.core.CORE_REVISION)
         self.assert_unqualified(result)
         self.assertEqual(set(files), package.PATHS | {package.MANIFEST})
         extra = self.root / "development-only.txt"
         extra.write_text("not packaged")
-        self.assertEqual(package.verify(self.root)[0]["verified_files"], 31)
+        self.assertEqual(package.verify(self.root)[0]["verified_files"], 37)
         with self.assertRaises(package.core.SnapshotError):
             package.verify(self.root, "staging")
+
+    def test_core_v020_new_paths_reject_rehash_tamper_and_missing_files(self):
+        historical = json.loads((ROOT / "tests/fixtures/core-feedback-baseline.lock.json").read_bytes())
+        old_names = {row["path"] for row in historical["files"]}
+        added = sorted(package.core.FILES - old_names)
+        self.assertEqual(len(added), 6)
+        for relative in added:
+            with self.subTest(path=relative):
+                name = "vendor/engineering-workflow-core/" + relative
+                path = self.root / name
+                original = path.read_bytes()
+                path.write_bytes(original + b"tampered\n")
+                self.rehash(name)
+                with self.assertRaises(package.core.SnapshotError):
+                    package.stage(self.root, self.destination)
+                self.assertFalse(self.destination.exists())
+                path.write_bytes(original)
+                self.rehash(name)
+                path.unlink()
+                with self.assertRaises((package.core.SnapshotError, OSError)):
+                    package.stage(self.root, self.destination)
+                self.assertFalse(self.destination.exists())
+                path.write_bytes(original)
 
     def test_controller_pin_survives_local_manifest_rehash(self):
         relative = package.GN_DIRECTORY + "/gitnexus_adapter.py"
@@ -131,7 +154,7 @@ class PackageTests(unittest.TestCase):
 
     def test_trusted_manifest_digest_before_payload_or_write(self):
         trusted = hashlib.sha256((self.root / package.MANIFEST).read_bytes()).hexdigest()
-        self.assertEqual(package.verify(self.root, expected_manifest_sha256=trusted)[0]["verified_files"], 31)
+        self.assertEqual(package.verify(self.root, expected_manifest_sha256=trusted)[0]["verified_files"], 37)
         # A changed skill and a matching rewritten local manifest still differ
         # from the digest obtained independently from the trusted fixed source.
         skill = "skills/grok-engineering-workflow/SKILL.md"

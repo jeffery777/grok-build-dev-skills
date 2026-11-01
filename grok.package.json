@@ -1,6 +1,6 @@
 {
   "format": "grok-offline-package/v1",
-  "core_revision": "7b66978a76597d09be1b55ad199a969b4ee59c0f",
+  "core_revision": "6887bfe6183465e9a9e6ccb4ccd7305a58b37302",
   "files": [
     {
       "path": "LICENSE",
@@ -12,7 +12,7 @@
     },
     {
       "path": "core.lock.json",
-      "sha256": "6cc33215c090678266f0fd7c2d2402bd8f51b7c85f39b26762382f24b87381ae"
+      "sha256": "aa892469e3183be9ce83d04a0ca2f6156095c62c037414d3591ef1dd7d2dfaeb"
     },
     {
       "path": "gitnexus.lock.json",
@@ -20,7 +20,7 @@
     },
     {
       "path": "plugin.json",
-      "sha256": "3a86c1c109e364377a77823324a52abd113d85ed929eb45a381c3721f9b0b6c9"
+      "sha256": "07be4610994a6a2a01473f1fc03d97bfbd275c55457298acd26e5530088b1b42"
     },
     {
       "path": "references/gitnexus-operations.md",
@@ -32,7 +32,7 @@
     },
     {
       "path": "scripts/core_snapshot.py",
-      "sha256": "5fd2ac1378dfaeea5ec21365766640da6f04ca1d0e356cf500879bddfb021431"
+      "sha256": "4a7bf3ba9f9765c2125ea76b3b4d68ec60d6ba304f37d9808228f926eb4b277b"
     },
     {
       "path": "scripts/gitnexus_index.py",
@@ -40,7 +40,7 @@
     },
     {
       "path": "scripts/grok_package.py",
-      "sha256": "0c7b4fb71e011ec1222e65724b7c1e380ebba60659d42be8541967e6a9947f55"
+      "sha256": "a5660155d07d3d00027e3525ac9e62cd24e2d3cdba930b99bcc0714ea2da8cb1"
     },
     {
       "path": "skills/grok-engineering-workflow/SKILL.md",
@@ -52,7 +52,7 @@
     },
     {
       "path": "vendor/engineering-workflow-core/CHANGELOG.md",
-      "sha256": "fa7f679f2c2f0f09dfae137f1631e55ed0a03d92ca4006b90f013e86b5b5d158"
+      "sha256": "078664237eb3e3c6346d085d0372f102ffdd3a6c0bcb4decb70392abdbbdc11f"
     },
     {
       "path": "vendor/engineering-workflow-core/LICENSE",
@@ -60,7 +60,7 @@
     },
     {
       "path": "vendor/engineering-workflow-core/README.md",
-      "sha256": "a9ecc868915ccad6bbee388c09d2c234eecefbc41d07c580a269a13956f5ea7b"
+      "sha256": "b47eee584ea785bd7964432143778529227b991293a1fa7e3ab89879c0f268eb"
     },
     {
       "path": "vendor/engineering-workflow-core/contracts/authorization-and-stops.md",
@@ -72,11 +72,11 @@
     },
     {
       "path": "vendor/engineering-workflow-core/contracts/review-and-security.md",
-      "sha256": "a29ae05f7df55f8469235baff7c59c00a99a0fb9e697e47eb46a9be7c4b90b03"
+      "sha256": "6dce06b8a0feb34b7851086edc9c4cd774171a5444b05eb7013a0d3af1c044e5"
     },
     {
       "path": "vendor/engineering-workflow-core/contracts/workflow.md",
-      "sha256": "abd418b0679675029eabf70a2e1bc77db1e3f898fbf2e2e4e66907df1fb52b51"
+      "sha256": "50f6d7129f562b2e86bddfe3fc095c0873070bf349bbfd5be1797a483dc8e8e2"
     },
     {
       "path": "vendor/engineering-workflow-core/docs/architecture/dependency-inventory.md",
@@ -91,12 +91,32 @@
       "sha256": "18e3e3b620d917aeff7881f4bfe5d4736725d6cac0eb8c758b810564df5f8d84"
     },
     {
+      "path": "vendor/engineering-workflow-core/docs/companion/core-reading-guide.md",
+      "sha256": "493ca529e89ab7e785815687ca93b8aed805557be01de795e611da6c4e14a3c1"
+    },
+    {
+      "path": "vendor/engineering-workflow-core/docs/companion/decision-cards.md",
+      "sha256": "34f2d40509795448c7d7d947427f911667cc5dee4351a8a9ce49ab10b6f38c1c"
+    },
+    {
+      "path": "vendor/engineering-workflow-core/docs/companion/review-decisions.md",
+      "sha256": "2c8a7768f76af27ad3972948bf2b1567eb72624f2230e260c00575f1d11805c2"
+    },
+    {
+      "path": "vendor/engineering-workflow-core/docs/maintenance/2026-10-31-consumer-feedback.md",
+      "sha256": "3bd34f290e72632991380dffb99f218b1a6e061ee403773cef1c61a2bcae20b1"
+    },
+    {
+      "path": "vendor/engineering-workflow-core/docs/maintenance/issue-24-26-candidate.md",
+      "sha256": "89b9e312865fa49fd417cd6d3a5fd65f5e82db475950b7d0532ca08e4347e071"
+    },
+    {
       "path": "vendor/engineering-workflow-core/docs/provenance/source-map.md",
-      "sha256": "902c491a5412efb85d8d942ada48f8a8ad33a576b597d6748877d29507accfa9"
+      "sha256": "bf712e8da9b51a8a2d8b65ea929ec4c17cb84f8876e6b547f486ae994028e41a"
     },
     {
       "path": "vendor/engineering-workflow-core/docs/provenance/upstream-notices.md",
-      "sha256": "a33e7445a6eea9df9f12dd5b32cb6f08353d00b7d873496d48389dbe36ceb888"
+      "sha256": "e4adc2d6e2b7e9169db5273aa83306f93546ef0219e73f412d524fb38f3b2d82"
     },
     {
       "path": "vendor/engineering-workflow-core/docs/releases/v0.1.0.md",
@@ -105,6 +125,10 @@
     {
       "path": "vendor/engineering-workflow-core/docs/releases/v0.1.1.md",
       "sha256": "c58714a705d46e6e244b9e5008df26e501a0343cfbbd7955e55f262c01e989be"
+    },
+    {
+      "path": "vendor/engineering-workflow-core/docs/releases/v0.2.0.md",
+      "sha256": "8993bcf05434a53f8afa815b199f99a349014b7cd0fe3e23a1a9dc74b153392d"
     },
     {
       "path": "vendor/gitnexus-index-controller/LICENSE",
