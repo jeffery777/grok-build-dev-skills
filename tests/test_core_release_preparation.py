@@ -47,7 +47,7 @@ class ReleasePreparationTests(unittest.TestCase):
         for key in ("formal_core_adopted", "runtime_qualified", "merge_authorized"):
             self.assertIs(value[key], False)
         result, _ = core.verify(self.root / "core.lock.json", self.root / "vendor/engineering-workflow-core")
-        self.assertEqual(result["core_revision"], prep.BASELINE_REVISION)
+        self.assertEqual(result["core_revision"], core.CORE_REVISION)
 
     def test_historical_baseline_tamper_is_not_hidden_by_insert_only(self):
         (self.root / "tests/fixtures/core-feedback-baseline/README.md").write_bytes(b"short corrupt baseline\n")
@@ -112,13 +112,12 @@ class ReleasePreparationTests(unittest.TestCase):
         vendor = self.root / "vendor/engineering-workflow-core"
         shutil.rmtree(vendor)
         shutil.copytree(self.root / "tests/fixtures/core-release-preparation", vendor)
-        with self.assertRaises(core.SnapshotError):
-            core.verify(self.root / "core.lock.json", vendor)
-        # Stub only this unit boundary's future formal acceptance, not provenance.
-        files = core.capture_inventory(vendor, frozenset(row["path"] for row in json.loads(
-            (self.root / "tests/fixtures/core-release-preparation.lock.json").read_bytes())["files"]))
+        current, files = core.verify(self.root / "core.lock.json", vendor)
+        self.assertEqual(current["core_revision"], core.CORE_REVISION)
+        self.assertEqual(len(files), 20)
+        # Observe the real formal verifier; never stub acceptance.
         with patch.object(candidate, "ROOT", self.root), patch.object(
-                candidate.core, "verify", return_value=({"status": "future-test-only"}, files)) as checked:
+                candidate.core, "verify", wraps=core.verify) as checked:
             _, _, cases = candidate.inspect(self.root / "tests/fixtures/core-feedback-candidate")
         checked.assert_called_once_with(self.root / "core.lock.json", vendor)
         self.assertEqual(len(cases), 9)
@@ -132,7 +131,23 @@ class ReleasePreparationTests(unittest.TestCase):
         with self.assertRaises(core.SnapshotError):
             core.load_lock(path)
         with self.assertRaises(core.SnapshotError):
-            core.verify(ROOT / "core.lock.json", self.root / "tests/fixtures/core-release-preparation")
+            core.load_lock(self.root / "tests/fixtures/core-release-preparation.lock.json")
+        # Identical published bytes are valid regardless of this fixture's path.
+        result, files = core.verify(ROOT / "core.lock.json", self.root / "tests/fixtures/core-release-preparation")
+        self.assertEqual(result["core_revision"], core.CORE_REVISION)
+        self.assertEqual(len(files), 20)
+
+    def test_old_formal_identity_remains_rejected_by_current_loader(self):
+        current = json.loads((ROOT / "core.lock.json").read_bytes())
+        baseline = json.loads((ROOT / "tests/fixtures/core-feedback-baseline.lock.json").read_bytes())
+        current["core_revision"] = prep.BASELINE_REVISION
+        current["collection"]["sha256"] = "ef0ed075dfbddd7504f65126deabe135632e4737f3148efaf19551224a577ea5"
+        current["files"] = [{"path": row["path"], "sha256": row["sha256"]}
+                            for row in baseline["files"] if row["path"].endswith(".md")]
+        old_lock = self.root / "old-formal.lock.json"
+        old_lock.write_text(json.dumps(current))
+        with self.assertRaises(core.SnapshotError):
+            core.verify(old_lock, self.root / "tests/fixtures/core-feedback-baseline")
 
     def test_cli_publication_requirement_fails_closed(self):
         result = subprocess.run([sys.executable, "-B", str(ROOT / "scripts/verify_core_release_preparation.py"),
@@ -167,10 +182,10 @@ class ReleasePreparationTests(unittest.TestCase):
 
     def test_developer_files_are_not_distributed(self):
         _, files, _ = package.verify(ROOT)
-        self.assertEqual(len(files), 31)
+        self.assertEqual(len(files), 37)
         self.assertFalse(any("preparation" in name or "baseline" in name for name in files))
         self.assertEqual(prep.digest((ROOT / "grok.package.json").read_bytes()),
-                         "127ec56cb5f03b1b7751ec03ce8e0a3e686d0def57d11d0415b13d1184e93d8e")
+                         "6a6d753adc1a8e44582ff5c99e9f2b61effe380e8cb2d8a8c5887dff8dcfcfc3")
 
 
 if __name__ == "__main__":

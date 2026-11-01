@@ -1,5 +1,10 @@
 # Core v0.2.0 正式採用準備 / Formal adoption preparation
 
+本來源現採正式 Core v0.2.0 `6887bfe6183465e9a9e6ccb4ccd7305a58b37302`，版本0.3.0，完整二十檔／十九份Markdown，封閉套件為36個payload加manifest共37檔；詳見 [0.3.0紀錄](../releases/v0.3.0.md)。下文舊版身分、數量、未發布及測試stub敘述保留各準備階段歷史，共同驗證與安全規則仍適用；現行身分與布局以本段及0.3.0紀錄為準。準備fixture的null出版欄位與false flags不改，不能判定後續發布狀態。兩端各一次9/9文字結果僅涵蓋相同四契約，不代表完整runtime資格；既有安裝未更新，四項readiness仍false。產品正式發布須另核對對應annotated tag及Release。
+
+This source adopts published Core v0.2.0 `6887bfe6183465e9a9e6ccb4ccd7305a58b37302` and product version 0.3.0: twenty Core files, nineteen Markdown files and a 37-file closed bundle (36 payloads plus its manifest). See the [0.3.0 record](../releases/v0.3.0.md). Earlier identities, counts, unpublished-state claims and acceptance-stub descriptions below retain their preparation-stage meaning. Shared verification and safety rules still apply; this paragraph and the 0.3.0 record define the current identity and layout. Historical preparation null publication fields and false flags remain fixed and cannot determine later publication. Each consumer's single nine-case text result (9/9) covers only identical four-contract bytes, not full runtime qualification. Existing installations and all four false readiness flags remain unchanged. Product publication separately requires its annotated tag and Release.
+
+
 ## 繁體中文
 
 本包接續 [Issue #36](https://github.com/jeffery777/grok-build-dev-skills/issues/36)、Codex 候選與採用準備及 [Core PR29](https://github.com/jeffery777/engineering-workflow-core/pull/29)。固定 Core reviewed head `cbe3efa1ecc1d2ec04d2edc7078eb22c9dbec038`、tree `3acff4c9241800f47c9df0d642aa21258bab6f92` 的二十檔，含十九份 Markdown及LICENSE，共363639 bytes。完整 raw 集合為 `ff3b48febea205d5f6de33adbe387b420d96f8105b67eeb689bfc55c3e07cae4`；Markdown 集合為 `731b7bc86dade62fba5e59d75829fcf7f9dd746c66077f733e2e8e90016ee287`。這是發行準備來源；publication revision、tag object及Release ID保持 `null`，不可用draft head／tree代填。

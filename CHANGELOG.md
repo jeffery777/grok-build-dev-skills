@@ -1,5 +1,12 @@
 # Changelog / 更新紀錄
 
+## 0.3.0 — 2026-11-01 source candidate
+
+採正式Core v0.2.0 `6887bfe6183465e9a9e6ccb4ccd7305a58b37302`，同步二十檔vendor／十九份Markdown lock、獨立anchors、0.3.0 plugin與37檔離線bundle；需求關係／REQ-GAP及新機制需求追溯經原必讀Core入口採用。原規則逐字保留，舊候選／baseline／準備資料不改，歷史eval以真formal validator驗目前來源。下列未發行項保留各階段歷史；產品發布須由Tag／Release讀回，安裝未更新。詳見 [0.3.0](docs/releases/v0.3.0.md)。
+
+Adopt published Core0.2.0 with exact20-file source closure,19-document lock, independent trust anchors and product0.3.0/37-file packaging. Retain original rules and fixed historical candidate/baseline/preparation data; current historical reproduction uses the real formal validator. Earlier unreleased entries are point-in-time history. Tag/Release readback proves publication separately; existing installations and runtime qualification remain unchanged.
+
+
 ## 未發行 — Core v0.2.0 採用準備 / Unreleased — Adoption preparation
 
 新增固定二十檔準備來源、獨立migration pin、唯讀驗證與v0.1.1歷史baseline，修正ADOPT-01的移動vendor比較。兩端候選文字eval後續各9/9、各一次；下方未執行說明保留為歷史。出版身分仍null，普通Core／0.2.2／31檔產品不變，建議後續minor0.3.0。詳見 [採用準備與真實發行後待驗](docs/verification/core-release-adoption-preparation.md)。

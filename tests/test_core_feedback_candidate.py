@@ -59,7 +59,7 @@ class CandidateTests(unittest.TestCase):
         self.assertEqual(len(documents), 15)
         self.assertEqual(len(cases), 9)
         ordinary, _ = core.verify(ROOT / "core.lock.json", ROOT / "vendor/engineering-workflow-core")
-        self.assertEqual(ordinary["core_revision"], "7b66978a76597d09be1b55ad199a969b4ee59c0f")
+        self.assertEqual(ordinary["core_revision"], "6887bfe6183465e9a9e6ccb4ccd7305a58b37302")
         with self.assertRaises(core.SnapshotError):
             core.verify(ROOT / "core.lock.json", self.fixture)
 
@@ -195,10 +195,15 @@ class CandidateTests(unittest.TestCase):
 
     def test_development_payload_excluded_from_package(self):
         _, files, _ = package.verify(ROOT)
-        self.assertEqual(len(files), 31)
-        self.assertFalse(any("feedback" in name for name in files))
+        self.assertEqual(len(files), 37)
+        self.assertFalse(any(name.startswith(("tests/", "scripts/eval_"))
+                             or name == "scripts/verify_core_release_preparation.py"
+                             for name in files))
+        # Published Core feedback guidance is product data, not this developer packet.
+        self.assertTrue(all(name.startswith("vendor/engineering-workflow-core/")
+                            for name in files if "feedback" in name))
         self.assertEqual(hashlib.sha256((ROOT / "grok.package.json").read_bytes()).hexdigest(),
-                         "127ec56cb5f03b1b7751ec03ce8e0a3e686d0def57d11d0415b13d1184e93d8e")
+                         "6a6d753adc1a8e44582ff5c99e9f2b61effe380e8cb2d8a8c5887dff8dcfcfc3")
 
 
 if __name__ == "__main__":
