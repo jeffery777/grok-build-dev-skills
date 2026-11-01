@@ -1,5 +1,13 @@
 # Changelog / 更新紀錄
 
+Issue #38 新增 v2 明確根因定義與協定綁定；十二案、expected、原文及門檻未變。Codex fresh v2 12/12 後，Grok fresh v2 11/12，雙端未過，原 v1 11/12 與逾時均保留。這是 draft 測試資料，未採納規則或變更產品版本。Issue #38 adds the bound v2 cause definition with unchanged cases/criteria/text. After fresh Codex12/12, Grok scored11/12; retain v1 failure and timeout. The dual gate remains unmet. Draft evaluation data do not adopt rules or change product versions.
+
+## 尚未選版 — Core #21 窄版文字提案／Unversioned text proposal
+
+Issue #38 接續 Codex 新 pin／eval，固定相同四契約及兩句非權威文字，新增十二案與七項離線反例測試。Helper 使用 Grok 原有安全機制，不改普通 Core、版本、封閉套件或安裝；實際模型狀態及限制見 [驗證紀錄](docs/verification/core-premise-candidate.md)。
+
+Issue #38 follows the Codex pin/evaluation with the same four contracts, inactive two-sentence text, twelve cases and seven offline negative-test methods. Reuse Grok-owned controls without changing ordinary Core, product version, bundle or installation. The verification record separates actual observations and limits.
+
 ## 0.3.0 — 2026-11-01 source candidate
 
 採正式Core v0.2.0 `6887bfe6183465e9a9e6ccb4ccd7305a58b37302`，同步二十檔vendor／十九份Markdown lock、獨立anchors、0.3.0 plugin與37檔離線bundle；需求關係／REQ-GAP及新機制需求追溯經原必讀Core入口採用。原規則逐字保留，舊候選／baseline／準備資料不改，歷史eval以真formal validator驗目前來源。下列未發行項保留各階段歷史；產品發布須由Tag／Release讀回，安裝未更新。詳見 [0.3.0](docs/releases/v0.3.0.md)。
