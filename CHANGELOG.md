@@ -1,5 +1,7 @@
 # Changelog / 更新紀錄
 
+Issue #38 接續已完成的 Codex v3 候選驗證，僅在一案原題幹追加批准的既有義務澄清並另標 v3，全部 expected 與門檻不改，舊分數保留；本端新模型結果另記。目標收斂為正常 Agent／workflow 防護，不新增敵對管理員防繞過 gate。Issue #38 follows the completed Codex v3 candidate validation, appending only the approved existing-obligation clarification to one situation. Preserve expected values, threshold and old scores; record new native Grok observations separately. Scope normal Agent/workflow protection without a privileged-adversary anti-bypass gate.
+
 Issue #38 新增 v2 明確根因定義與協定綁定；十二案、expected、原文及門檻未變。Codex fresh v2 12/12 後，Grok fresh v2 11/12，雙端未過，原 v1 11/12 與逾時均保留。這是 draft 測試資料，未採納規則或變更產品版本。Issue #38 adds the bound v2 cause definition with unchanged cases/criteria/text. After fresh Codex12/12, Grok scored11/12; retain v1 failure and timeout. The dual gate remains unmet. Draft evaluation data do not adopt rules or change product versions.
 
 ## 尚未選版 — Core #21 窄版文字提案／Unversioned text proposal

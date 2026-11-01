@@ -1,5 +1,7 @@
 # 來源對照 / Source map
 
+Issue #38 的 v3 協定／單案附句接續 [Codex 固定 33c9185cd3b8976953b573ffb37e7942de3d89f1](https://github.com/jeffery777/codex-dev-skills/tree/33c9185cd3b8976953b573ffb37e7942de3d89f1)，保留全部 expected、其他十一案及引文，使用 Grok 自有讀取與 pin。舊 v1／v2 歸屬及完整 MIT notices 保留。V3 follows this fixed Codex source with the approved one-item sentence addition; keep all expected values, other cases and quotation. Reuse Grok-owned readers/pin and retain previous provenance/full MIT notices.
+
 Issue #38 的 v2 協定增量接續 [Codex 固定 ed441cf580a7b8798713d70b3c39c474867fe7b2](https://github.com/jeffery777/codex-dev-skills/tree/ed441cf580a7b8798713d70b3c39c474867fe7b2)，保留相同案例／原文並改用 Grok 自有讀取機制與 pin。原 d700 來源敘述是 v1 歷史。The v2 protocol increment follows this fixed Codex source, keeping identical cases/quotation and Grok-owned readers/pin. The d700 attribution below records v1 history.
 
 ## 2026-11-01 Core #21 文字候選／Text candidate
