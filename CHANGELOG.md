@@ -1,5 +1,11 @@
 # Changelog / 更新紀錄
 
+## 0.4.0 — 2026-11-01 source candidate
+
+Issue #40 準備採用已發布 Core v0.3.0，二十三檔 vendor／二十二份 Markdown lock、獨立 anchors、plugin0.4.0 與40檔封閉套件同步。兩句前提重評規則經原必讀 Core 入口採用，#22 伴讀仍選用，#23 技術唯讀及新強制公開 gate 保持 pending。原文、完整 notices、舊 fixtures／分數及 false flags 保留。下列舊提案未採納敘述保留歷史；消費端合併／發行／安裝不在此準備授權內。
+
+Prepare Core v0.3.0 adoption with the complete 23-file source, 22-document lock, independent anchors and product0.4.0/40-file package. Preserve verification algorithms, original rule bytes, historical evaluations and false readiness. Optional guidance adds no mandatory publication or technical-isolation mechanism. Consumer publication and installation require separate authority.
+
 Issue #38 接續已完成的 Codex v3 候選驗證，僅在一案原題幹追加批准的既有義務澄清並另標 v3，全部 expected 與門檻不改，舊分數保留；本端新模型結果另記。目標收斂為正常 Agent／workflow 防護，不新增敵對管理員防繞過 gate。Issue #38 follows the completed Codex v3 candidate validation, appending only the approved existing-obligation clarification to one situation. Preserve expected values, threshold and old scores; record new native Grok observations separately. Scope normal Agent/workflow protection without a privileged-adversary anti-bypass gate.
 
 Issue #38 新增 v2 明確根因定義與協定綁定；十二案、expected、原文及門檻未變。Codex fresh v2 12/12 後，Grok fresh v2 11/12，雙端未過，原 v1 11/12 與逾時均保留。這是 draft 測試資料，未採納規則或變更產品版本。Issue #38 adds the bound v2 cause definition with unchanged cases/criteria/text. After fresh Codex12/12, Grok scored11/12; retain v1 failure and timeout. The dual gate remains unmet. Draft evaluation data do not adopt rules or change product versions.

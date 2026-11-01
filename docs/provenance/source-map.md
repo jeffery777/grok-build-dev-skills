@@ -1,5 +1,15 @@
 # 來源對照 / Source map
 
+## Issue #40 published Core identity / 正式來源
+
+Core v0.3.0 的 annotated tag object 0e91dfaa7f3969c9ec3d9647a765ec2f116057bb 解析至 7efe4eea59031ed5f9ff9c4a8aef5b8f7d2be02e；reviewed head 為 b1bc76ee8cf8869731bf1a115be54aaeef7341ce，Release 430452222 已讀回非 draft／非 prerelease。二十三份原件與 Git blob bytes／mode 逐檔相同，完整 LICENSE／MIT notices 不變。普通 lock 保留原 revision／Markdown collection／LICENSE schema；外部 tag／Release 證據另列，不新增通用接受例外。
+
+The annotated tag resolves to the exact published Core merge above. All 23 raw source files/modes and full notices are preserved. Keep Grok's existing lock schema; publication evidence remains separate. The two inserted sentences match the historical v3 quotation, twelve cases and expected values. Codex adoption draft #366 completed first at 531e979df25a49559a125f9434d03ac085a46ad7; Grok retains its own implementation and historical evidence.
+
+本來源準備 v0.4.0，普通 Core 固定正式 v0.3.0 commit 7efe4eea59031ed5f9ff9c4a8aef5b8f7d2be02e，完整二十三檔／二十二份 Markdown；封閉套件為39個 payload 加 manifest，共40檔。詳見 [v0.4.0 準備紀錄](../releases/v0.4.0.md)。下方 v0.3.0／Core v0.2.0 及更早的現行身分、數量與未採納說明，保留各來源階段歷史；共同安全、驗證與授權規則仍適用。既有 fixture／pin／分數及 false readiness 不改，消費端發行與安裝仍待另外授權。
+
+This v0.4.0 source prepares published Core v0.3.0 at 7efe4eea59031ed5f9ff9c4a8aef5b8f7d2be02e: 23 Core files, 22 Markdown files and a 40-file closed bundle (39 payloads plus manifest). The linked record defines this source identity. Earlier current-version/count/non-adoption paragraphs retain their historical scope; shared safety, verification and authority rules still apply. Preserve historical fixtures, pins, scores and false readiness flags. Consumer publication and installed adoption remain separate.
+
 Issue #38 的 v3 協定／單案附句接續 [Codex 固定 33c9185cd3b8976953b573ffb37e7942de3d89f1](https://github.com/jeffery777/codex-dev-skills/tree/33c9185cd3b8976953b573ffb37e7942de3d89f1)，保留全部 expected、其他十一案及引文，使用 Grok 自有讀取與 pin。舊 v1／v2 歸屬及完整 MIT notices 保留。V3 follows this fixed Codex source with the approved one-item sentence addition; keep all expected values, other cases and quotation. Reuse Grok-owned readers/pin and retain previous provenance/full MIT notices.
 
 Issue #38 的 v2 協定增量接續 [Codex 固定 ed441cf580a7b8798713d70b3c39c474867fe7b2](https://github.com/jeffery777/codex-dev-skills/tree/ed441cf580a7b8798713d70b3c39c474867fe7b2)，保留相同案例／原文並改用 Grok 自有讀取機制與 pin。原 d700 來源敘述是 v1 歷史。The v2 protocol increment follows this fixed Codex source, keeping identical cases/quotation and Grok-owned readers/pin. The d700 attribution below records v1 history.

@@ -110,11 +110,9 @@ class ReleasePreparationTests(unittest.TestCase):
 
     def test_historical_eval_survives_a_future_formal_vendor_advance(self):
         vendor = self.root / "vendor/engineering-workflow-core"
-        shutil.rmtree(vendor)
-        shutil.copytree(self.root / "tests/fixtures/core-release-preparation", vendor)
         current, files = core.verify(self.root / "core.lock.json", vendor)
         self.assertEqual(current["core_revision"], core.CORE_REVISION)
-        self.assertEqual(len(files), 20)
+        self.assertEqual(len(files), 23)
         # Observe the real formal verifier; never stub acceptance.
         with patch.object(candidate, "ROOT", self.root), patch.object(
                 candidate.core, "verify", wraps=core.verify) as checked:
@@ -132,10 +130,9 @@ class ReleasePreparationTests(unittest.TestCase):
             core.load_lock(path)
         with self.assertRaises(core.SnapshotError):
             core.load_lock(self.root / "tests/fixtures/core-release-preparation.lock.json")
-        # Identical published bytes are valid regardless of this fixture's path.
-        result, files = core.verify(ROOT / "core.lock.json", self.root / "tests/fixtures/core-release-preparation")
-        self.assertEqual(result["core_revision"], core.CORE_REVISION)
-        self.assertEqual(len(files), 20)
+        # Historical twenty-file bytes are not the ordinary current 23-file source.
+        with self.assertRaises(core.SnapshotError):
+            core.verify(ROOT / "core.lock.json", self.root / "tests/fixtures/core-release-preparation")
 
     def test_old_formal_identity_remains_rejected_by_current_loader(self):
         current = json.loads((ROOT / "core.lock.json").read_bytes())
@@ -182,10 +179,60 @@ class ReleasePreparationTests(unittest.TestCase):
 
     def test_developer_files_are_not_distributed(self):
         _, files, _ = package.verify(ROOT)
-        self.assertEqual(len(files), 37)
+        self.assertEqual(len(files), 40)
         self.assertFalse(any("preparation" in name or "baseline" in name for name in files))
         self.assertEqual(prep.digest((ROOT / "grok.package.json").read_bytes()),
-                         "6a6d753adc1a8e44582ff5c99e9f2b61effe380e8cb2d8a8c5887dff8dcfcfc3")
+                         "86212487b26d16f72de376f2b28be7f5c6462a4d34114e8c66675b74371eef1e")
+
+    def test_all_twenty_original_files_retain_raw_complete_line_order(self):
+        _, original = prep.fixed_snapshot(ROOT, "core-release-preparation", prep.PREPARATION_SHA256)
+        self.assertEqual(20, len(original))
+        for name, before in original.items():
+            with self.subTest(path=name):
+                after = (ROOT / "vendor/engineering-workflow-core" / name).read_bytes()
+                self.assertTrue(candidate.inserted_only(before, after))
+                self.assertEqual(0o644, (ROOT / "vendor/engineering-workflow-core" / name).stat().st_mode & 0o777)
+
+    def test_unique_tested_workflow_insert_inverts_to_the_exact_original(self):
+        _, original = prep.fixed_snapshot(ROOT, "core-release-preparation", prep.PREPARATION_SHA256)
+        workflow = (ROOT / "vendor/engineering-workflow-core/contracts/workflow.md").read_bytes()
+        proposal = (ROOT / "tests/fixtures/core-premise-proposal.txt").read_bytes()
+        self.assertEqual(382, len(proposal))
+        block = b"\n" + proposal
+        self.assertEqual(383, len(block))
+        self.assertEqual(1, workflow.count(block))
+        self.assertEqual(original["contracts/workflow.md"], workflow.replace(block, b"", 1))
+        for name in ("contracts/authorization-and-stops.md", "contracts/review-and-security.md",
+                     "contracts/exact-head-and-evidence.md", "LICENSE", "docs/provenance/upstream-notices.md"):
+            self.assertEqual(original[name], (ROOT / "vendor/engineering-workflow-core" / name).read_bytes())
+
+    def test_raw_preservation_rejects_deletion_substitution_and_normalization(self):
+        _, original = prep.fixed_snapshot(ROOT, "core-release-preparation", prep.PREPARATION_SHA256)
+        before = original["contracts/workflow.md"]
+        variants = {
+            "deletion": before[1:],
+            "substitution": before.replace(b"#", b"X", 1),
+            "whitespace": before.replace(b" ", b"\t", 1),
+            "CRLF": before.replace(b"\n", b"\r\n"),
+            "Unicode": before.decode().replace("，", "、", 1).encode(),
+            "line-order": b"".join(reversed(before.splitlines(keepends=True))),
+        }
+        for kind, after in variants.items():
+            with self.subTest(kind=kind):
+                self.assertNotEqual(before, after)
+                self.assertFalse(candidate.inserted_only(before, after))
+
+    def test_prior_twenty_file_formal_lock_remains_rejected(self):
+        pin, _ = prep.fixed_snapshot(ROOT, "core-release-preparation", prep.PREPARATION_SHA256)
+        old = json.loads((ROOT / "core.lock.json").read_bytes())
+        old["core_revision"] = "6887bfe6183465e9a9e6ccb4ccd7305a58b37302"
+        old["collection"]["sha256"] = pin["markdown_collection_sha256"]
+        old["files"] = [{"path": row["path"], "sha256": row["sha256"]}
+                        for row in pin["files"] if row["path"].endswith(".md")]
+        path = self.root / "prior-formal.lock.json"
+        path.write_text(json.dumps(old))
+        with self.assertRaises(core.SnapshotError):
+            core.verify(path, self.root / "tests/fixtures/core-release-preparation")
 
 
 if __name__ == "__main__":
