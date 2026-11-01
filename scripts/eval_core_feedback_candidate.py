@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import importlib.util
 import json
 import os
 from pathlib import Path
@@ -78,6 +79,14 @@ def inserted_only(before, after):
     return pos == len(old)
 
 
+def historical_baseline():
+    spec = importlib.util.spec_from_file_location(
+        "fixed_core_historical_baseline", ROOT / "scripts/verify_core_release_preparation.py")
+    helper = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(helper)
+    return helper.baseline(ROOT)
+
+
 def inspect(root=FIXTURE):
     pin_bytes = read_file(ROOT / "tests/fixtures/core-feedback-candidate.lock.json", 16384)
     if digest(pin_bytes) != PIN_SHA256:
@@ -87,6 +96,7 @@ def inspect(root=FIXTURE):
         raise EvaluationError("wrong candidate revision")
     captured = core.capture_inventory(root, frozenset(FILES))
     _, original_files = core.verify(ROOT / "core.lock.json", ROOT / "vendor/engineering-workflow-core")
+    original_files = historical_baseline()
     documents = {}
     rows = pin["files"]
     if [row["path"] for row in rows] != list(FILES):

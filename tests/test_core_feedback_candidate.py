@@ -24,6 +24,9 @@ class CandidateTests(unittest.TestCase):
         self.addCleanup(self.temp.cleanup)
         self.root = Path(self.temp.name)
         names = {
+            "scripts/verify_core_release_preparation.py", "tests/fixtures/core-feedback-baseline.lock.json",
+            *("tests/fixtures/core-feedback-baseline/" + row["path"] for row in json.loads(
+                (ROOT / "tests/fixtures/core-feedback-baseline.lock.json").read_bytes())["files"]),
             "core.lock.json", "scripts/core_snapshot.py", "scripts/eval_core_feedback_candidate.py",
             "tests/fixtures/core-feedback-candidate.lock.json", "tests/fixtures/core-feedback-cases.json",
             *("vendor/engineering-workflow-core/" + name for name in core.FILES),

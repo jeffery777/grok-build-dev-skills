@@ -1,5 +1,9 @@
 # Core #24／#26 候選驗證／Candidate evaluation
 
+2026-11-01接續：下方NOT_RUN／BLOCKED保留為當時歷史；其後同一候選兩端各一次真實九案文字eval均9/9。正式adoption、發行與完整runtime資格仍未完成。[採用準備](core-release-adoption-preparation.md) 固定二十檔新來源及歷史baseline，四契約bytes與原候選相同；本機執行細節不公開。
+
+Continuation: unrun/blocked statements below remain historical. Each consumer later completed one actual9/9 text evaluation against the same candidate. Formal adoption, publication and full runtime qualification remain pending. The linked preparation records the twenty-file source and historical baseline; all four evaluated contracts are byte-identical.
+
 ## 繁體中文
 
 [Issue #36](https://github.com/jeffery777/grok-build-dev-skills/issues/36) 依使用者澄清，在 Codex 候選包完成後接續 Grok，沒有豁免雙 consumer gate。[Codex draft #362](https://github.com/jeffery777/codex-dev-skills/pull/362) 的候選包完成不表示正式 adoption。本包固定 [Core draft #29](https://github.com/jeffery777/engineering-workflow-core/pull/29) 的 `87db5867fbed58c81e64f0c316168d537452425e`，基準為 v0.1.1 `7b66978a76597d09be1b55ad199a969b4ee59c0f`。候選內延後 Grok 的敘述保留為固定來源的點時歷史。

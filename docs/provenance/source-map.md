@@ -1,5 +1,11 @@
 # 來源對照 / Source map
 
+## 2026-11-01 Core minor 採用準備 / Adoption preparation
+
+[Issue #36](https://github.com/jeffery777/grok-build-dev-skills/issues/36) 接續固定Core PR29 `cbe3efa1ecc1d2ec04d2edc7078eb22c9dbec038` 二十檔與v0.1.1十四檔歷史baseline，raw bytes／modes含完整LICENSE／notices不改。新 [驗證器](../../scripts/verify_core_release_preparation.py) 與 [測試](../../tests/test_core_release_preparation.py) 改編Codex固定 `e83553f2bf907fe4afbbe6725a036d6cc569efd4` 的 scripts/verify-core-release-preparation.py、tests/test_core_release_preparation.py，重用Grok既有core_snapshot controls，不搬Code reader／runtime。細節見 [採用準備](../verification/core-release-adoption-preparation.md)。
+
+The preparation pins the complete Core reviewed source and historical baseline above. Helper/tests adapt fixed Codex developer sources with complete MIT attribution, using Grok's existing controls. Historical candidate comparison is independent of the current formal vendor. Ordinary Core/product/31-file manifest remain exact; publication identities stay null. Proposed next minor0.3.0 is preparation, not adoption or publication. Both consumers' n=1 text results cover only unchanged contract bytes, with new source reviewed separately.
+
 ## 2026-10-31 開發用 Core 回饋候選／Developer feedback candidate
 
 [Issue #36](https://github.com/jeffery777/grok-build-dev-skills/issues/36) 接續 Codex 候選包，固定 Core `87db5867fbed58c81e64f0c316168d537452425e` 完整十五檔於 tests fixture；正式 v0.1.1 pin／產品 payload 不變。[驗證記錄](../verification/core-feedback-candidate.md) 列來源、digest、離線結果與未執行的原生 eval。新 helper／案例改編固定 Codex `a48a30d7769a5d0f53fa4fa269151114ed624cff` 開發工具，重用 Grok offline primitives，不匯入 Codex runtime API。完整來源 notices、所有既有文字與 modes 保留。

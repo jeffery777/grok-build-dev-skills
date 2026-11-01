@@ -1,5 +1,9 @@
 # Upstream notices / 上游授權聲明
 
+2026-11-01採用準備helper與測試改編自codex-dev-skills `e83553f2bf907fe4afbbe6725a036d6cc569efd4` 的 scripts/verify-core-release-preparation.py 與 tests/test_core_release_preparation.py。下方完整Codex MIT notice涵蓋此改編；原notice每字保留。新增二十檔Core準備與十四檔歷史baseline各保留完整來源LICENSE／notices，不是正式runtime採用。
+
+The adoption-preparation helper/tests adapt the fixed Codex sources above. Its complete MIT notice below covers this work unchanged. Both new Core snapshots retain source LICENSE/notices; neither preparation nor historical data is formal runtime adoption.
+
 Issue #36 的開發 helper 與九案改編自 codex-dev-skills `a48a30d7769a5d0f53fa4fa269151114ed624cff` 的 scripts/eval-core-feedback-candidate.py 及 tests/fixtures/core-feedback-cases.json。下方完整 Codex MIT notice 同樣涵蓋此改編，原 notice 不改。Core 完整 LICENSE／notices 另隨十五檔 fixture 保留，這不是正式 runtime 採用。
 
 The Issue #36 developer helper and nine cases adapt the fixed Codex sources above. The complete Codex MIT notice below also covers this adaptation with original text retained. The fifteen-file candidate separately keeps Core's full license/notices; it is not formal runtime adoption.

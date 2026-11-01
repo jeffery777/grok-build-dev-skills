@@ -1,5 +1,11 @@
 # Changelog / 更新紀錄
 
+## 未發行 — Core v0.2.0 採用準備 / Unreleased — Adoption preparation
+
+新增固定二十檔準備來源、獨立migration pin、唯讀驗證與v0.1.1歷史baseline，修正ADOPT-01的移動vendor比較。兩端候選文字eval後續各9/9、各一次；下方未執行說明保留為歷史。出版身分仍null，普通Core／0.2.2／31檔產品不變，建議後續minor0.3.0。詳見 [採用準備與真實發行後待驗](docs/verification/core-release-adoption-preparation.md)。
+
+Add fixed twenty-file preparation, a separate migration pin/read-only verifier and historical v0.1.1 baseline. ADOPT-01 no longer follows moving formal vendor bytes. Each consumer later scored9/9 once; earlier unrun statements below remain historical. Publication identities remain null; ordinary Core/product0.2.2/31files remain unchanged. Proposed next minor is0.3.0; formal adoption/publication remain pending.
+
 ## 未發行 — Core 回饋候選測試／Unreleased — Core feedback candidate tests
 
 新增 Issue #36 的開發用固定 Core #24／#26 候選、九案 prompt／scorer、完整性與逐字保留正反測試。正式 v0.1.1 pin、0.2.2 產品 payload 與既有安裝保留；實際 Grok 文字 eval 因原生登入／必要來源控制缺口未執行，雙 consumer gate 未滿足。詳見 [候選驗證與限制](docs/verification/core-feedback-candidate.md)。
