@@ -48,10 +48,10 @@ class SnapshotTests(unittest.TestCase):
 
     def test_pinned_bytes_and_false_authority(self):
         result, files = core.verify(self.lock, self.snapshot)
-        self.assertEqual(result["core_revision"], "6887bfe6183465e9a9e6ccb4ccd7305a58b37302")
-        self.assertEqual(result["collection_sha256"], "731b7bc86dade62fba5e59d75829fcf7f9dd746c66077f733e2e8e90016ee287")
-        self.assertEqual(result["verified_files"], 20)
-        self.assertEqual(result["local_references"], 478)
+        self.assertEqual(result["core_revision"], "7efe4eea59031ed5f9ff9c4a8aef5b8f7d2be02e")
+        self.assertEqual(result["collection_sha256"], "2dc09ea75da438877a191dd9144e130b9e333716adf0003708214e9e11872518")
+        self.assertEqual(result["verified_files"], 23)
+        self.assertEqual(result["local_references"], 503)
         self.assertFalse(result["runtime_qualified"])
         self.assertFalse(result["delivery_ready"])
         self.assertEqual(set(files), core.FILES)
@@ -166,7 +166,7 @@ class SnapshotTests(unittest.TestCase):
 
     def test_sorted_collection_is_order_independent(self):
         self.edit_lock(lambda data: data["files"].reverse())
-        self.assertEqual(core.verify(self.lock, self.snapshot)[0]["verified_files"], 20)
+        self.assertEqual(core.verify(self.lock, self.snapshot)[0]["verified_files"], 23)
 
     def test_json_and_utf8_errors(self):
         for bad in [b"{", b"\xff", b"[]"]:
@@ -301,7 +301,7 @@ class SnapshotTests(unittest.TestCase):
         result = self.cli("stage", "--destination", str(self.destination))
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual(json.loads(result.stdout)["status"], "staged")
-        self.assertEqual(core.verify(self.lock, self.destination)[0]["verified_files"], 20)
+        self.assertEqual(core.verify(self.lock, self.destination)[0]["verified_files"], 23)
 
 
 class ReferenceTests(unittest.TestCase):

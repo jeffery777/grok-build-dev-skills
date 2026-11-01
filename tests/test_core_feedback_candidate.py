@@ -59,7 +59,7 @@ class CandidateTests(unittest.TestCase):
         self.assertEqual(len(documents), 15)
         self.assertEqual(len(cases), 9)
         ordinary, _ = core.verify(ROOT / "core.lock.json", ROOT / "vendor/engineering-workflow-core")
-        self.assertEqual(ordinary["core_revision"], "6887bfe6183465e9a9e6ccb4ccd7305a58b37302")
+        self.assertEqual(ordinary["core_revision"], "7efe4eea59031ed5f9ff9c4a8aef5b8f7d2be02e")
         with self.assertRaises(core.SnapshotError):
             core.verify(ROOT / "core.lock.json", self.fixture)
 
@@ -195,7 +195,7 @@ class CandidateTests(unittest.TestCase):
 
     def test_development_payload_excluded_from_package(self):
         _, files, _ = package.verify(ROOT)
-        self.assertEqual(len(files), 37)
+        self.assertEqual(len(files), 40)
         self.assertFalse(any(name.startswith(("tests/", "scripts/eval_"))
                              or name == "scripts/verify_core_release_preparation.py"
                              for name in files))
@@ -203,7 +203,7 @@ class CandidateTests(unittest.TestCase):
         self.assertTrue(all(name.startswith("vendor/engineering-workflow-core/")
                             for name in files if "feedback" in name))
         self.assertEqual(hashlib.sha256((ROOT / "grok.package.json").read_bytes()).hexdigest(),
-                         "6a6d753adc1a8e44582ff5c99e9f2b61effe380e8cb2d8a8c5887dff8dcfcfc3")
+                         "86212487b26d16f72de376f2b28be7f5c6462a4d34114e8c66675b74371eef1e")
 
 
 if __name__ == "__main__":
